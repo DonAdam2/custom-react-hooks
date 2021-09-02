@@ -1,0 +1,21 @@
+# dependencies
+/node_modules
+/dist
+/coverage
+
+#docs
+/docs
+
+#idea folder which is the IDE setting files
+.idea
+.vscode
+debug.log
+
+# misc
+.DS_Store
+
+# analyze webpack output json file
+stats.json
+
+#npmrc because i'm storing my font awesome token inside it
+.npmrc
