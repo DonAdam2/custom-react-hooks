@@ -7,5 +7,6 @@ export const routes = [
 	{
 		path: getHomePageUrl(),
 		Component: MagnifyHookPage,
+		label: 'Magnify',
 	},
 ];

@@ -10,6 +10,8 @@ import { routes } from './js/routing/routingConstants/RoutesConfig';
 import { getHomePageUrl } from './js/routing/routingConstants/AppUrls';
 //pages
 import NotFoundPage from './js/containers/pages/NotFoundPage';
+//containers
+import AppHeader from './js/containers/AppHeader';
 
 const App = () => (
 	<ErrorBoundary
@@ -19,6 +21,7 @@ const App = () => (
 			console.log('Try again clicked');
 		}}
 	>
+		<AppHeader />
 		<Switch>
 			<Route exact path="/" render={() => <Redirect to={getHomePageUrl()} />} />
 			{routes.map((el, i) => (
