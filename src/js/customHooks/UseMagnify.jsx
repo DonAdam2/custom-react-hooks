@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const UseMagnify = (magnifyTimes) => {
+const useMagnify = (magnifyTimes) => {
 	const ref = useRef(null);
 
 	useEffect(() => {
@@ -76,4 +76,4 @@ const UseMagnify = (magnifyTimes) => {
 	return ref;
 };
 
-export default UseMagnify;
+export default useMagnify;

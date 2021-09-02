@@ -1,0 +1,20 @@
+.magnify-container {
+  width: calc(100vw - 1rem);
+  max-width: 950px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+
+.zoom {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-image:url("https://picsum.photos/id/234/500/600");
+  border-radius: 10px;
+  /*make sure that the image width and height is
+  greater than the width and the height of the
+  zoom div so that image quality will not drop */
+  width: 250px;
+  height: 300px;
+}
