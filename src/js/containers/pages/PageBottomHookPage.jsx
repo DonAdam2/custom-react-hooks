@@ -12,7 +12,7 @@ const PageBottomHookPage = () => {
 	}, [isBottom]);
 
 	return (
-		<div>
+		<div className="magnify-container">
 			<h1 className="text-center">Scroll to the bottom of the page</h1>
 			<br />
 			<br />

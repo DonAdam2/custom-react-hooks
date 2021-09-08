@@ -5,6 +5,7 @@ import {
 	getIntervalPageUrl,
 	getPageBottomPageUrl,
 	getTiltPageUrl,
+	getWindowSizePageUrl,
 } from './AppUrls';
 //pages
 import MagnifyHookPage from '../../containers/pages/MagnifyHookPage';
@@ -12,6 +13,7 @@ import TiltHookPage from '../../containers/pages/TiltHookPage';
 import IntervalHookPage from '../../containers/pages/IntervalHookPage';
 import CopyToClipboardHookPage from '../../containers/pages/CopyToClipboardHookPage';
 import PageBottomHookPage from '../../containers/pages/PageBottomHookPage';
+import WindowSizeHookPage from '../../containers/pages/WindowSizeHookPage';
 
 export const routes = [
 	{
@@ -38,5 +40,10 @@ export const routes = [
 		path: getPageBottomPageUrl(),
 		Component: PageBottomHookPage,
 		label: 'Page bottom',
+	},
+	{
+		path: getWindowSizePageUrl(),
+		Component: WindowSizeHookPage,
+		label: 'Window size',
 	},
 ];
