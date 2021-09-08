@@ -3,6 +3,7 @@ import {
 	getCopyToClipboardPageUrl,
 	getHomePageUrl,
 	getIntervalPageUrl,
+	getMobileDetectPageUrl,
 	getPageBottomPageUrl,
 	getTiltPageUrl,
 	getWindowSizePageUrl,
@@ -14,6 +15,7 @@ import IntervalHookPage from '../../containers/pages/IntervalHookPage';
 import CopyToClipboardHookPage from '../../containers/pages/CopyToClipboardHookPage';
 import PageBottomHookPage from '../../containers/pages/PageBottomHookPage';
 import WindowSizeHookPage from '../../containers/pages/WindowSizeHookPage';
+import MobileDetectHookPage from '../../containers/pages/MobileDetectHookPage';
 
 export const routes = [
 	{
@@ -45,5 +47,10 @@ export const routes = [
 		path: getWindowSizePageUrl(),
 		Component: WindowSizeHookPage,
 		label: 'Window size',
+	},
+	{
+		path: getMobileDetectPageUrl(),
+		Component: MobileDetectHookPage,
+		label: 'Mobile detect',
 	},
 ];
