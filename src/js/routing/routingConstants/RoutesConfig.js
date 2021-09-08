@@ -3,6 +3,7 @@ import {
 	getArrayPageUrl,
 	getCopyToClipboardPageUrl,
 	getDocumentTitlePageUrl,
+	getFetchPageUrl,
 	getHomePageUrl,
 	getIntervalPageUrl,
 	getMobileDetectPageUrl,
@@ -20,6 +21,7 @@ import WindowSizeHookPage from '../../containers/pages/WindowSizeHookPage';
 import MobileDetectHookPage from '../../containers/pages/MobileDetectHookPage';
 import DocumentTitleHookPage from '../../containers/pages/DocumentTitleHookPage';
 import ArrayHookPage from '../../containers/pages/ArrayHookPage';
+import FetchHookPage from '../../containers/pages/FetchHookPage';
 
 export const routes = [
 	{
@@ -66,5 +68,10 @@ export const routes = [
 		path: getArrayPageUrl(),
 		Component: ArrayHookPage,
 		label: 'Array',
+	},
+	{
+		path: getFetchPageUrl(),
+		Component: FetchHookPage,
+		label: 'Fetch',
 	},
 ];

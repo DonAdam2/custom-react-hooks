@@ -1,0 +1,18 @@
+.fetch-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  .movie {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+
+    img {
+      max-width: 150px;
+    }
+    p {
+      padding-left: 5px;
+    }
+  }
+}

@@ -7,3 +7,4 @@ export const getWindowSizePageUrl = () => '/use-window-size';
 export const getMobileDetectPageUrl = () => '/use-mobile-detect';
 export const getDocumentTitlePageUrl = () => '/use-document-title';
 export const getArrayPageUrl = () => '/use-array';
+export const getFetchPageUrl = () => '/use-fetch';
