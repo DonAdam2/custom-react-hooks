@@ -1,5 +1,6 @@
 //URLs
 import {
+	getArrayPageUrl,
 	getCopyToClipboardPageUrl,
 	getDocumentTitlePageUrl,
 	getHomePageUrl,
@@ -18,6 +19,7 @@ import PageBottomHookPage from '../../containers/pages/PageBottomHookPage';
 import WindowSizeHookPage from '../../containers/pages/WindowSizeHookPage';
 import MobileDetectHookPage from '../../containers/pages/MobileDetectHookPage';
 import DocumentTitleHookPage from '../../containers/pages/DocumentTitleHookPage';
+import ArrayHookPage from '../../containers/pages/ArrayHookPage';
 
 export const routes = [
 	{
@@ -59,5 +61,10 @@ export const routes = [
 		path: getDocumentTitlePageUrl(),
 		Component: DocumentTitleHookPage,
 		label: 'Document title',
+	},
+	{
+		path: getArrayPageUrl(),
+		Component: ArrayHookPage,
+		label: 'Array',
 	},
 ];
