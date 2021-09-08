@@ -3,6 +3,7 @@ import {
 	getArrayPageUrl,
 	getCopyToClipboardPageUrl,
 	getDocumentTitlePageUrl,
+	getEventListenerPageUrl,
 	getFetchPageUrl,
 	getHomePageUrl,
 	getIntervalPageUrl,
@@ -22,6 +23,7 @@ import MobileDetectHookPage from '../../containers/pages/MobileDetectHookPage';
 import DocumentTitleHookPage from '../../containers/pages/DocumentTitleHookPage';
 import ArrayHookPage from '../../containers/pages/ArrayHookPage';
 import FetchHookPage from '../../containers/pages/FetchHookPage';
+import EventListenerHookPage from '../../containers/pages/EventListenerHookPage';
 
 export const routes = [
 	{
@@ -73,5 +75,10 @@ export const routes = [
 		path: getFetchPageUrl(),
 		Component: FetchHookPage,
 		label: 'Fetch',
+	},
+	{
+		path: getEventListenerPageUrl(),
+		Component: EventListenerHookPage,
+		label: 'Event listener',
 	},
 ];
