@@ -1,6 +1,7 @@
 //URLs
 import {
 	getCopyToClipboardPageUrl,
+	getDocumentTitlePageUrl,
 	getHomePageUrl,
 	getIntervalPageUrl,
 	getMobileDetectPageUrl,
@@ -16,6 +17,7 @@ import CopyToClipboardHookPage from '../../containers/pages/CopyToClipboardHookP
 import PageBottomHookPage from '../../containers/pages/PageBottomHookPage';
 import WindowSizeHookPage from '../../containers/pages/WindowSizeHookPage';
 import MobileDetectHookPage from '../../containers/pages/MobileDetectHookPage';
+import DocumentTitleHookPage from '../../containers/pages/DocumentTitleHookPage';
 
 export const routes = [
 	{
@@ -52,5 +54,10 @@ export const routes = [
 		path: getMobileDetectPageUrl(),
 		Component: MobileDetectHookPage,
 		label: 'Mobile detect',
+	},
+	{
+		path: getDocumentTitlePageUrl(),
+		Component: DocumentTitleHookPage,
+		label: 'Document title',
 	},
 ];
