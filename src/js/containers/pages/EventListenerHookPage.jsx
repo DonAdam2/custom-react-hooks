@@ -13,7 +13,6 @@ const EventListenerHookPage = () => {
 		if (dialogRef.current && !dialogRef.current.contains(event.target)) {
 			console.log('Click outside detected -> closing dialog...');
 			//trigger function to close the dialog
-			alert('clicked outside the target div');
 		}
 	};
 
