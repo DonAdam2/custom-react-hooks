@@ -2,7 +2,7 @@ import React from 'react';
 //components
 import CopyButton from '../../components/shared/CopyButton';
 
-const CopyToClipboardPage = () => {
+const CopyToClipboardHookPage = () => {
 	const text = 'Code of the use copy to clipboard hook';
 
 	return (
@@ -14,4 +14,4 @@ const CopyToClipboardPage = () => {
 	);
 };
 
-export default CopyToClipboardPage;
+export default CopyToClipboardHookPage;

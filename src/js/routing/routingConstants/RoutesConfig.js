@@ -3,13 +3,15 @@ import {
 	getCopyToClipboardPageUrl,
 	getHomePageUrl,
 	getIntervalPageUrl,
+	getPageBottomPageUrl,
 	getTiltPageUrl,
 } from './AppUrls';
 //pages
 import MagnifyHookPage from '../../containers/pages/MagnifyHookPage';
 import TiltHookPage from '../../containers/pages/TiltHookPage';
 import IntervalHookPage from '../../containers/pages/IntervalHookPage';
-import CopyToClipboardPage from '../../containers/pages/CopyToClipboardPage';
+import CopyToClipboardHookPage from '../../containers/pages/CopyToClipboardHookPage';
+import PageBottomHookPage from '../../containers/pages/PageBottomHookPage';
 
 export const routes = [
 	{
@@ -29,7 +31,12 @@ export const routes = [
 	},
 	{
 		path: getCopyToClipboardPageUrl(),
-		Component: CopyToClipboardPage,
+		Component: CopyToClipboardHookPage,
 		label: 'Copy to clipboard',
+	},
+	{
+		path: getPageBottomPageUrl(),
+		Component: PageBottomHookPage,
+		label: 'Page bottom',
 	},
 ];
