@@ -1,9 +1,15 @@
 //URLs
-import { getHomePageUrl, getIntervalPageUrl, getTiltPageUrl } from './AppUrls';
+import {
+	getCopyToClipboardPageUrl,
+	getHomePageUrl,
+	getIntervalPageUrl,
+	getTiltPageUrl,
+} from './AppUrls';
 //pages
 import MagnifyHookPage from '../../containers/pages/MagnifyHookPage';
 import TiltHookPage from '../../containers/pages/TiltHookPage';
 import IntervalHookPage from '../../containers/pages/IntervalHookPage';
+import CopyToClipboardPage from '../../containers/pages/CopyToClipboardPage';
 
 export const routes = [
 	{
@@ -20,5 +26,10 @@ export const routes = [
 		path: getIntervalPageUrl(),
 		Component: IntervalHookPage,
 		label: 'Interval',
+	},
+	{
+		path: getCopyToClipboardPageUrl(),
+		Component: CopyToClipboardPage,
+		label: 'Copy to clipboard',
 	},
 ];
