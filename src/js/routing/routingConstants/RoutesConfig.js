@@ -1,6 +1,7 @@
 //URLs
 import {
 	getArrayPageUrl,
+	getBooleanPageUrl,
 	getCopyToClipboardPageUrl,
 	getDocumentTitlePageUrl,
 	getEventListenerPageUrl,
@@ -24,6 +25,7 @@ import DocumentTitleHookPage from '../../containers/pages/DocumentTitleHookPage'
 import ArrayHookPage from '../../containers/pages/ArrayHookPage';
 import FetchHookPage from '../../containers/pages/FetchHookPage';
 import EventListenerHookPage from '../../containers/pages/EventListenerHookPage';
+import BooleanHookPage from '../../containers/pages/BooleanHookPage';
 
 export const routes = [
 	{
@@ -80,5 +82,10 @@ export const routes = [
 		path: getEventListenerPageUrl(),
 		Component: EventListenerHookPage,
 		label: 'Event listener',
+	},
+	{
+		path: getBooleanPageUrl(),
+		Component: BooleanHookPage,
+		label: 'Boolean',
 	},
 ];
