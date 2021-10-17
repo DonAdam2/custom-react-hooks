@@ -30,8 +30,6 @@ const AsyncPaginationHookPage = () => {
 		fetchData(currentPageNum - 1);
 	}, []);
 
-	console.log(people);
-
 	async function fetchData(pageNum) {
 		setIsLoading(true);
 		try {
@@ -41,7 +39,6 @@ const AsyncPaginationHookPage = () => {
 					size: perPage,
 				},
 			});
-			console.log(res.data);
 			setPeople(res.data.data);
 			setTotalCount(res.data.totalPassengers);
 		} catch {
