@@ -10,3 +10,4 @@ export const getArrayPageUrl = () => '/use-array';
 export const getFetchPageUrl = () => '/use-fetch';
 export const getEventListenerPageUrl = () => '/use-event-listener';
 export const getBooleanPageUrl = () => '/use-boolean';
+export const getPaginationHookPageUrl = () => '/use-pagination';

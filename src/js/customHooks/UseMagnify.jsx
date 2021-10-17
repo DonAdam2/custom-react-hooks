@@ -71,7 +71,7 @@ const useMagnify = (magnifyTimes) => {
 			el.removeEventListener('mousemove', handleMouseMove);
 			el.removeEventListener('mouseleave', handleMouseLeave);
 		};
-	}, []);
+	}, [magnifyTimes]);
 
 	return ref;
 };

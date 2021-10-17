@@ -3,14 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 const usePageBottom = () => {
 	const [isBottom, setIsBottom] = useState(false);
 
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll);
-
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, []);
-
 	const handleScroll = useCallback(() => {
 		const scrollTop =
 				(document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop,
@@ -21,6 +13,14 @@ const usePageBottom = () => {
 
 		setIsBottom(scrolledToBottom);
 	}, []);
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, [handleScroll]);
 
 	return isBottom;
 };

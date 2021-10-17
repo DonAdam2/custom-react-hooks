@@ -10,6 +10,7 @@ import {
 	getIntervalPageUrl,
 	getMobileDetectPageUrl,
 	getPageBottomPageUrl,
+	getPaginationHookPageUrl,
 	getTiltPageUrl,
 	getWindowSizePageUrl,
 } from './AppUrls';
@@ -26,6 +27,7 @@ import ArrayHookPage from '../../containers/pages/ArrayHookPage';
 import FetchHookPage from '../../containers/pages/FetchHookPage';
 import EventListenerHookPage from '../../containers/pages/EventListenerHookPage';
 import BooleanHookPage from '../../containers/pages/BooleanHookPage';
+import PaginationHookPage from '../../containers/pages/PaginationHookPage';
 
 export const routes = [
 	{
@@ -87,5 +89,10 @@ export const routes = [
 		path: getBooleanPageUrl(),
 		Component: BooleanHookPage,
 		label: 'Boolean',
+	},
+	{
+		path: getPaginationHookPageUrl(),
+		Component: PaginationHookPage,
+		label: 'Pagination',
 	},
 ];

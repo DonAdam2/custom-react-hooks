@@ -1,0 +1,60 @@
+.person-wrapper {
+  font-size: 1rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  background-color: #222222;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin: 0 auto 1rem;
+  color: white;
+  width: 100%;
+  max-width: 300px;
+
+  p {
+    margin-bottom: 0.4rem;
+  }
+
+  img {
+    margin: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #121212;
+  }
+
+  .name {
+    margin-top: 0;
+    text-transform: capitalize;
+  }
+
+  .job {
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .status {
+    font-size: .9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 0.4rem;
+    width: fit-content;
+
+    &.success {
+      background-color: rgba(67, 255, 76, 0.1);
+      color: #c4ffc4;
+    }
+
+    &.warn {
+      background-color: rgba(195, 160, 35, 0.1);
+      color: #ffd358;
+    }
+
+    &.danger {
+      background-color: rgba(239, 90, 90, 0.28);
+      color: #ffe7e7;
+    }
+  }
+}
