@@ -10,21 +10,19 @@ const useFetch = (url = '', options = null, initialDataType) => {
 	useEffect(() => {
 		let isMounted = true;
 
-		const fetchData = async () => {
-			setIsLoading(true);
-			try {
-				const res = await axios(url, options);
-				setData(res.data);
-				setIsLoading(false);
-			} catch (err) {
-				//change it as needed
-				setError(err.response);
-				setIsLoading(false);
-			}
-		};
-
 		if (isMounted) {
-			fetchData();
+			(async () => {
+				setIsLoading(true);
+				try {
+					const res = await axios(url, options);
+					setData(res.data);
+				} catch (err) {
+					//change it as needed
+					setError(err.response);
+				} finally {
+					setIsLoading(false);
+				}
+			})();
 		}
 
 		return () => {
