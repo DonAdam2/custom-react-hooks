@@ -17,7 +17,7 @@ const useFetch = (url = '', options = null, initialDataType) => {
 					const res = await axios(url, options);
 					setData(res.data);
 				} catch (err) {
-					//change it as needed
+					//TODO: change it as needed
 					setError(err.response);
 				} finally {
 					setIsLoading(false);
