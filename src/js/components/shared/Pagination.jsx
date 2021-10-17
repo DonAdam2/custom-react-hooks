@@ -13,7 +13,9 @@ const Pagination = ({
 }) => (
 	<div className="pagination-wrapper">
 		{isLoading ? (
-			<LoadingIcon />
+			<div className="center-loader-wrapper">
+				<LoadingIcon />
+			</div>
 		) : (
 			<div className="custom-pagination">
 				<i

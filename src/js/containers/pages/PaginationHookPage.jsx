@@ -29,8 +29,8 @@ const PaginationHookPage = () => {
 		(async () => {
 			setIsLoading(true);
 			try {
-				const data = await axios.get('https://random-data-api.com/api/users/random_user?size=20');
-				setPeople(data.data);
+				const res = await axios.get('https://random-data-api.com/api/users/random_user?size=20');
+				setPeople(res.data);
 			} catch {
 				setError(true);
 			} finally {

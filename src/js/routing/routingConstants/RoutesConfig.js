@@ -1,6 +1,7 @@
 //URLs
 import {
 	getArrayPageUrl,
+	getAsyncPaginationHookPageUrl,
 	getBooleanPageUrl,
 	getCopyToClipboardPageUrl,
 	getDocumentTitlePageUrl,
@@ -30,6 +31,7 @@ import EventListenerHookPage from '../../containers/pages/EventListenerHookPage'
 import BooleanHookPage from '../../containers/pages/BooleanHookPage';
 import PaginationHookPage from '../../containers/pages/PaginationHookPage';
 import FetchWithServiceHookPage from '../../containers/pages/FetchWithServiceHookPage';
+import AsyncPaginationHookPage from '../../containers/pages/AsyncPaginationHookPage';
 
 export const routes = [
 	{
@@ -101,5 +103,10 @@ export const routes = [
 		path: getPaginationHookPageUrl(),
 		Component: PaginationHookPage,
 		label: 'Pagination',
+	},
+	{
+		path: getAsyncPaginationHookPageUrl(),
+		Component: AsyncPaginationHookPage,
+		label: 'Async pagination',
 	},
 ];
