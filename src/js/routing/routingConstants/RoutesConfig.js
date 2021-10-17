@@ -6,6 +6,7 @@ import {
 	getDocumentTitlePageUrl,
 	getEventListenerPageUrl,
 	getFetchPageUrl,
+	getFetchWithServicePageUrl,
 	getHomePageUrl,
 	getIntervalPageUrl,
 	getMobileDetectPageUrl,
@@ -28,6 +29,7 @@ import FetchHookPage from '../../containers/pages/FetchHookPage';
 import EventListenerHookPage from '../../containers/pages/EventListenerHookPage';
 import BooleanHookPage from '../../containers/pages/BooleanHookPage';
 import PaginationHookPage from '../../containers/pages/PaginationHookPage';
+import FetchWithServiceHookPage from '../../containers/pages/FetchWithServiceHookPage';
 
 export const routes = [
 	{
@@ -79,6 +81,11 @@ export const routes = [
 		path: getFetchPageUrl(),
 		Component: FetchHookPage,
 		label: 'Fetch',
+	},
+	{
+		path: getFetchWithServicePageUrl(),
+		Component: FetchWithServiceHookPage,
+		label: 'Fetch with service',
 	},
 	{
 		path: getEventListenerPageUrl(),

@@ -8,6 +8,7 @@ export const getMobileDetectPageUrl = () => '/use-mobile-detect';
 export const getDocumentTitlePageUrl = () => '/use-document-title';
 export const getArrayPageUrl = () => '/use-array';
 export const getFetchPageUrl = () => '/use-fetch';
+export const getFetchWithServicePageUrl = () => '/use-fetch-with-service';
 export const getEventListenerPageUrl = () => '/use-event-listener';
 export const getBooleanPageUrl = () => '/use-boolean';
 export const getPaginationHookPageUrl = () => '/use-pagination';

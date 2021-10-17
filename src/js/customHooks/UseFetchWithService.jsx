@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
-//axios
-import axios from 'axios';
 
-const useFetch = (url = '', options = null, initialDataType) => {
+const useFetchWithService = ({ api, initialDataType }) => {
 	const [data, setData] = useState(initialDataType),
 		[error, setError] = useState(''),
 		[isLoading, setIsLoading] = useState(false);
@@ -14,7 +12,7 @@ const useFetch = (url = '', options = null, initialDataType) => {
 			(async () => {
 				setIsLoading(true);
 				try {
-					const res = await axios(url, options);
+					const res = await api();
 					setData(res.data);
 				} catch (err) {
 					console.log(err);
@@ -29,9 +27,13 @@ const useFetch = (url = '', options = null, initialDataType) => {
 		return () => {
 			isMounted = false;
 		};
-	}, [url, options]);
+	}, [api]);
 
-	return { isLoading, error, data };
+	return {
+		isLoading,
+		error,
+		data,
+	};
 };
 
-export default useFetch;
+export default useFetchWithService;
