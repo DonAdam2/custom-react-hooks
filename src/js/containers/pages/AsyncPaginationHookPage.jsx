@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 //axios
 import axios from 'axios';
 //custom hooks
@@ -12,25 +12,9 @@ const AsyncPaginationHookPage = () => {
 		[people, setPeople] = useState([]),
 		[isLoading, setIsLoading] = useState(false),
 		[error, setError] = useState(false),
-		perPage = 10,
-		{
-			navigateToNextPage,
-			navigateToPrevPage,
-			navigateToPage,
-			currentPageNum,
-			resetPageNum,
-			totalPages,
-		} = useAsyncPagination({
-			contentPerPage: perPage,
-			count: totalCount,
-			fetchData: (num) => fetchData(num - 1),
-		});
+		perPage = 10;
 
-	useEffect(() => {
-		fetchData(currentPageNum - 1);
-	}, []);
-
-	async function fetchData(pageNum) {
+	const fetchData = useCallback(async (pageNum) => {
 		setIsLoading(true);
 		try {
 			const res = await axios.get('https://api.instantwebtools.net/v1/passenger', {
@@ -46,7 +30,24 @@ const AsyncPaginationHookPage = () => {
 		} finally {
 			setIsLoading(false);
 		}
-	}
+	}, []);
+
+	const {
+		navigateToNextPage,
+		navigateToPrevPage,
+		navigateToPage,
+		currentPageNum,
+		resetPageNum,
+		totalPages,
+	} = useAsyncPagination({
+		contentPerPage: perPage,
+		count: totalCount,
+		fetchData: (num) => fetchData(num - 1),
+	});
+
+	useEffect(() => {
+		fetchData(0);
+	}, [fetchData]);
 
 	return (
 		<>
