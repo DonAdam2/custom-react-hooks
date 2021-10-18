@@ -21,7 +21,7 @@ const Pagination = ({
 				<i
 					onClick={prevPage}
 					className={`far fa-chevron-left pagination-nav ${
-						currentPageNum === 1 ? 'disabled-el' : ''
+						currentPageNum === 1 || totalPages === 0 ? 'disabled-el' : ''
 					}`}
 				/>
 				<ul>
@@ -38,7 +38,7 @@ const Pagination = ({
 				<i
 					onClick={nextPage}
 					className={`far fa-chevron-right pagination-nav ${
-						currentPageNum === totalPages ? 'disabled-el' : ''
+						currentPageNum === totalPages || totalPages === 0 ? 'disabled-el' : ''
 					}`}
 				/>
 			</div>

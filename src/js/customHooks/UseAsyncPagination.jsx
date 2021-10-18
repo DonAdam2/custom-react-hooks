@@ -7,11 +7,11 @@ const useAsyncPagination = ({ contentPerPage, count, fetchData }) => {
 	const changePage = async (isNextPage) => {
 		try {
 			if (isNextPage) {
-				if (currentPageNum !== pageCount) {
+				if (currentPageNum !== pageCount && count > 0) {
 					await fetchData(currentPageNum + 1);
 				}
 			} else {
-				if (currentPageNum !== 1) {
+				if (currentPageNum !== 1 && count > 0) {
 					await fetchData(currentPageNum - 1);
 				}
 			}
