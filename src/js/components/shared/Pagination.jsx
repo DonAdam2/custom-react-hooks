@@ -52,7 +52,7 @@ const Pagination = ({
 								)}
 								{el !== 'LEFT' && el !== 'RIGHT' && (
 									<li
-										onClick={async () => await navigateToPage(el)}
+										onClick={() => navigateToPage(el)}
 										className={currentPageNum === el ? 'active' : ''}
 									>
 										<span className="pagination-link">{el}</span>
