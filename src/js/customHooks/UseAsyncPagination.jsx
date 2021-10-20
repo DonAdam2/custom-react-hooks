@@ -100,10 +100,8 @@ const useAsyncPagination = ({ contentPerPage, count, fetchData }) => {
 			} else if (num < 1) {
 				setCurrentPageNum(1);
 				getPaginationBlocks(1);
-			} else {
-				if (num !== currentPageNum) {
-					await updatePaginationBlocks(num);
-				}
+			} else if (num !== currentPageNum) {
+				await updatePaginationBlocks(num);
 			}
 		} catch (err) {
 			console.log(err);
@@ -162,8 +160,8 @@ const useAsyncPagination = ({ contentPerPage, count, fetchData }) => {
 				if (activePageNum <= 1) {
 					await updatePaginationBlocks(1);
 				} else if (!paginationBlocks.includes('RIGHT')) {
-					const mango = paginationBlocks[2] - 2;
-					await updatePaginationBlocks(mango);
+					const num = paginationBlocks[2] - 2;
+					await updatePaginationBlocks(num);
 				} else {
 					await updatePaginationBlocks(activePageNum);
 				}

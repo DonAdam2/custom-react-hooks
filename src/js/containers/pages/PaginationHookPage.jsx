@@ -13,13 +13,18 @@ const PaginationHookPage = () => {
 		[isLoading, setIsLoading] = useState(false),
 		[error, setError] = useState(false),
 		{
+			currentPageNum,
 			totalPages,
+			paginationBlocks,
 			navigateToNextPage,
 			navigateToPrevPage,
 			navigateToPage,
+			navigateToFirstPage,
+			navigateToLastPage,
+			navigateToNextPaginationBlock,
+			navigateToPrevPaginationBlock,
 			firstContentIndex,
 			lastContentIndex,
-			currentPageNum,
 		} = usePagination({
 			contentPerPage: 3,
 			count: people.length,
@@ -30,7 +35,7 @@ const PaginationHookPage = () => {
 			setIsLoading(true);
 			try {
 				const res = await axios.get('https://random-data-api.com/api/users/random_user?size=20');
-				setPeople(res.data);
+				setPeople([...res.data, ...res.data]);
 			} catch {
 				setError(true);
 			} finally {
@@ -49,10 +54,10 @@ const PaginationHookPage = () => {
 				<h2>Error fetching data</h2>
 			) : (
 				<div className="container">
-					{people.slice(firstContentIndex, lastContentIndex).map((el) => (
+					{people.slice(firstContentIndex, lastContentIndex).map((el, i) => (
 						<Person
-							key={el.uid}
-							id={el.uid}
+							key={i}
+							id={i}
 							firstName={el.first_name}
 							lastName={el.last_name}
 							jobTitle={el.employment.title}
@@ -62,9 +67,14 @@ const PaginationHookPage = () => {
 					<Pagination
 						currentPageNum={currentPageNum}
 						totalPages={totalPages}
-						nextPage={navigateToNextPage}
-						prevPage={navigateToPrevPage}
+						paginationBlocks={paginationBlocks}
 						navigateToPage={navigateToPage}
+						navigateToNextPage={navigateToNextPage}
+						navigateToPrevPage={navigateToPrevPage}
+						navigateToFirstPage={navigateToFirstPage}
+						navigateToLastPage={navigateToLastPage}
+						navigateToNextPaginationBlock={navigateToNextPaginationBlock}
+						navigateToPrevPaginationBlock={navigateToPrevPaginationBlock}
 						isLoading={isLoading}
 					/>
 				</div>
