@@ -33,12 +33,16 @@ const AsyncPaginationHookPage = () => {
 	}, []);
 
 	const {
+		totalPages,
+		currentPageNum,
+		paginationBlocks,
+		navigateToPage,
 		navigateToNextPage,
 		navigateToPrevPage,
-		navigateToPage,
-		currentPageNum,
-		resetPageNum,
-		totalPages,
+		navigateToFirstPage,
+		navigateToLastPage,
+		navigateToNextPaginationBlock,
+		navigateToPrevPaginationBlock,
 	} = useAsyncPagination({
 		contentPerPage: perPage,
 		count: totalCount,
@@ -67,9 +71,14 @@ const AsyncPaginationHookPage = () => {
 					<Pagination
 						currentPageNum={currentPageNum}
 						totalPages={totalPages}
-						nextPage={navigateToNextPage}
-						prevPage={navigateToPrevPage}
+						paginationBlocks={paginationBlocks}
 						navigateToPage={navigateToPage}
+						navigateToNextPage={navigateToNextPage}
+						navigateToPrevPage={navigateToPrevPage}
+						navigateToFirstPage={navigateToFirstPage}
+						navigateToLastPage={navigateToLastPage}
+						navigateToNextPaginationBlock={navigateToNextPaginationBlock}
+						navigateToPrevPaginationBlock={navigateToPrevPaginationBlock}
 						isLoading={isLoading}
 					/>
 				</div>

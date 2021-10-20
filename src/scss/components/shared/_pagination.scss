@@ -5,6 +5,14 @@
   box-shadow:
   0px -1px 3px 0px rgba(0,0,0,0.2), 0px 1px 8px 0px rgba(0,0,0,0.14), 1px 2px 1px 0px rgba(0,0,0,0.12);
 
+  * {
+    &:before, &:after {
+      box-sizing: border-box;
+      text-rendering: optimizeLegibility;
+      font-kerning: auto;
+    }
+  }
+
   .custom-pagination {
     font-size: 14pt;
     line-height: 1;
@@ -15,16 +23,21 @@
     transition: font-size .2s ease-in-out;
     user-select: none;
 
-    * {
-      &:before, &:after {
-        box-sizing: border-box;
-        text-rendering: optimizeLegibility;
-        font-kerning: auto;
-      }
-    }
-
     .pagination-nav {
       cursor: pointer;
+      font-size: 15px;
+
+      &.first-page-nav {
+        margin-right: 5px;
+      }
+
+      &.last-page-nav {
+        margin-left: 5px;
+      }
+
+      &.inner-pagination-nav {
+        font-size: 13px;
+      }
     }
 
     .disabled-el {
