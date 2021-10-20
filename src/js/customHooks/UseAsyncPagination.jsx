@@ -171,10 +171,15 @@ const useAsyncPagination = ({ contentPerPage, count, fetchData }) => {
 		}
 	};
 
+	const resetCurrentPageNum = () => {
+		setCurrentPageNum(1);
+	};
+
 	return {
 		currentPageNum,
 		totalPages: pageCount,
 		paginationBlocks,
+		resetCurrentPageNum,
 		navigateToNextPage: () => changePage(true),
 		navigateToPrevPage: () => changePage(false),
 		navigateToPage,

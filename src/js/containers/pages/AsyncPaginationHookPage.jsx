@@ -36,6 +36,7 @@ const AsyncPaginationHookPage = () => {
 		totalPages,
 		currentPageNum,
 		paginationBlocks,
+		resetCurrentPageNum,
 		navigateToPage,
 		navigateToNextPage,
 		navigateToPrevPage,
