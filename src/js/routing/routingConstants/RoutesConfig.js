@@ -15,6 +15,7 @@ import {
 	getPageBottomPageUrl,
 	getPaginationHookPageUrl,
 	getTiltPageUrl,
+	getTouchScreenDetectHookPageUrl,
 	getWindowSizePageUrl,
 } from './AppUrls';
 //pages
@@ -34,6 +35,7 @@ import PaginationHookPage from '../../containers/pages/PaginationHookPage';
 import FetchWithServiceHookPage from '../../containers/pages/FetchWithServiceHookPage';
 import AsyncPaginationHookPage from '../../containers/pages/AsyncPaginationHookPage';
 import OutsideClickHookPage from '../../containers/pages/OutsideClickHookPage';
+import TouchScreenDetectHookPage from '../../containers/pages/TouchScreenDetectHookPage';
 
 export const routes = [
 	{
@@ -115,5 +117,10 @@ export const routes = [
 		path: getOutsideClickHookPageUrl(),
 		Component: OutsideClickHookPage,
 		label: 'Outside click',
+	},
+	{
+		path: getTouchScreenDetectHookPageUrl(),
+		Component: TouchScreenDetectHookPage,
+		label: 'Touch screen',
 	},
 ];
