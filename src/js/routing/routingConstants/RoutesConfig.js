@@ -11,6 +11,7 @@ import {
 	getHomePageUrl,
 	getIntervalPageUrl,
 	getMobileDetectPageUrl,
+	getOutsideClickHookPageUrl,
 	getPageBottomPageUrl,
 	getPaginationHookPageUrl,
 	getTiltPageUrl,
@@ -32,6 +33,7 @@ import BooleanHookPage from '../../containers/pages/BooleanHookPage';
 import PaginationHookPage from '../../containers/pages/PaginationHookPage';
 import FetchWithServiceHookPage from '../../containers/pages/FetchWithServiceHookPage';
 import AsyncPaginationHookPage from '../../containers/pages/AsyncPaginationHookPage';
+import OutsideClickHookPage from '../../containers/pages/OutsideClickHookPage';
 
 export const routes = [
 	{
@@ -108,5 +110,10 @@ export const routes = [
 		path: getAsyncPaginationHookPageUrl(),
 		Component: AsyncPaginationHookPage,
 		label: 'Async pagination',
+	},
+	{
+		path: getOutsideClickHookPageUrl(),
+		Component: OutsideClickHookPage,
+		label: 'Outside click',
 	},
 ];

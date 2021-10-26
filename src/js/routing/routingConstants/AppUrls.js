@@ -13,3 +13,4 @@ export const getEventListenerPageUrl = () => '/use-event-listener';
 export const getBooleanPageUrl = () => '/use-boolean';
 export const getPaginationHookPageUrl = () => '/use-pagination';
 export const getAsyncPaginationHookPageUrl = () => '/use-async-pagination';
+export const getOutsideClickHookPageUrl = () => '/use-outside-click';
