@@ -16,8 +16,8 @@ const Pagination = ({
 	navigateToPrevPaginationBlock,
 	isLoading,
 }) => {
-	const isPrevButtonDisabled = currentPageNum === 1 || totalPages === 0,
-		isNextButtonDisabled = currentPageNum === totalPages || totalPages === 0;
+	const isPrevButtonDisabled = currentPageNum === 1 || totalPages === 0 || isNaN(totalPages),
+		isNextButtonDisabled = currentPageNum === totalPages || totalPages === 0 || isNaN(totalPages);
 
 	return (
 		<div className="pagination-wrapper">
