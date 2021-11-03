@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router } from 'react-router-dom';
+//toast
+import 'react-toastify/dist/ReactToastify.css';
 //import meta image
 import './assets/images/metaImage.jpg';
 // required for babel polyfills

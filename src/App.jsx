@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { hot } from 'react-hot-loader/root';
+//toast
+import { ToastContainer } from 'react-toastify';
 //error boundary
 import { ErrorBoundary } from 'react-error-boundary';
 //error boundary fallback
@@ -29,6 +31,7 @@ const App = () => (
 			))}
 			<Route path="*" render={(propsRouter) => <NotFoundPage {...propsRouter} />} />
 		</Switch>
+		<ToastContainer />
 	</ErrorBoundary>
 );
 

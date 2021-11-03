@@ -20,3 +20,23 @@ export const convertObjectToQueryString = (paramsObj) => {
 		return (acc += `${key}=${val}${i === list.length - 1 ? '' : '&'}`);
 	}, '');
 };
+
+export const setTimeoutRAF = (fn, delay, registerCancel) => {
+	const start = new Date().getTime();
+
+	const loop = () => {
+		const delta = new Date().getTime() - start;
+
+		if (delta >= delay) {
+			fn();
+			registerCancel(() => {});
+			return;
+		}
+
+		const raf = requestAnimationFrame(loop);
+		registerCancel(() => cancelAnimationFrame(raf));
+	};
+
+	const raf = requestAnimationFrame(loop);
+	registerCancel(() => cancelAnimationFrame(raf));
+};
