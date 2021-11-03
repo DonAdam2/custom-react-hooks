@@ -1,8 +1,9 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 //routes
 import { routes } from '../routing/routingConstants/RoutesConfig';
-import Toolbar from './Toolbar/Toolbar';
 import { getHomePageUrl } from '../routing/routingConstants/AppUrls';
+//containers
+import Toolbar from './Toolbar/Toolbar';
 
 const AppHeader = () => {
 	const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false),
@@ -12,9 +13,9 @@ const AppHeader = () => {
 		setIsSideDrawerOpen((prev) => !prev);
 	};
 
-	const closeSideDrawer = useCallback(() => {
+	const closeSideDrawer = () => {
 		setIsSideDrawerOpen(false);
-	}, []);
+	};
 
 	return (
 		<Toolbar
