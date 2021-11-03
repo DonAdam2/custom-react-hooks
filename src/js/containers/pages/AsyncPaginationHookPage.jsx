@@ -6,13 +6,14 @@ import useAsyncPagination from '../../customHooks/UseAsyncPagination';
 //components
 import Person from '../../components/Person';
 import Pagination from '../../components/shared/Pagination';
+import LoadingIcon from '../../components/shared/loadingIcon/LoadingIcon';
 
 const AsyncPaginationHookPage = () => {
 	const [totalCount, setTotalCount] = useState(0),
 		[people, setPeople] = useState([]),
 		[isLoading, setIsLoading] = useState(false),
 		[error, setError] = useState(false),
-		perPage = 10;
+		perPage = 3;
 
 	const fetchData = useCallback(async (pageNum) => {
 		setIsLoading(true);
@@ -60,15 +61,28 @@ const AsyncPaginationHookPage = () => {
 				<h2>Error fetching data</h2>
 			) : (
 				<div className="container">
-					{people.map((el) => (
-						<Person
-							key={el._id}
-							id={el._id}
-							firstName={el.name}
-							jobTitle={`Made ${el.trips} trips`}
-							status="active"
-						/>
-					))}
+					<div
+						style={{
+							position: 'relative',
+							padding: people.length === 0 ? '20px 0' : '',
+							marginBottom: people.length === 0 ? 10 : '',
+						}}
+					>
+						{isLoading && (
+							<div className="center-loader-wrapper">
+								<LoadingIcon />
+							</div>
+						)}
+						{people.map((el) => (
+							<Person
+								key={el._id}
+								id={el._id}
+								firstName={el.name}
+								jobTitle={`Made ${el.trips} trips`}
+								status="active"
+							/>
+						))}
+					</div>
 					<Pagination
 						currentPageNum={currentPageNum}
 						totalPages={totalPages}
