@@ -1,0 +1,18 @@
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  line-height: inherit;
+  white-space: nowrap;
+  text-decoration: none;
+  background-color: transparent;
+
+  img {
+    max-height: 50px;
+  }
+
+  svg {
+    width: 30px;
+  }
+}

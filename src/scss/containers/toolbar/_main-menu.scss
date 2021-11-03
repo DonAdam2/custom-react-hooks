@@ -1,0 +1,88 @@
+.main-navigation {
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    position: static;
+    display: block;
+
+    li {
+      /*Make all menu links full width*/
+      width: 100%;
+
+      a {
+        cursor: pointer;
+      }
+
+      /*Display the dropdown on hover*/
+      a:hover + .hidden,
+      .hidden:hover {
+        display: block;
+      }
+    }
+  }
+
+  /*Create a horizontal list with spacing*/
+  li {
+    display: inline-block;
+    float: left;
+    margin-bottom: 1px;
+
+    /*Hide dropdown links until they are needed*/
+    ul {
+      display: none;
+
+      /*Make dropdown links vertical*/
+      li {
+        display: block;
+        float: none;
+
+        /*Prevent text wrapping*/
+        a {
+          width: auto;
+          min-width: 100px;
+          padding: 0 20px;
+        }
+      }
+    }
+
+    &:hover {
+      /*Hover state for top level links*/
+      a {
+        background: #ee9a3d;
+      }
+
+      ul {
+        /*Style for dropdown links*/
+        a {
+          background: #f3f3f3;
+          color: #2f3036;
+          height: 40px;
+          line-height: 40px;
+
+          /*Hover state for dropdown links*/
+          &:hover {
+            background: #ee9a3d;
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    /*Style for menu links*/
+    a {
+      display: block;
+      padding: 0;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #fff;
+      background: #2f3036;
+      text-decoration: none;
+      text-transform: capitalize;
+      /*Make all menu links full width*/
+      width: 100%;
+    }
+  }
+}

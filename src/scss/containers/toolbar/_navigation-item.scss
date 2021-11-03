@@ -1,0 +1,19 @@
+.navigation-item {
+  a {
+    &:active,
+    &.active {
+      color: yellow;
+    }
+  }
+}
+
+.main-menu-dropdown {
+  .navigation-item {
+    a {
+      &:active,
+      &.active {
+        color: yellow;
+      }
+    }
+  }
+}

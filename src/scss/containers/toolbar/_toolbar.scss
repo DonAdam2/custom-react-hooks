@@ -1,0 +1,48 @@
+.toolbar {
+  & * {
+    box-sizing: border-box;
+  }
+
+  .backdrop {
+    top: 67px;
+  }
+
+  .toolbar-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #eee;
+    height: 67px;
+    padding: 0 10px;
+    border-radius: 5px;
+  }
+}
+
+.spacer {
+  flex: 1;
+}
+
+.toolbar-navigation-items {
+  height: calc(100% - 67px);
+  background-color: #ffffff;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+  0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  position: fixed;
+  top: 67px;
+  right: 0;
+  width: 70%;
+  max-width: 300px;
+  z-index: 200;
+  display: block;
+  transform: translateX(102%);
+  transition: transform 0.3s ease-out;
+  overflow-y: auto;
+
+  &.open-side-drawer {
+    transform: translateX(0);
+  }
+
+  .menu-btn {
+    width: 100%;
+  }
+}
