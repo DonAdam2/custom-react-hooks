@@ -4,6 +4,7 @@ import {
 	getAsyncPaginationHookPageUrl,
 	getBooleanPageUrl,
 	getCopyToClipboardPageUrl,
+	getDeepLinkingPaginationHookPageUrl,
 	getDocumentTitlePageUrl,
 	getEventListenerPageUrl,
 	getFetchPageUrl,
@@ -36,6 +37,7 @@ import FetchWithServiceHookPage from '../../containers/pages/FetchWithServiceHoo
 import AsyncPaginationHookPage from '../../containers/pages/AsyncPaginationHookPage';
 import OutsideClickHookPage from '../../containers/pages/OutsideClickHookPage';
 import TouchScreenDetectHookPage from '../../containers/pages/TouchScreenDetectHookPage';
+import DeepLinkingPaginationHookPage from '../../containers/pages/DeepLinkingPaginationHookPage';
 
 export const routes = [
 	{
@@ -112,6 +114,11 @@ export const routes = [
 		path: getAsyncPaginationHookPageUrl(),
 		Component: AsyncPaginationHookPage,
 		label: 'Async pagination',
+	},
+	{
+		path: getDeepLinkingPaginationHookPageUrl(),
+		Component: DeepLinkingPaginationHookPage,
+		label: 'Deep linking pagination',
 	},
 	{
 		path: getOutsideClickHookPageUrl(),
