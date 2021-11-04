@@ -1,25 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
+
+function asyncReducer(state, action) {
+	switch (action.type) {
+		case 'pending': {
+			return { isLoading: true, data: null, error: null };
+		}
+		case 'resolved': {
+			return { isLoading: false, data: action.data, error: null };
+		}
+		case 'rejected': {
+			return { isLoading: false, data: null, error: action.error };
+		}
+		default: {
+			throw new Error(`Unhandled action type: ${action.type}`);
+		}
+	}
+}
 
 const useFetchWithService = ({ api, initialDataType }) => {
-	const [data, setData] = useState(initialDataType),
-		[error, setError] = useState(''),
-		[isLoading, setIsLoading] = useState(false);
+	const [state, dispatch] = useReducer(asyncReducer, {
+		isLoading: false,
+		data: initialDataType,
+		error: null,
+	});
 
 	useEffect(() => {
 		let isMounted = true;
 
 		if (isMounted) {
 			(async () => {
-				setIsLoading(true);
+				dispatch({ type: 'pending' });
 				try {
 					const res = await api();
-					setData(res.data);
+					dispatch({ type: 'resolved', data: res.data });
 				} catch (err) {
 					console.log(err);
 					//TODO: change it as needed
-					setError(err.response);
-				} finally {
-					setIsLoading(false);
+					dispatch({ type: 'rejected', error: error.response });
 				}
 			})();
 		}
@@ -29,11 +46,7 @@ const useFetchWithService = ({ api, initialDataType }) => {
 		};
 	}, [api]);
 
-	return {
-		isLoading,
-		error,
-		data,
-	};
+	return { isLoading: state.isLoading, error: state.error, data: state.data };
 };
 
 export default useFetchWithService;
