@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 import Backdrop from './Backdrop';
 import DrawerToggleButton from './DrawerToggleButton';
 import MainMenu from './MainMenu';
