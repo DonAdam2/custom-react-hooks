@@ -20,7 +20,7 @@ const asyncReducer = (initialDataType) => (state, action) => {
 			return { ...initialState(initialDataType), error: action.error };
 		}
 		default: {
-			throw new Error(`Unhandled action type: ${action.type}`);
+			return state;
 		}
 	}
 };
