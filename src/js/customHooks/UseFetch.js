@@ -2,29 +2,34 @@ import React, { useEffect, useReducer } from 'react';
 //axios
 import axios from 'axios';
 
-function asyncReducer(state, action) {
+const initialState = (initialDataType) => ({
+	isLoading: false,
+	data: initialDataType,
+	error: undefined,
+});
+
+const asyncReducer = (initialDataType) => (state, action) => {
 	switch (action.type) {
 		case 'pending': {
-			return { isLoading: true, data: null, error: null };
+			return { ...initialState(initialDataType), isLoading: true };
 		}
 		case 'resolved': {
-			return { isLoading: false, data: action.data, error: null };
+			return { ...initialState(initialDataType), data: action.data };
 		}
 		case 'rejected': {
-			return { isLoading: false, data: null, error: action.error };
+			return { ...initialState(initialDataType), error: action.error };
 		}
 		default: {
 			throw new Error(`Unhandled action type: ${action.type}`);
 		}
 	}
-}
+};
 
 const useFetch = (url = '', options = null, initialDataType) => {
-	const [state, dispatch] = useReducer(asyncReducer, {
-		isLoading: false,
-		data: initialDataType,
-		error: null,
-	});
+	const [state, dispatch] = useReducer(
+		asyncReducer(initialDataType),
+		initialState(initialDataType)
+	);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -37,8 +42,7 @@ const useFetch = (url = '', options = null, initialDataType) => {
 					dispatch({ type: 'resolved', data: res.data });
 				} catch (err) {
 					console.log(err);
-					//TODO: change it as needed
-					dispatch({ type: 'rejected', error: error.response });
+					dispatch({ type: 'rejected', error: err });
 				}
 			})();
 		}
