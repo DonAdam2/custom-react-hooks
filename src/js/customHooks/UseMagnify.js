@@ -31,10 +31,20 @@ const useMagnify = (magnifyTimes) => {
     };
 
     const handleMouseMove = (e) => {
-      const boxWidth = el.clientWidth,
-        xPos = e.pageX - el.offsetLeft,
-        yPos = e.pageY - el.offsetTop,
-        xPercent = `${xPos / (boxWidth / 100)}%`,
+      e.preventDefault();
+
+      let boxWidth = el.clientWidth,
+        xPos,
+        yPos;
+
+      if (e.touches) {
+        xPos = e.touches[0].pageX - el.offsetLeft;
+        yPos = e.touches[0].pageY - el.offsetTop;
+      } else {
+        xPos = e.pageX - el.offsetLeft;
+        yPos = e.pageY - el.offsetTop;
+      }
+      const xPercent = `${xPos / (boxWidth / 100)}%`,
         yPercent = `${yPos / ((boxWidth * state.ratio) / 100)}%`;
 
       Object.assign(el.style, {
@@ -62,6 +72,8 @@ const useMagnify = (magnifyTimes) => {
 
         el.addEventListener('mousemove', handleMouseMove);
         el.addEventListener('mouseleave', handleMouseLeave);
+        el.addEventListener('touchmove', handleMouseMove);
+        el.addEventListener('touchend', handleMouseLeave);
       };
     };
 
@@ -70,6 +82,8 @@ const useMagnify = (magnifyTimes) => {
     return () => {
       el.removeEventListener('mousemove', handleMouseMove);
       el.removeEventListener('mouseleave', handleMouseLeave);
+      el.removeEventListener('touchmove', handleMouseMove);
+      el.removeEventListener('touchend', handleMouseLeave);
     };
   }, [magnifyTimes]);
 
