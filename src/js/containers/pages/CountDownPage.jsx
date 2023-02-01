@@ -35,9 +35,9 @@ const CountDownPage = () => {
     <div className="magnify-container">
       <div className="buttons-wrapper">
         <Button onClick={stop} disabled={isStopBtnDisabled} label="Stop" variant="danger" />
-        <Button onClick={reset} label="Reset" variant="ghost" />
-        <Button onClick={pause} disabled={isPauseBtnDisabled} label="Pause" variant="ghost" />
-        <Button onClick={resume} disabled={isResumeBtnDisabled} label="Resume" variant="ghost" />
+        <Button onClick={reset} label="Reset" variant="white" />
+        <Button onClick={pause} disabled={isPauseBtnDisabled} label="Pause" variant="white" />
+        <Button onClick={resume} disabled={isResumeBtnDisabled} label="Resume" variant="white" />
       </div>
       {<p>Current counter is {counter}</p>}
     </div>
