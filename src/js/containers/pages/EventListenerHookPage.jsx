@@ -17,10 +17,11 @@ const EventListenerHookPage = () => {
   };
 
   // Event listener to close dialog on click outside element
-  useEventListener('mousedown', closeDialog, window);
+  useEventListener('mousedown', closeDialog);
 
   return (
     <div className="magnify-container">
+      <p>Open the dev tools to see the console output</p>
       <div ref={dialogRef} style={{ border: '1px solid black' }}>
         <p>click outside</p>
       </div>
