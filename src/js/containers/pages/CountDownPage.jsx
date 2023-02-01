@@ -1,4 +1,4 @@
-import useCountdown from '@/js/customHooks/useCountdown';
+import useCountdown from '@/js/customHooks/UseCountdown';
 import Button from '@/js/components/shared/Button';
 
 const CountDownPage = () => {
