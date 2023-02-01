@@ -4,6 +4,7 @@ import {
   getAsyncPaginationHookPageUrl,
   getBooleanPageUrl,
   getCopyToClipboardPageUrl,
+  getCountDownPageUrl,
   getDeepLinkingPaginationHookPageUrl,
   getDocumentTitlePageUrl,
   getEventListenerPageUrl,
@@ -38,6 +39,7 @@ import AsyncPaginationHookPage from '../../containers/pages/AsyncPaginationHookP
 import OutsideClickHookPage from '../../containers/pages/OutsideClickHookPage';
 import TouchScreenDetectHookPage from '../../containers/pages/TouchScreenDetectHookPage';
 import DeepLinkingPaginationHookPage from '../../containers/pages/DeepLinkingPaginationHookPage';
+import CountDownPage from '@/js/containers/pages/CountDownPage';
 
 export const routes = [
   {
@@ -49,6 +51,16 @@ export const routes = [
     path: getTiltPageUrl(),
     element: <TiltHookPage />,
     label: 'Tilt',
+  },
+  {
+    path: getCountDownPageUrl(),
+    element: <CountDownPage />,
+    label: 'Count down',
+  },
+  {
+    path: getIntervalPageUrl(),
+    element: <IntervalHookPage />,
+    label: 'Interval',
   },
   {
     path: getIntervalPageUrl(),

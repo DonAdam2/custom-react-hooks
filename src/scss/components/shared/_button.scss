@@ -1,0 +1,211 @@
+.button {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.889rem;
+  transition: box-shadow 0.3s;
+  transform: translateZ(0);
+  padding: 0.2rem 1rem;
+  letter-spacing: 0.05rem;
+
+  &.primary {
+    color: $white;
+    background: $bluish-primary;
+
+    &:disabled {
+      @include disable-background;
+    }
+
+    .button-icon {
+      fill: $white;
+    }
+  }
+
+  &.secondary {
+    color: $white;
+    background: $secondary;
+
+    &:disabled {
+      @include disable-background;
+    }
+
+    .button-icon {
+      fill: $white;
+    }
+  }
+
+  &.warning {
+    color: $white;
+    background: $yellow-primary;
+
+    &:disabled {
+      @include disable-background;
+    }
+
+    .button-icon {
+      fill: $white;
+    }
+  }
+
+  &.danger {
+    color: $white;
+    background: $danger;
+
+    &:disabled {
+      @include disable-background;
+    }
+
+    .button-icon {
+      fill: $white;
+    }
+  }
+
+  &.success {
+    color: $white;
+    background: $success;
+
+    &:disabled {
+      @include disable-background;
+    }
+
+    .button-icon {
+      fill: $white;
+    }
+  }
+
+  &.lightGrey {
+    background: $blue-gray-200;
+    color: $blue-gray-500;
+    border-color: transparent;
+
+    &:disabled {
+      @include disable-background;
+    }
+
+    .button-icon {
+      fill: $blue-gray-500;
+    }
+  }
+
+  &.white {
+    background-color: $white;
+    box-shadow: 1px 1px 4px 1px rgb(0 0 0 / 20%);
+
+    &:disabled {
+      @include disable-background;
+    }
+
+    .button-icon {
+      fill: $black;
+    }
+  }
+
+  &.outline {
+    color: $purple;
+    background: transparent;
+    border: 1px solid $purple;
+    padding: 0.2rem 0.75rem;
+
+    &:disabled {
+      opacity: 0.5;
+    }
+
+    .button-icon {
+      fill: $purple;
+    }
+  }
+
+  &.text {
+    color: $black;
+
+    &:hover {
+      box-shadow: none;
+    }
+
+    &:disabled {
+      @include disable-background;
+    }
+
+    .button-icon {
+      fill: $black;
+    }
+  }
+
+  &.ghost {
+    color: $black;
+    border: 1px solid $blue-gray-500;
+
+    &:disabled {
+      @include disable-outlined-background;
+    }
+    .button-icon {
+      fill: $black;
+    }
+  }
+
+  // size small
+  &.small {
+    -webkit-text-fill-color: unset;
+    font-size: 12px;
+    padding: 0.3rem 0.66rem;
+
+    &.round {
+      height: 1.75rem;
+      width: 1.75rem;
+    }
+  }
+
+  &.default {
+    &.round {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+  // size large
+  &.large {
+    padding: 0.5rem 1rem;
+    border-radius: 0.89rem;
+    font-weight: 500;
+
+    &.round {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+  }
+
+  &.round {
+    padding: 0;
+    border-radius: 50%;
+  }
+
+  &.fluid {
+    width: 100%;
+  }
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px 8px 3px rgb(0 0 0 / 20%);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  .button-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+}

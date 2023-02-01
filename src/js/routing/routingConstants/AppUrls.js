@@ -1,6 +1,7 @@
 export const getHomePageUrl = () => '/use-magnify';
 export const getTiltPageUrl = () => '/use-tilt';
 export const getIntervalPageUrl = () => '/use-interval';
+export const getCountDownPageUrl = () => '/use-count-down';
 export const getCopyToClipboardPageUrl = () => '/use-copy-to-clipboard';
 export const getPageBottomPageUrl = () => '/use-page-bottom';
 export const getWindowSizePageUrl = () => '/use-window-size';
