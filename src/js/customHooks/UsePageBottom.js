@@ -1,28 +1,28 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 const usePageBottom = () => {
-	const [isBottom, setIsBottom] = useState(false);
+  const [isBottom, setIsBottom] = useState(false);
 
-	const handleScroll = useCallback(() => {
-		const scrollTop =
-				(document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop,
-			scrollHeight =
-				(document.documentElement && document.documentElement.scrollHeight) ||
-				document.body.scrollHeight,
-			scrolledToBottom = scrollTop + window.innerHeight >= scrollHeight;
+  const handleScroll = useCallback(() => {
+    const scrollTop =
+        (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop,
+      scrollHeight =
+        (document.documentElement && document.documentElement.scrollHeight) ||
+        document.body.scrollHeight,
+      scrolledToBottom = scrollTop + window.innerHeight >= scrollHeight;
 
-		setIsBottom(scrolledToBottom);
-	}, []);
+    setIsBottom(scrolledToBottom);
+  }, []);
 
-	useEffect(() => {
-		window.addEventListener('scroll', handleScroll);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
 
-		return () => {
-			window.removeEventListener('scroll', handleScroll);
-		};
-	}, [handleScroll]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
 
-	return isBottom;
+  return isBottom;
 };
 
 export default usePageBottom;

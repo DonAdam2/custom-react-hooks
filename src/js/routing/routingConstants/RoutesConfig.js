@@ -1,23 +1,23 @@
 //URLs
 import {
-	getArrayPageUrl,
-	getAsyncPaginationHookPageUrl,
-	getBooleanPageUrl,
-	getCopyToClipboardPageUrl,
-	getDeepLinkingPaginationHookPageUrl,
-	getDocumentTitlePageUrl,
-	getEventListenerPageUrl,
-	getFetchPageUrl,
-	getFetchWithServicePageUrl,
-	getHomePageUrl,
-	getIntervalPageUrl,
-	getMobileDetectPageUrl,
-	getOutsideClickHookPageUrl,
-	getPageBottomPageUrl,
-	getPaginationHookPageUrl,
-	getTiltPageUrl,
-	getTouchScreenDetectHookPageUrl,
-	getWindowSizePageUrl,
+  getArrayPageUrl,
+  getAsyncPaginationHookPageUrl,
+  getBooleanPageUrl,
+  getCopyToClipboardPageUrl,
+  getDeepLinkingPaginationHookPageUrl,
+  getDocumentTitlePageUrl,
+  getEventListenerPageUrl,
+  getFetchPageUrl,
+  getFetchWithServicePageUrl,
+  getHomePageUrl,
+  getIntervalPageUrl,
+  getMobileDetectPageUrl,
+  getOutsideClickHookPageUrl,
+  getPageBottomPageUrl,
+  getPaginationHookPageUrl,
+  getTiltPageUrl,
+  getTouchScreenDetectHookPageUrl,
+  getWindowSizePageUrl,
 } from './AppUrls';
 //pages
 import MagnifyHookPage from '../../containers/pages/MagnifyHookPage';
@@ -40,94 +40,94 @@ import TouchScreenDetectHookPage from '../../containers/pages/TouchScreenDetectH
 import DeepLinkingPaginationHookPage from '../../containers/pages/DeepLinkingPaginationHookPage';
 
 export const routes = [
-	{
-		path: getHomePageUrl(),
-		Component: MagnifyHookPage,
-		label: 'Magnify',
-	},
-	{
-		path: getTiltPageUrl(),
-		Component: TiltHookPage,
-		label: 'Tilt',
-	},
-	{
-		path: getIntervalPageUrl(),
-		Component: IntervalHookPage,
-		label: 'Interval',
-	},
-	{
-		path: getCopyToClipboardPageUrl(),
-		Component: CopyToClipboardHookPage,
-		label: 'Copy to clipboard',
-	},
-	{
-		path: getPageBottomPageUrl(),
-		Component: PageBottomHookPage,
-		label: 'Page bottom',
-	},
-	{
-		path: getWindowSizePageUrl(),
-		Component: WindowSizeHookPage,
-		label: 'Window size',
-	},
-	{
-		path: getMobileDetectPageUrl(),
-		Component: MobileDetectHookPage,
-		label: 'Mobile detect',
-	},
-	{
-		path: getDocumentTitlePageUrl(),
-		Component: DocumentTitleHookPage,
-		label: 'Document title',
-	},
-	{
-		path: getArrayPageUrl(),
-		Component: ArrayHookPage,
-		label: 'Array',
-	},
-	{
-		path: getFetchPageUrl(),
-		Component: FetchHookPage,
-		label: 'Fetch',
-	},
-	{
-		path: getFetchWithServicePageUrl(),
-		Component: FetchWithServiceHookPage,
-		label: 'Fetch with service',
-	},
-	{
-		path: getEventListenerPageUrl(),
-		Component: EventListenerHookPage,
-		label: 'Event listener',
-	},
-	{
-		path: getBooleanPageUrl(),
-		Component: BooleanHookPage,
-		label: 'Boolean',
-	},
-	{
-		path: getPaginationHookPageUrl(),
-		Component: PaginationHookPage,
-		label: 'Pagination',
-	},
-	{
-		path: getAsyncPaginationHookPageUrl(),
-		Component: AsyncPaginationHookPage,
-		label: 'Async pagination',
-	},
-	{
-		path: getDeepLinkingPaginationHookPageUrl(),
-		Component: DeepLinkingPaginationHookPage,
-		label: 'Deep linking pagination',
-	},
-	{
-		path: getOutsideClickHookPageUrl(),
-		Component: OutsideClickHookPage,
-		label: 'Outside click',
-	},
-	{
-		path: getTouchScreenDetectHookPageUrl(),
-		Component: TouchScreenDetectHookPage,
-		label: 'Touch screen',
-	},
+  {
+    path: getHomePageUrl(),
+    element: <MagnifyHookPage />,
+    label: 'Magnify',
+  },
+  {
+    path: getTiltPageUrl(),
+    element: <TiltHookPage />,
+    label: 'Tilt',
+  },
+  {
+    path: getIntervalPageUrl(),
+    element: <IntervalHookPage />,
+    label: 'Interval',
+  },
+  {
+    path: getCopyToClipboardPageUrl(),
+    element: <CopyToClipboardHookPage />,
+    label: 'Copy to clipboard',
+  },
+  {
+    path: getPageBottomPageUrl(),
+    element: <PageBottomHookPage />,
+    label: 'Page bottom',
+  },
+  {
+    path: getWindowSizePageUrl(),
+    element: <WindowSizeHookPage />,
+    label: 'Window size',
+  },
+  {
+    path: getMobileDetectPageUrl(),
+    element: <MobileDetectHookPage />,
+    label: 'Mobile detect',
+  },
+  {
+    path: getDocumentTitlePageUrl(),
+    element: <DocumentTitleHookPage />,
+    label: 'Document title',
+  },
+  {
+    path: getArrayPageUrl(),
+    element: <ArrayHookPage />,
+    label: 'Array',
+  },
+  {
+    path: getFetchPageUrl(),
+    element: <FetchHookPage />,
+    label: 'Fetch',
+  },
+  {
+    path: getFetchWithServicePageUrl(),
+    element: <FetchWithServiceHookPage />,
+    label: 'Fetch with service',
+  },
+  {
+    path: getEventListenerPageUrl(),
+    element: <EventListenerHookPage />,
+    label: 'Event listener',
+  },
+  {
+    path: getBooleanPageUrl(),
+    element: <BooleanHookPage />,
+    label: 'Boolean',
+  },
+  {
+    path: getPaginationHookPageUrl(),
+    element: <PaginationHookPage />,
+    label: 'Pagination',
+  },
+  {
+    path: getAsyncPaginationHookPageUrl(),
+    element: <AsyncPaginationHookPage />,
+    label: 'Async pagination',
+  },
+  {
+    path: getDeepLinkingPaginationHookPageUrl(),
+    element: <DeepLinkingPaginationHookPage />,
+    label: 'Deep linking pagination',
+  },
+  {
+    path: getOutsideClickHookPageUrl(),
+    element: <OutsideClickHookPage />,
+    label: 'Outside click',
+  },
+  {
+    path: getTouchScreenDetectHookPageUrl(),
+    element: <TouchScreenDetectHookPage />,
+    label: 'Touch screen',
+  },
 ];

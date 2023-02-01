@@ -3,11 +3,12 @@
   padding: 5px;
   position: relative;
   overflow: hidden;
-  box-shadow:
-  0px -1px 3px 0px rgba(0,0,0,0.2), 0px 1px 8px 0px rgba(0,0,0,0.14), 1px 2px 1px 0px rgba(0,0,0,0.12);
+  box-shadow: 0px -1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 8px 0px rgba(0, 0, 0, 0.14),
+    1px 2px 1px 0px rgba(0, 0, 0, 0.12);
 
   * {
-    &:before, &:after {
+    &:before,
+    &:after {
       box-sizing: border-box;
       text-rendering: optimizeLegibility;
       font-kerning: auto;
@@ -21,7 +22,7 @@
     -webkit-text-size-adjust: 100%;
     margin: 0 auto;
     text-align: center;
-    transition: font-size .2s ease-in-out;
+    transition: font-size 0.2s ease-in-out;
     user-select: none;
 
     .pagination-nav {
@@ -42,22 +43,21 @@
     }
 
     .disabled-el {
-      opacity: .5;
+      opacity: 0.5;
       cursor: not-allowed;
     }
-
 
     ul {
       list-style-type: none;
       display: inline;
       font-size: 100%;
       margin: 0;
-      padding: .5em;
+      padding: 0.5em;
 
       li {
         display: inline-block;
         font-size: 100%;
-        padding: .5em;
+        padding: 0.5em;
         width: auto;
         border-radius: 3px;
         cursor: pointer;

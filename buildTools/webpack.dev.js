@@ -1,60 +1,55 @@
-const webpack = require('webpack'),
-	// the following 2 lines is to merge common webpack configurations with this file
-	{ merge } = require('webpack-merge'),
-	common = require('./webpack.common.js'),
-	//constants
-	{ port, rootDirectory, devServer } = require('./constants'),
-	fullDevServerUrl = devServer + ':' + port + '/';
+process.env.NODE_ENV = 'development';
+
+// the following 2 lines is to merge common webpack configurations with this file
+const { merge } = require('webpack-merge'),
+  common = require('./webpack.common.js'),
+  //plugins
+  Dotenv = require('dotenv-webpack'),
+  //enables fast refresh (this is the new feature which overrides hot reloading)
+  ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'),
+  //constants
+  { protocol } = require('./constants'),
+  { environmentsPath } = require('./paths');
 
 module.exports = (env, options) => {
-	return merge(common(env, options), {
-		resolve: {
-			alias: {
-				'react-dom': '@hot-loader/react-dom',
-			},
-		},
-		devtool: 'inline-source-map',
-		//required for hot reload
-		target: 'web',
-		module: {
-			rules: [
-				{
-					test: /\.(png|jp(e*)g|svg)$/,
-					use: {
-						loader: 'file-loader',
-						options: {
-							name: '[name].[contenthash].[ext]',
-							outputPath: 'assets/images',
-							publicPath: fullDevServerUrl + 'assets/images',
-						},
-					},
-					type: 'javascript/auto',
-				},
-			],
-		},
-		devServer: {
-			// important to enable hot reloading
-			hot: true,
-			compress: true,
-			// Tell the server where to serve content from
-			contentBase: rootDirectory,
-			// open development server
-			open: true,
-			port: port,
-			//show error messages on an overlay on the browser
-			overlay: true,
-			// important for navigating to the app using browser (if you use any route other than /)
-			historyApiFallback: true,
-			// CORS :: https://github.com/webpack/webpack-dev-server/issues/533
-			headers: {
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-				'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-			},
-		},
-		plugins: [
-			// Only update what has changed on hot reload
-			new webpack.HotModuleReplacementPlugin(),
-		],
-	});
+  return merge(common(env, options), {
+    mode: 'development',
+    devtool: 'inline-source-map',
+    //required for hot reload
+    target: 'web',
+    devServer: {
+      //enable HTTPS
+      server: protocol,
+      //enable hot reloading
+      hot: true,
+      // Enable gzip compression of generated files.
+      compress: true,
+      // open development server
+      open: true,
+      //coming from scripts/start.js file
+      port: options.port,
+      // important for navigating to the app using browser (if you use any route other than /)
+      historyApiFallback: true,
+      // CORS :: https://github.com/webpack/webpack-dev-server/issues/533
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+      },
+      client: {
+        overlay: {
+          errors: true,
+          warnings: false,
+        },
+      },
+    },
+    plugins: [
+      // enables fast refresh
+      new ReactRefreshWebpackPlugin(),
+      new Dotenv({
+        path: `${environmentsPath}/.env.development`,
+        systemvars: true, //Set to true if you would rather load all system variables as well (useful for CI purposes)
+      }),
+    ],
+  });
 };

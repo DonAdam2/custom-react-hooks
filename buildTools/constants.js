@@ -1,16 +1,22 @@
+const protocol = process.env.HTTPS?.trim() === 'true' ? 'https' : 'http';
+
 module.exports = {
-	port: '3000',
-	devServer: 'http://localhost',
-	rootDirectory: 'src',
-	outputDirectory: 'dist',
-	environmentsDirectory: 'environments',
-	jsSubDirectory: 'js/',
-	cssSubDirectory: 'css/',
-	metaInfo: {
-		title: 'Adam Morsi',
-		description: 'description',
-		url: 'https://example.com/',
-		metaImageName: 'metaImage.jpg',
-		keywords: 'add you keywords',
-	},
+  port: 3000,
+  protocol,
+  devServer: `${protocol}://localhost`,
+  rootDirectory: 'src',
+  buildToolsDirectory: 'buildTools',
+  publicDirectory: 'public',
+  outputDirectory: 'dist',
+  environmentsDirectory: 'environments',
+  jsSubDirectory: 'js/',
+  cssSubDirectory: 'css/',
+  isCssModules: false,
+  metaInfo: {
+    //max 60 (recommended)
+    title: 'Adam Morsi',
+    //max 150 (recommended)
+    description: 'description',
+    keywords: 'add you keywords',
+  },
 };
