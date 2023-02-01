@@ -1,20 +1,7 @@
-.card {
+.content {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-image: url('https://picsum.photos/id/1/500/600');
   padding: 10px;
-  border-radius: 10px;
-  background-image: url('https://picsum.photos/id/1/300/350');
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 300px;
-  height: 350px;
-
-  //required styles for the tilt effect
-  --x: calc(var(--px) - 0.5);
-  --y: calc(var(--py) - 0.5);
-  transform-style: preserve-3d;
-  transform: perspective(1000px) translateX(calc(100% * var(--offset)));
-  transition: transform 0.5s ease-in-out;
-
-  &:hover {
-    transition: none;
-    transform: perspective(1000px) rotateY(calc(var(--x) * 45deg)) rotateX(calc(var(--y) * -45deg));
-  }
 }

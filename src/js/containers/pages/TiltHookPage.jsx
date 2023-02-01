@@ -1,15 +1,13 @@
-//custom hooks
-import useTilt from '../../customHooks/UseTilt';
+//components
+import Tilt from '@/js/components/shared/Tilt';
 
-const TiltHookPage = () => {
-  const ref = useTilt();
-
-  return (
-    <div className="magnify-container">
-      <h3>Hover over the image to tilt it</h3>
-      <div className="card" ref={ref} />
-    </div>
-  );
-};
+const TiltHookPage = () => (
+  <div className="magnify-container">
+    <h3>Hover over the image to tilt it</h3>
+    <Tilt width={300} height={350}>
+      <div className="content" />
+    </Tilt>
+  </div>
+);
 
 export default TiltHookPage;
