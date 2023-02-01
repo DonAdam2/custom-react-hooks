@@ -63,11 +63,6 @@ export const routes = [
     label: 'Interval',
   },
   {
-    path: getIntervalPageUrl(),
-    element: <IntervalHookPage />,
-    label: 'Interval',
-  },
-  {
     path: getCopyToClipboardPageUrl(),
     element: <CopyToClipboardHookPage />,
     label: 'Copy to clipboard',

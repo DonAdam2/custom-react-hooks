@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 //toast
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 //error boundary
 import { ErrorBoundary } from 'react-error-boundary';
 //error boundary fallback
@@ -29,7 +29,15 @@ const App = () => (
       ))}
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
-    <ToastContainer />
+    <ToastContainer
+      toastClassName={'custom-react-toastify'}
+      icon={true}
+      position={toast.POSITION.BOTTOM_CENTER}
+      autoClose={2000}
+      limit={1}
+      pauseOnHover={true}
+      hideProgressBar
+    />
   </ErrorBoundary>
 );
 

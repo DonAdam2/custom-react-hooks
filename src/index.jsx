@@ -9,6 +9,7 @@ import 'regenerator-runtime/runtime';
 import App from './App';
 //styles
 import './scss/global.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 const container = document.getElementById('root'),
   root = createRoot(container);
