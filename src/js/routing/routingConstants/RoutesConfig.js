@@ -7,6 +7,7 @@ import {
   getCountDownPageUrl,
   getDeepLinkingPaginationHookPageUrl,
   getDocumentTitlePageUrl,
+  getEnterEscEventsPageUrl,
   getEventListenerPageUrl,
   getFetchPageUrl,
   getFetchWithServicePageUrl,
@@ -42,6 +43,7 @@ import TouchScreenDetectHookPage from '../../containers/pages/TouchScreenDetectH
 import DeepLinkingPaginationHookPage from '../../containers/pages/DeepLinkingPaginationHookPage';
 import CountDownPage from '@/js/containers/pages/CountDownPage';
 import TimerPage from '@/js/containers/pages/TimerPage';
+import EnterEscEventsPage from '@/js/containers/pages/EnterEscEventsPage';
 
 export const routes = [
   {
@@ -113,6 +115,11 @@ export const routes = [
     path: getEventListenerPageUrl(),
     element: <EventListenerHookPage />,
     label: 'Event listener',
+  },
+  {
+    path: getEnterEscEventsPageUrl(),
+    element: <EnterEscEventsPage />,
+    label: 'Enter & ESC events',
   },
   {
     path: getBooleanPageUrl(),
