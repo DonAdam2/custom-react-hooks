@@ -15,6 +15,7 @@ export const getFetchWithServicePageUrl = () => '/use-fetch-with-service';
 export const getEventListenerPageUrl = () => '/use-event-listener';
 
 export const getEnterEscEventsPageUrl = () => '/use-enter-esc-events';
+export const getDebouncePageUrl = () => '/use-debounce';
 export const getBooleanPageUrl = () => '/use-boolean';
 export const getPaginationHookPageUrl = () => '/use-pagination';
 export const getAsyncPaginationHookPageUrl = () => '/use-async-pagination';

@@ -5,6 +5,7 @@ import {
   getBooleanPageUrl,
   getCopyToClipboardPageUrl,
   getCountDownPageUrl,
+  getDebouncePageUrl,
   getDeepLinkingPaginationHookPageUrl,
   getDocumentTitlePageUrl,
   getEnterEscEventsPageUrl,
@@ -44,6 +45,7 @@ import DeepLinkingPaginationHookPage from '../../containers/pages/DeepLinkingPag
 import CountDownPage from '@/js/containers/pages/CountDownPage';
 import TimerPage from '@/js/containers/pages/TimerPage';
 import EnterEscEventsPage from '@/js/containers/pages/EnterEscEventsPage';
+import DebouncePage from '@/js/containers/pages/DebouncePage';
 
 export const routes = [
   {
@@ -120,6 +122,11 @@ export const routes = [
     path: getEnterEscEventsPageUrl(),
     element: <EnterEscEventsPage />,
     label: 'Enter & ESC events',
+  },
+  {
+    path: getDebouncePageUrl(),
+    element: <DebouncePage />,
+    label: 'Debounce',
   },
   {
     path: getBooleanPageUrl(),
