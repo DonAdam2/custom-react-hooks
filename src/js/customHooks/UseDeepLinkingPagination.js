@@ -1,15 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 //constants
-import {
-  range,
-  convertObjectToQueryString,
-  convertQueryStringIntoObject,
-} from '../constants/Helpers';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { range } from '../constants/Helpers';
+//custom hooks
+import useRouter from '@/js/customHooks/useRouter';
 
 function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pageNumKey } }) {
-  const { pathname, search } = useLocation(),
-    navigate = useNavigate(),
+  const { setSearchParams, searchParams, location } = useRouter(),
     [currentPageNum, setCurrentPageNum] = useState(1),
     [paginationBlocks, setPaginationBlocks] = useState([]),
     // number of pages in total (total items / content on each page)
@@ -60,18 +56,11 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
 
   const updatePageNum = useCallback(
     (num) => {
-      const query = search,
-        params = convertQueryStringIntoObject(query);
-      params[pageNumKey] = num;
-
-      navigate({
-        pathname: pathname,
-        search: convertObjectToQueryString(params),
-      });
+      setSearchParams({ ...searchParams, [pageNumKey]: num });
 
       getPaginationBlocks(num);
     },
-    [getPaginationBlocks, navigate, pageNumKey, pathname, search]
+    [getPaginationBlocks, pageNumKey, searchParams, setSearchParams]
   );
 
   const updatePaginationBlocks = useCallback(
@@ -83,34 +72,25 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
   );
 
   useEffect(() => {
-    const query = search;
-
-    if (query) {
-      const params = convertQueryStringIntoObject(query);
-      if (params[pageNumKey]) {
-        getPaginationBlocks(+params[pageNumKey]);
-        setCurrentPageNum(+params[pageNumKey]);
+    if (location.search) {
+      if (searchParams[pageNumKey]) {
+        getPaginationBlocks(+searchParams[pageNumKey]);
+        setCurrentPageNum(+searchParams[pageNumKey]);
       } else {
         updatePaginationBlocks(currentPageNum);
       }
     } else {
-      const paramsString = convertObjectToQueryString({
-        page: currentPageNum,
-      });
+      setSearchParams({ ...searchParams, [pageNumKey]: currentPageNum });
       getPaginationBlocks(currentPageNum);
-      navigate({
-        pathname,
-        search: paramsString,
-      });
     }
   }, [
-    search,
-    pathname,
-    navigate,
+    currentPageNum,
     getPaginationBlocks,
     updatePaginationBlocks,
-    currentPageNum,
+    location.search,
     pageNumKey,
+    searchParams,
+    setSearchParams,
   ]);
 
   // change page based on direction either front or back
