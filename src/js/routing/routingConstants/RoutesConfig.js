@@ -18,6 +18,7 @@ import {
   getOutsideClickHookPageUrl,
   getPageBottomPageUrl,
   getPaginationHookPageUrl,
+  getRouterPageUrl,
   getTiltPageUrl,
   getTimerPageUrl,
   getTouchScreenDetectHookPageUrl,
@@ -46,6 +47,7 @@ import CountDownPage from '@/js/containers/pages/CountDownPage';
 import TimerPage from '@/js/containers/pages/TimerPage';
 import EnterEscEventsPage from '@/js/containers/pages/EnterEscEventsPage';
 import DebouncePage from '@/js/containers/pages/DebouncePage';
+import RouterPage from '@/js/containers/pages/RouterPage';
 
 export const routes = [
   {
@@ -57,6 +59,11 @@ export const routes = [
     path: getTiltPageUrl(),
     element: <TiltHookPage />,
     label: 'Tilt',
+  },
+  {
+    path: getRouterPageUrl(),
+    element: <RouterPage />,
+    label: 'Router',
   },
   {
     path: getTimerPageUrl(),
