@@ -1,6 +1,8 @@
 export const getHomePageUrl = () => '/use-magnify';
 export const getTiltPageUrl = () => '/use-tilt';
 
+export const getScriptPageUrl = () => '/use-script';
+
 export const getRouterPageUrl = (id) => {
   if (id) {
     return `/use-router/${id}`;
