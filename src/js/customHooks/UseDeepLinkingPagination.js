@@ -1,19 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 //constants
-import { convertObjectToQueryString, convertQueryStringIntoObject } from '../constants/Helpers';
+import {
+  range,
+  convertObjectToQueryString,
+  convertQueryStringIntoObject,
+} from '../constants/Helpers';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-function range(fromPageNum, toPageNum, step = 1) {
-  let i = fromPageNum;
-  const range = [];
-
-  while (i <= toPageNum) {
-    range.push(i);
-    i += step;
-  }
-
-  return range;
-}
 
 function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pageNumKey } }) {
   const { pathname, search } = useLocation(),

@@ -1,16 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-
-function range(fromPageNum, toPageNum, step = 1) {
-  let i = fromPageNum;
-  const range = [];
-
-  while (i <= toPageNum) {
-    range.push(i);
-    i += step;
-  }
-
-  return range;
-}
+import { range } from '@/js/constants/Helpers';
 
 function usePagination({ contentPerPage, count }) {
   const [currentPageNum, setCurrentPageNum] = useState(1),
