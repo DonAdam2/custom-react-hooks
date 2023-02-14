@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 // export const useEnterEscButtonsHook = ({ cancelHandler, confirmHandler }: IUseEnterEscButtonsProps) => {
 
-export const useEnterEscButtonsHook = ({ cancelHandler, confirmHandler }) => {
+function useEnterEscButtonsHook({ cancelHandler, confirmHandler }) {
   useEffect(() => {
     // const listener = (event: { code: string; preventDefault: () => void }) => {
     const listener = (event) => {
@@ -35,4 +35,6 @@ export const useEnterEscButtonsHook = ({ cancelHandler, confirmHandler }) => {
       document.removeEventListener('keydown', listener);
     };
   }, [cancelHandler]);
-};
+}
+
+export default useEnterEscButtonsHook;

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-const range = (fromPageNum, toPageNum, step = 1) => {
+function range(fromPageNum, toPageNum, step = 1) {
   let i = fromPageNum;
   const range = [];
 
@@ -10,9 +10,9 @@ const range = (fromPageNum, toPageNum, step = 1) => {
   }
 
   return range;
-};
+}
 
-const useAsyncPagination = ({ contentPerPage, count, fetchData }) => {
+function useAsyncPagination({ contentPerPage, count, fetchData }) {
   const [currentPageNum, setCurrentPageNum] = useState(1),
     [paginationBlocks, setPaginationBlocks] = useState([]),
     pageCount = Math.ceil(count / contentPerPage),
@@ -188,6 +188,6 @@ const useAsyncPagination = ({ contentPerPage, count, fetchData }) => {
     navigateToNextPaginationBlock: () => navigateToNextOrPrevPaginationBlock(true),
     navigateToPrevPaginationBlock: () => navigateToNextOrPrevPaginationBlock(false),
   };
-};
+}
 
 export default useAsyncPagination;

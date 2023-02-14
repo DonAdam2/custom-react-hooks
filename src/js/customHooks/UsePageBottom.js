@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-const usePageBottom = () => {
+function usePageBottom() {
   const [isBottom, setIsBottom] = useState(false);
 
   const handleScroll = useCallback(() => {
@@ -23,6 +23,6 @@ const usePageBottom = () => {
   }, [handleScroll]);
 
   return isBottom;
-};
+}
 
 export default usePageBottom;

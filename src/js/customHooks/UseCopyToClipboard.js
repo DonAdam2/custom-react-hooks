@@ -6,8 +6,8 @@ import copy from 'copy-to-clipboard';
 //constants
 import { setTimeoutRAF } from '../constants/Helpers';
 
-const useCopyToClipboard = () => {
-  const [isCopied, setCopied] = useState(false),
+function useCopyToClipboard() {
+  const [isCopied, setIsCopied] = useState(false),
     cancelCopyTimer = useRef(() => {}),
     registerCancelCopyTimer = (fn) => (cancelCopyTimer.current = fn);
 
@@ -16,7 +16,7 @@ const useCopyToClipboard = () => {
       toast.success('Copied successfully');
       setTimeoutRAF(
         () => {
-          setCopied(false);
+          setIsCopied(false);
         },
         3000,
         registerCancelCopyTimer
@@ -31,14 +31,14 @@ const useCopyToClipboard = () => {
   const handleCopy = useCallback((text) => {
     if (typeof text === 'string' || typeof text == 'number') {
       copy(text.toString());
-      setCopied(true);
+      setIsCopied(true);
     } else {
-      setCopied(false);
+      setIsCopied(false);
       console.error(`Cannot copy typeof ${typeof text} to clipboard, must be a string or number.`);
     }
   }, []);
 
   return [isCopied, handleCopy];
-};
+}
 
 export default useCopyToClipboard;

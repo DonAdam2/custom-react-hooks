@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 const DEFAULT_TIME_IN_SECONDS = 60;
 
-const useCountdown = ({ initialCounter, callback }) => {
+function useCountdown({ initialCounter, callback }) {
   const _initialCounter = initialCounter ?? DEFAULT_TIME_IN_SECONDS,
     [resume, setResume] = useState(0),
     [counter, setCounter] = useState(_initialCounter),
@@ -75,6 +75,6 @@ const useCountdown = ({ initialCounter, callback }) => {
     isPauseBtnDisabled,
     isResumeBtnDisabled,
   ];
-};
+}
 
 export default useCountdown;

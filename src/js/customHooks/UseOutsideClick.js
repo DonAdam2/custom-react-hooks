@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useOutsideClick = (ref, callback) => {
+function useOutsideClick(ref, callback) {
   const handleClick = (e) => {
     if (ref.current && !ref.current.contains(e.target)) {
       callback();
@@ -14,6 +14,6 @@ const useOutsideClick = (ref, callback) => {
       document.removeEventListener('click', handleClick);
     };
   });
-};
+}
 
 export default useOutsideClick;

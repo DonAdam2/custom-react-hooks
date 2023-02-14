@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const useTimer = () => {
+function useTimer() {
   const [renderedStreamDuration, setRenderedStreamDuration] = useState('00:00:00'),
     streamDuration = useRef(0),
     previousTime = useRef(0),
@@ -81,6 +81,6 @@ const useTimer = () => {
     pauseHandler,
     resumeHandler,
   };
-};
+}
 
 export default useTimer;

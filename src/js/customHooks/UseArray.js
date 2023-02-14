@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-const useArray = (arr) => {
+function useArray(arr) {
   const [value, setValue] = useState(arr);
 
   return {
@@ -25,6 +25,6 @@ const useArray = (arr) => {
       });
     }, []),
   };
-};
+}
 
 export default useArray;

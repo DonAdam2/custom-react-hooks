@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-const useTilt = () => {
+function useTilt() {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -59,6 +59,6 @@ const useTilt = () => {
   }, []);
 
   return ref;
-};
+}
 
 export default useTilt;

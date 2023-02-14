@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-const range = (fromPageNum, toPageNum, step = 1) => {
+function range(fromPageNum, toPageNum, step = 1) {
   let i = fromPageNum;
   const range = [];
 
@@ -10,9 +10,9 @@ const range = (fromPageNum, toPageNum, step = 1) => {
   }
 
   return range;
-};
+}
 
-const usePagination = ({ contentPerPage, count }) => {
+function usePagination({ contentPerPage, count }) {
   const [currentPageNum, setCurrentPageNum] = useState(1),
     [paginationBlocks, setPaginationBlocks] = useState([]),
     // number of pages in total (total items / content on each page)
@@ -175,6 +175,6 @@ const usePagination = ({ contentPerPage, count }) => {
     firstContentIndex,
     lastContentIndex,
   };
-};
+}
 
 export default usePagination;

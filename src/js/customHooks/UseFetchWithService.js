@@ -23,7 +23,7 @@ const asyncReducer = (initialDataType) => (state, action) => {
   }
 };
 
-const useFetchWithService = ({ api, initialDataType, immediate = true }) => {
+function useFetchWithService({ api, initialDataType, immediate = true }) {
   const [state, dispatch] = useReducer(
     asyncReducer(initialDataType),
     initialState(initialDataType)
@@ -56,6 +56,6 @@ const useFetchWithService = ({ api, initialDataType, immediate = true }) => {
   }, [immediate, execute]);
 
   return { isLoading: state.isLoading, error: state.error, data: state.data };
-};
+}
 
 export default useFetchWithService;

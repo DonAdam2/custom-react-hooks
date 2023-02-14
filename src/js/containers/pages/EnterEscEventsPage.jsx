@@ -1,4 +1,4 @@
-import { useEnterEscButtonsHook } from '@/js/customHooks/useEnterEscEvents';
+import useEnterEscButtonsHook from '@/js/customHooks/useEnterEscEvents';
 import { useCallback } from 'react';
 
 const EnterEscEventsPage = () => {

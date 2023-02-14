@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { convertObjectToQueryString, convertQueryStringIntoObject } from '../constants/Helpers';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const range = (fromPageNum, toPageNum, step = 1) => {
+function range(fromPageNum, toPageNum, step = 1) {
   let i = fromPageNum;
   const range = [];
 
@@ -13,9 +13,9 @@ const range = (fromPageNum, toPageNum, step = 1) => {
   }
 
   return range;
-};
+}
 
-const useDeepLinkingPagination = ({ contentPerPage, count, deepLinkingData: { pageNumKey } }) => {
+function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pageNumKey } }) {
   const { pathname, search } = useLocation(),
     navigate = useNavigate(),
     [currentPageNum, setCurrentPageNum] = useState(1),
@@ -218,6 +218,6 @@ const useDeepLinkingPagination = ({ contentPerPage, count, deepLinkingData: { pa
     navigateToNextPaginationBlock: () => navigateToNextOrPrevPaginationBlock(true),
     navigateToPrevPaginationBlock: () => navigateToNextOrPrevPaginationBlock(false),
   };
-};
+}
 
 export default useDeepLinkingPagination;

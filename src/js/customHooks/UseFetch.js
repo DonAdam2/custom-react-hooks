@@ -25,7 +25,7 @@ const asyncReducer = (initialDataType) => (state, action) => {
   }
 };
 
-const useFetch = ({ url = '', options = null, initialDataType, immediate = true }) => {
+function useFetch({ url = '', options = null, initialDataType, immediate = true }) {
   const [state, dispatch] = useReducer(
     asyncReducer(initialDataType),
     initialState(initialDataType)
@@ -57,6 +57,6 @@ const useFetch = ({ url = '', options = null, initialDataType, immediate = true 
   }, [immediate, execute]);
 
   return { isLoading: state.isLoading, error: state.error, data: state.data };
-};
+}
 
 export default useFetch;

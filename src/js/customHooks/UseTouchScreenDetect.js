@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const useTouchScreenDetect = () => {
+function useTouchScreenDetect() {
   const isSSR = typeof window === 'undefined',
     [isTouchScreen, setIsTouchScreen] = useState(false);
 
@@ -15,6 +15,6 @@ const useTouchScreenDetect = () => {
   }, [isTouchScreen, isSSR]);
 
   return isTouchScreen;
-};
+}
 
 export default useTouchScreenDetect;
