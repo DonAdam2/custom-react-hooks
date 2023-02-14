@@ -4,11 +4,12 @@ import useFetch from '../../customHooks/UseFetch';
 import LoadingIcon from '../../components/shared/loadingIcon/LoadingIcon';
 
 const FetchHookPage = () => {
-  const { data, error, isLoading } = useFetch(
-    'https://www.mocky.io/v2/5ccfe7d13200006f0000f8c7',
-    null,
-    []
-  );
+  // const [fetchData, setFetchData] = useState(false);
+  const { data, error, isLoading } = useFetch({
+    url: 'https://www.mocky.io/v2/5ccfe7d13200006f0000f8c7',
+    initialDataType: [],
+    // immediate: fetchData,
+  });
 
   if (error) return <p>Error!</p>;
   if (isLoading)
@@ -20,6 +21,7 @@ const FetchHookPage = () => {
 
   return (
     <div className="fetch-page-wrapper">
+      {/*<button onClick={() => setFetchData(true)}>fetch data</button>*/}
       {data?.movies?.map((el, i) => (
         <div className="movie" key={i}>
           <img src={el.image} alt={el.name} />

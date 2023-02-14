@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 //axios
 import axios from 'axios';
 
@@ -25,32 +25,36 @@ const asyncReducer = (initialDataType) => (state, action) => {
   }
 };
 
-const useFetch = (url = '', options = null, initialDataType) => {
+const useFetch = ({ url = '', options = null, initialDataType, immediate = true }) => {
   const [state, dispatch] = useReducer(
     asyncReducer(initialDataType),
     initialState(initialDataType)
   );
 
+  const execute = useCallback(async () => {
+    dispatch({ type: 'pending' });
+    try {
+      const res = await axios(url, options);
+      dispatch({ type: 'resolved', data: res.data });
+    } catch (err) {
+      console.log(err);
+      dispatch({ type: 'rejected', error: err });
+    }
+  }, [url, options]);
+
   useEffect(() => {
     let isMounted = true;
 
-    if (isMounted) {
+    if (isMounted && immediate) {
       (async () => {
-        dispatch({ type: 'pending' });
-        try {
-          const res = await axios(url, options);
-          dispatch({ type: 'resolved', data: res.data });
-        } catch (err) {
-          console.log(err);
-          dispatch({ type: 'rejected', error: err });
-        }
+        await execute();
       })();
     }
 
     return () => {
       isMounted = false;
     };
-  }, [url, options]);
+  }, [immediate, execute]);
 
   return { isLoading: state.isLoading, error: state.error, data: state.data };
 };
