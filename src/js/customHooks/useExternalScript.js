@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 //constants
 import { availableExternalEntityStatuses } from '@/js/constants/AppConstants';
 
-function useExternalScript(src) {
+function useExternalScript({ src, immediate = true }) {
   // Keep track of script status ("idle", "loading", "ready", "error")
   const [status, setStatus] = useState(
     src ? availableExternalEntityStatuses.loading : availableExternalEntityStatuses.idle
@@ -12,7 +12,7 @@ function useExternalScript(src) {
     () => {
       // Allow falsy src value if waiting on other data needed for
       // constructing the script URL passed to this hook.
-      if (!src) {
+      if (!src || !immediate) {
         setStatus(availableExternalEntityStatuses.idle);
         return;
       }
@@ -60,13 +60,13 @@ function useExternalScript(src) {
       }
       // Remove event listeners on cleanup
       return () => {
-        if (script) {
+        if (script && immediate) {
           script.removeEventListener('load', setStateFromEvent);
           script.removeEventListener('error', setStateFromEvent);
         }
       };
     },
-    [src] // Only re-run effect if script src changes
+    [src, immediate] // Only re-run effect if script src changes
   );
   return status;
 }

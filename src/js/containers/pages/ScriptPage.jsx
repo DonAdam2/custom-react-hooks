@@ -6,8 +6,12 @@ import useExternalStyle from '@/js/customHooks/useExternalStyle';
 import { availableExternalEntityStatuses } from '@/js/constants/AppConstants';
 
 const ScriptPage = () => {
-  const scriptStatus = useExternalScript('https://cdn.moyasar.com/mpf/1.7.3/moyasar.js'),
-    styleStatus = useExternalStyle('https://cdn.moyasar.com/mpf/1.7.3/moyasar.css', 'style');
+  const scriptStatus = useExternalScript({
+      src: 'https://cdn.moyasar.com/mpf/1.7.3/moyasar.js',
+    }),
+    styleStatus = useExternalStyle({
+      src: 'https://cdn.moyasar.com/mpf/1.7.3/moyasar.css',
+    });
 
   const onRefChange = useCallback(
     (node) => {
