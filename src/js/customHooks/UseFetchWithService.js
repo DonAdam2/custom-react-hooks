@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useCallback, useEffect, useReducer } from 'react';
 
 const initialState = (initialDataType) => ({
   isLoading: false,
@@ -23,33 +23,37 @@ const asyncReducer = (initialDataType) => (state, action) => {
   }
 };
 
-const useFetchWithService = ({ api, initialDataType }) => {
+const useFetchWithService = ({ api, initialDataType, immediate = true }) => {
   const [state, dispatch] = useReducer(
     asyncReducer(initialDataType),
     initialState(initialDataType)
   );
 
+  const execute = useCallback(async () => {
+    dispatch({ type: 'pending' });
+    try {
+      const res = await api();
+      dispatch({ type: 'resolved', data: res.data });
+    } catch (err) {
+      console.log(err);
+      //TODO: change it as needed
+      dispatch({ type: 'rejected', error: err.response });
+    }
+  }, [api]);
+
   useEffect(() => {
     let isMounted = true;
 
-    if (isMounted) {
+    if (isMounted && immediate) {
       (async () => {
-        dispatch({ type: 'pending' });
-        try {
-          const res = await api();
-          dispatch({ type: 'resolved', data: res.data });
-        } catch (err) {
-          console.log(err);
-          //TODO: change it as needed
-          dispatch({ type: 'rejected', error: err.response });
-        }
+        await execute();
       })();
     }
 
     return () => {
       isMounted = false;
     };
-  }, [api]);
+  }, [immediate, execute]);
 
   return { isLoading: state.isLoading, error: state.error, data: state.data };
 };
