@@ -14,6 +14,7 @@ import {
   getFetchWithServicePageUrl,
   getHomePageUrl,
   getIntervalPageUrl,
+  getKeyPressPageUrl,
   getLockScrollPageUrl,
   getMobileDetectPageUrl,
   getOutsideClickHookPageUrl,
@@ -52,6 +53,7 @@ import DebouncePage from '@/js/containers/pages/DebouncePage';
 import RouterPage from '@/js/containers/pages/RouterPage';
 import ScriptPage from '@/js/containers/pages/ScriptPage';
 import LockScrollPage from '@/js/containers/pages/LockScrollPage';
+import KeyPressPage from '@/js/containers/pages/KeyPressPage';
 
 export const routes = [
   {
@@ -73,6 +75,11 @@ export const routes = [
     path: getLockScrollPageUrl(),
     element: <LockScrollPage />,
     label: 'Lock scroll',
+  },
+  {
+    path: getKeyPressPageUrl(),
+    element: <KeyPressPage />,
+    label: 'Key press',
   },
   {
     path: getRouterPageUrl(),
