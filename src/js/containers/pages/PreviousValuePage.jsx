@@ -1,11 +1,11 @@
-import usePreviousState from '@/js/customHooks/usePreviousState';
+import usePreviousValue from '@/js/customHooks/usePreviousValue';
 import { useState } from 'react';
 
-const PreviousStatePage = () => {
+const PreviousValuePage = () => {
   // State value and setter for our example
   const [count, setCount] = useState(0),
     // Get the previous value (was passed into hook on last render)
-    prevCount = usePreviousState(count);
+    prevCount = usePreviousValue(count);
 
   return (
     <div className="magnify-container">
@@ -18,4 +18,4 @@ const PreviousStatePage = () => {
   );
 };
 
-export default PreviousStatePage;
+export default PreviousValuePage;

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-function usePreviousState(value) {
+function usePreviousValue(value) {
   // The ref object is a generic container whose current property is mutable ...
   // ... and can hold any value, similar to an instance property on a class
   const ref = useRef();
@@ -14,4 +14,4 @@ function usePreviousState(value) {
   return ref.current;
 }
 
-export default usePreviousState;
+export default usePreviousValue;

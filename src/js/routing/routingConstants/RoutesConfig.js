@@ -55,7 +55,7 @@ import RouterPage from '@/js/containers/pages/RouterPage';
 import ScriptPage from '@/js/containers/pages/ScriptPage';
 import LockScrollPage from '@/js/containers/pages/LockScrollPage';
 import KeyPressPage from '@/js/containers/pages/KeyPressPage';
-import PreviousStatePage from '@/js/containers/pages/PreviousStatePage';
+import PreviousValuePage from '@/js/containers/pages/PreviousValuePage';
 
 export const routes = [
   {
@@ -85,8 +85,8 @@ export const routes = [
   },
   {
     path: getPreviousStatePageUrl(),
-    element: <PreviousStatePage />,
-    label: 'Previous state',
+    element: <PreviousValuePage />,
+    label: 'Previous value',
   },
   {
     path: getRouterPageUrl(),
