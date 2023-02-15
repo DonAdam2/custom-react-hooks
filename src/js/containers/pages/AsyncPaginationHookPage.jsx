@@ -52,7 +52,9 @@ const AsyncPaginationHookPage = () => {
   });
 
   useEffect(() => {
-    fetchData(0);
+    (async () => {
+      await fetchData(0);
+    })();
   }, [fetchData]);
 
   return (
