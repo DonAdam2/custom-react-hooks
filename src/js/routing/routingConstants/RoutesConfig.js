@@ -14,6 +14,7 @@ import {
   getFetchWithServicePageUrl,
   getHomePageUrl,
   getIntervalPageUrl,
+  getLockScrollPageUrl,
   getMobileDetectPageUrl,
   getOutsideClickHookPageUrl,
   getPageBottomPageUrl,
@@ -50,6 +51,7 @@ import EnterEscEventsPage from '@/js/containers/pages/EnterEscEventsPage';
 import DebouncePage from '@/js/containers/pages/DebouncePage';
 import RouterPage from '@/js/containers/pages/RouterPage';
 import ScriptPage from '@/js/containers/pages/ScriptPage';
+import LockScrollPage from '@/js/containers/pages/LockScrollPage';
 
 export const routes = [
   {
@@ -66,6 +68,11 @@ export const routes = [
     path: getScriptPageUrl(),
     element: <ScriptPage />,
     label: 'External script | style',
+  },
+  {
+    path: getLockScrollPageUrl(),
+    element: <LockScrollPage />,
+    label: 'Lock scroll',
   },
   {
     path: getRouterPageUrl(),

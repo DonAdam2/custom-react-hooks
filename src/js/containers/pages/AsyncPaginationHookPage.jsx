@@ -56,11 +56,11 @@ const AsyncPaginationHookPage = () => {
   }, [fetchData]);
 
   return (
-    <>
+    <div className="magnify-container">
       {error ? (
         <h2>Error fetching data</h2>
       ) : (
-        <div className="container">
+        <>
           <div
             style={{
               position: 'relative',
@@ -96,9 +96,9 @@ const AsyncPaginationHookPage = () => {
             navigateToPrevPaginationBlock={navigateToPrevPaginationBlock}
             isLoading={isLoading}
           />
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

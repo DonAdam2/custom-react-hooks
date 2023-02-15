@@ -2,6 +2,7 @@ export const getHomePageUrl = () => '/use-magnify';
 export const getTiltPageUrl = () => '/use-tilt';
 
 export const getScriptPageUrl = () => '/use-external-script-style';
+export const getLockScrollPageUrl = () => '/use-lock-scroll';
 
 export const getRouterPageUrl = (id) => {
   if (id) {
