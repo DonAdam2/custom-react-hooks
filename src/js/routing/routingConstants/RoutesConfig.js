@@ -20,6 +20,7 @@ import {
   getOutsideClickHookPageUrl,
   getPageBottomPageUrl,
   getPaginationHookPageUrl,
+  getPreviousStatePageUrl,
   getRouterPageUrl,
   getScriptPageUrl,
   getTiltPageUrl,
@@ -54,6 +55,7 @@ import RouterPage from '@/js/containers/pages/RouterPage';
 import ScriptPage from '@/js/containers/pages/ScriptPage';
 import LockScrollPage from '@/js/containers/pages/LockScrollPage';
 import KeyPressPage from '@/js/containers/pages/KeyPressPage';
+import PreviousStatePage from '@/js/containers/pages/PreviousStatePage';
 
 export const routes = [
   {
@@ -80,6 +82,11 @@ export const routes = [
     path: getKeyPressPageUrl(),
     element: <KeyPressPage />,
     label: 'Key press',
+  },
+  {
+    path: getPreviousStatePageUrl(),
+    element: <PreviousStatePage />,
+    label: 'Previous state',
   },
   {
     path: getRouterPageUrl(),
