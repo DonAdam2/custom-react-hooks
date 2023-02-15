@@ -13,27 +13,20 @@ const ScriptPage = () => {
       src: 'https://cdn.moyasar.com/mpf/1.7.3/moyasar.css',
     });
 
-  const onRefChange = useCallback(
-    (node) => {
-      if (
-        node !== null &&
-        scriptStatus === availableExternalEntityStatuses.ready &&
-        styleStatus === availableExternalEntityStatuses.ready
-      ) {
-        window.Moyasar?.init({
-          element: '.mysr-form',
-          language: 'en',
-          amount: 123,
-          currency: 'SAR',
-          description: 'Testing moyasar',
-          publishable_api_key: 'pk_test_AQpxBV31a29qhkhUYFYUFjhwllaDVrxSq5ydVNui',
-          callback_url: 'https://localhost:3000/moyasar-form',
-          methods: ['creditcard'],
-        });
-      }
-    },
-    [scriptStatus, styleStatus]
-  );
+  const onRefChange = useCallback((node) => {
+    if (node !== null) {
+      window.Moyasar?.init({
+        element: '.mysr-form',
+        language: 'en',
+        amount: 123,
+        currency: 'SAR',
+        description: 'Testing moyasar',
+        publishable_api_key: 'pk_test_AQpxBV31a29qhkhUYFYUFjhwllaDVrxSq5ydVNui',
+        callback_url: 'https://localhost:3000/moyasar-form',
+        methods: ['creditcard'],
+      });
+    }
+  }, []);
 
   return (
     <div className="magnify-container">

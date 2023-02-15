@@ -21,7 +21,7 @@ function useExternalStyle({ src, immediate = true }) {
       let linkTag = document.querySelector(`link[href="${src}"]`);
       if (!linkTag) {
         // Create link
-        const linkTag = document.createElement('link');
+        linkTag = document.createElement('link');
         linkTag.rel = 'stylesheet';
         linkTag.type = 'text/css';
         linkTag.href = src;
