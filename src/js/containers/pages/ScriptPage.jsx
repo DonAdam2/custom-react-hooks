@@ -31,10 +31,10 @@ const ScriptPage = () => {
   return (
     <div className="magnify-container">
       <p>
-        This hook makes it super easy to dynamically load an external script and know when its
-        loaded. This is useful when you need to interact with a 3rd party library (Stripe, Google
-        Analytics, etc) and you'd prefer to load the script when needed rather then include it in
-        the document head for every page request.
+        This hooks makes it super easy to dynamically load an external script or style and know when
+        its loaded. This is useful when you need to interact with a 3rd party library (Stripe,
+        Google Analytics, etc) and you'd prefer to load the script or style when needed rather then
+        include it in the document (head or body) for every page request.
       </p>
       <h3>
         Script status: <b>{scriptStatus}</b>

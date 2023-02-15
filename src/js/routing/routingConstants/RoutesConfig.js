@@ -65,7 +65,7 @@ export const routes = [
   {
     path: getScriptPageUrl(),
     element: <ScriptPage />,
-    label: 'Script',
+    label: 'External script | style',
   },
   {
     path: getRouterPageUrl(),
