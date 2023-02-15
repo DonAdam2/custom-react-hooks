@@ -45,7 +45,11 @@ const PaginationHookPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="magnify-container">
+      <p>
+        This hook gives you the pagination functionality out of the box, which can be integrated
+        with any pagination component
+      </p>
       {isLoading ? (
         <div className="loader-wrapper">
           <LoadingIcon />
@@ -53,7 +57,7 @@ const PaginationHookPage = () => {
       ) : error ? (
         <h2>Error fetching data</h2>
       ) : (
-        <div className="container">
+        <>
           {people.slice(firstContentIndex, lastContentIndex).map((el, i) => (
             <Person
               key={i}
@@ -77,9 +81,9 @@ const PaginationHookPage = () => {
             navigateToPrevPaginationBlock={navigateToPrevPaginationBlock}
             isLoading={isLoading}
           />
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

@@ -14,7 +14,10 @@ const EnterEscEventsPage = () => {
 
   return (
     <div className="magnify-container">
-      Open the console and press enter or esc buttons on your keyboard to see events triggered
+      <p>
+        Open the console and press <strong>enter</strong> or <strong>esc</strong> buttons on your
+        keyboard to see events triggered
+      </p>
     </div>
   );
 };

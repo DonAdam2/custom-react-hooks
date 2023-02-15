@@ -33,6 +33,7 @@ const CountDownPage = () => {
 
   return (
     <div className="magnify-container">
+      <p>This hook allows you to have a controlled count down.</p>
       <div className="buttons-wrapper">
         <Button onClick={stop} disabled={isStopBtnDisabled} label="Stop" variant="danger" />
         <Button onClick={reset} label="Reset" variant="white" />

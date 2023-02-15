@@ -48,7 +48,11 @@ const DeepLinkingPaginationHookPage = () => {
   }, []);
 
   return (
-    <>
+    <div className="magnify-container">
+      <p>
+        This hook allows you to have deep linking pagination functionality. In other words current
+        pagination page is tied with the URL.
+      </p>
       {isLoading ? (
         <div className="loader-wrapper">
           <LoadingIcon />
@@ -56,7 +60,7 @@ const DeepLinkingPaginationHookPage = () => {
       ) : error ? (
         <h2>Error fetching data</h2>
       ) : (
-        <div className="container">
+        <>
           {people.slice(firstContentIndex, lastContentIndex).map((el, i) => (
             <Person
               key={i}
@@ -80,9 +84,9 @@ const DeepLinkingPaginationHookPage = () => {
             navigateToPrevPaginationBlock={navigateToPrevPaginationBlock}
             isLoading={isLoading}
           />
-        </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
 

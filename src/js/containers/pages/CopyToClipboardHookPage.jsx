@@ -7,6 +7,9 @@ const CopyToClipboardHookPage = () => {
   return (
     <div className="magnify-container">
       <p>
+        This hook allows you to copy text to the clipboard and shows a confirmation toast on success
+      </p>
+      <p>
         {text} <CopyButton text={text} />
       </p>
     </div>

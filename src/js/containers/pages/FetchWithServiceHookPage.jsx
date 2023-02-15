@@ -25,6 +25,11 @@ const FetchWithServiceHookPage = () => {
 
   return (
     <div className="fetch-page-wrapper">
+      <p>
+        This hook allows you to fetch data easily using a service. It returns data on success, error
+        on failure and a flag to indicate if the API is loading. It also gives you the control when
+        to fetch data using a flag called <strong>immediate</strong>
+      </p>
       {/*<button onClick={() => setFetchData(true)}>fetch data</button>*/}
       {data?.movies?.map((el, i) => (
         <div className="movie" key={i}>

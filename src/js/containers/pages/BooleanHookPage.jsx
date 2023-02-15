@@ -6,6 +6,10 @@ const BooleanHookPage = () => {
 
   return (
     <div className="magnify-container">
+      <p>
+        This hook takes a parameter with value true or false and gives you 3 functionalities
+        (toggle, on and off) also returns the current boolean value.
+      </p>
       <button className="button" onClick={setShow.toggle}>
         Toggle
       </button>

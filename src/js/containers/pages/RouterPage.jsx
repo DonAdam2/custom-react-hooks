@@ -14,6 +14,7 @@ const RouterPage = () => {
 
   return (
     <div>
+      <p>This hook wraps all react router hooks and exposes just the data and methods we need.</p>
       <div>
         <button onClick={navigateToCurrentPageWithArgs}>Navigate to testId</button>
       </div>

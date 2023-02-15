@@ -6,6 +6,7 @@ const ArrayHookPage = () => {
 
   return (
     <div className="magnify-container">
+      <p>This hook wraps some array functionalities which can be extended to your needs</p>
       <h3>ToDos</h3>
       <button onClick={() => toDos.add(Math.random())}>Add</button>
       <ul>
