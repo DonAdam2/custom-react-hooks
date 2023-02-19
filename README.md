@@ -30,7 +30,7 @@
   -  [Use fetch with service](#use-fetch-with-service)
   -  [Use magnify](#use-magnify)
   -  [Use tilt](#use-tilt)
-  -  [Use previous value](#use-prvious-value)
+  -  [Use previous value](#use-previous-value)
   -  [Use router](#use-router)
 - [Available scripts](#available-scripts)
 
