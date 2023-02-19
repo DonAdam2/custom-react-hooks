@@ -24,7 +24,7 @@
   -  [Use external style](#use-external-style)
   -  [Use countdown](#use-countdown)
   -  [Use interval](#use-interval)
-  -  [Use timer](#usae-timer)
+  -  [Use timer](#use-timer)
   -  [Use debounce](#use-debounce)
   -  [Use fetch](#use-fetch)
   -  [Use fetch with service](#use-fetch-with-service)
