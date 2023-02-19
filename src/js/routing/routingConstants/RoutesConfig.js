@@ -59,24 +59,9 @@ import PreviousValuePage from '@/js/containers/pages/PreviousValuePage';
 
 export const routes = [
   {
-    path: getHomePageUrl(),
-    element: <MagnifyHookPage />,
-    label: 'Magnify',
-  },
-  {
-    path: getTiltPageUrl(),
-    element: <TiltHookPage />,
-    label: 'Tilt',
-  },
-  {
-    path: getScriptPageUrl(),
-    element: <ScriptPage />,
-    label: 'External script | style',
-  },
-  {
-    path: getLockScrollPageUrl(),
-    element: <LockScrollPage />,
-    label: 'Lock scroll',
+    path: getEventListenerPageUrl(),
+    element: <EventListenerHookPage />,
+    label: 'Event listener',
   },
   {
     path: getKeyPressPageUrl(),
@@ -84,34 +69,9 @@ export const routes = [
     label: 'Key press',
   },
   {
-    path: getPreviousStatePageUrl(),
-    element: <PreviousValuePage />,
-    label: 'Previous value',
-  },
-  {
-    path: getRouterPageUrl(),
-    element: <RouterPage />,
-    label: 'Router',
-  },
-  {
-    path: getTimerPageUrl(),
-    element: <TimerPage />,
-    label: 'Timer',
-  },
-  {
-    path: getCountDownPageUrl(),
-    element: <CountDownPage />,
-    label: 'Count down',
-  },
-  {
-    path: getIntervalPageUrl(),
-    element: <IntervalHookPage />,
-    label: 'Interval',
-  },
-  {
-    path: getCopyToClipboardPageUrl(),
-    element: <CopyToClipboardHookPage />,
-    label: 'Copy to clipboard',
+    path: getEnterEscEventsPageUrl(),
+    element: <EnterEscEventsPage />,
+    label: 'Enter & ESC events',
   },
   {
     path: getPageBottomPageUrl(),
@@ -124,49 +84,24 @@ export const routes = [
     label: 'Window size',
   },
   {
+    path: getLockScrollPageUrl(),
+    element: <LockScrollPage />,
+    label: 'Lock scroll',
+  },
+  {
+    path: getOutsideClickHookPageUrl(),
+    element: <OutsideClickHookPage />,
+    label: 'Outside click',
+  },
+  {
     path: getMobileDetectPageUrl(),
     element: <MobileDetectHookPage />,
     label: 'Mobile detect',
   },
   {
-    path: getDocumentTitlePageUrl(),
-    element: <DocumentTitleHookPage />,
-    label: 'Document title',
-  },
-  {
-    path: getArrayPageUrl(),
-    element: <ArrayHookPage />,
-    label: 'Array',
-  },
-  {
-    path: getFetchPageUrl(),
-    element: <FetchHookPage />,
-    label: 'Fetch',
-  },
-  {
-    path: getFetchWithServicePageUrl(),
-    element: <FetchWithServiceHookPage />,
-    label: 'Fetch with service',
-  },
-  {
-    path: getEventListenerPageUrl(),
-    element: <EventListenerHookPage />,
-    label: 'Event listener',
-  },
-  {
-    path: getEnterEscEventsPageUrl(),
-    element: <EnterEscEventsPage />,
-    label: 'Enter & ESC events',
-  },
-  {
-    path: getDebouncePageUrl(),
-    element: <DebouncePage />,
-    label: 'Debounce',
-  },
-  {
-    path: getBooleanPageUrl(),
-    element: <BooleanHookPage />,
-    label: 'Boolean',
+    path: getTouchScreenDetectHookPageUrl(),
+    element: <TouchScreenDetectHookPage />,
+    label: 'Touch screen',
   },
   {
     path: getPaginationHookPageUrl(),
@@ -184,13 +119,78 @@ export const routes = [
     label: 'Deep linking pagination',
   },
   {
-    path: getOutsideClickHookPageUrl(),
-    element: <OutsideClickHookPage />,
-    label: 'Outside click',
+    path: getArrayPageUrl(),
+    element: <ArrayHookPage />,
+    label: 'Array',
   },
   {
-    path: getTouchScreenDetectHookPageUrl(),
-    element: <TouchScreenDetectHookPage />,
-    label: 'Touch screen',
+    path: getBooleanPageUrl(),
+    element: <BooleanHookPage />,
+    label: 'Boolean',
+  },
+  {
+    path: getCopyToClipboardPageUrl(),
+    element: <CopyToClipboardHookPage />,
+    label: 'Copy to clipboard',
+  },
+  {
+    path: getDocumentTitlePageUrl(),
+    element: <DocumentTitleHookPage />,
+    label: 'Document title',
+  },
+  {
+    path: getScriptPageUrl(),
+    element: <ScriptPage />,
+    label: 'External script | style',
+  },
+  {
+    path: getCountDownPageUrl(),
+    element: <CountDownPage />,
+    label: 'Count down',
+  },
+  {
+    path: getIntervalPageUrl(),
+    element: <IntervalHookPage />,
+    label: 'Interval',
+  },
+  {
+    path: getTimerPageUrl(),
+    element: <TimerPage />,
+    label: 'Timer',
+  },
+  {
+    path: getDebouncePageUrl(),
+    element: <DebouncePage />,
+    label: 'Debounce',
+  },
+  {
+    path: getFetchPageUrl(),
+    element: <FetchHookPage />,
+    label: 'Fetch',
+  },
+  {
+    path: getFetchWithServicePageUrl(),
+    element: <FetchWithServiceHookPage />,
+    label: 'Fetch with service',
+  },
+  {
+    path: getHomePageUrl(),
+    element: <MagnifyHookPage />,
+    label: 'Magnify',
+  },
+  {
+    path: getTiltPageUrl(),
+    element: <TiltHookPage />,
+    label: 'Tilt',
+  },
+  {
+    path: getPreviousStatePageUrl(),
+    element: <PreviousValuePage />,
+    label: 'Previous value',
+  },
+  {
+    path: getRouterPageUrl(),
+    element: <RouterPage />,
+    label: 'Router',
   },
 ];

@@ -22,8 +22,8 @@ const EventListenerHookPage = () => {
   return (
     <div className="magnify-container">
       <p>
-        This hook allows you to attach the required event to the required target (window in this
-        example) and remove it on unmount
+        This hook allows you to attach the required event to the required target (default is window)
+        and remove it on unmount
       </p>
       <p>Open the dev tools to see the console output</p>
       <div ref={dialogRef} style={{ border: '1px solid black' }}>

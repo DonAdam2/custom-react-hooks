@@ -2,16 +2,36 @@
 - [Overview](#this-webpack-v5750-boilerplate-supports-the-following)
 - [Prerequisites](#prerequisites)
 - [Installing & getting started](#installing--getting-started)
-- [Windows subsystem for Linux (WSL2)](#windows-subsystem-for-linux-wsl2-for-docker)
-- [Available React configuration](#available-react-configurations)
-- [Available aliases](#available-aliases)
-- [Environments](#environments)
-- [Enable CSS modules](#enable-css-modules)
-- [Enable HTTPS in development](#enable-https-in-development-yarn-start)
-- [Enable PWA (production only)](#enable-pwa-yarn-generate-progressivewebapp)
 - [Configuring prettier](#configuring-prettier)
-- [Site meta tags](#site-meta-tags)
-- [Extras](#extras)
+- [Available hooks](#available-hooks)
+  -  [Use event listener](#use-event-listener)
+  -  [Use key press](#use-key-press)
+  -  [Use enter esc events](#use-enter-esc-events) 
+  -  [Use page bottom](#use-page-bottom)
+  -  [Use window size](#use-window-size)
+  -  [Use lock scroll](#use-lock-scroll)
+  -  [Use outside click](#use-outside-click)
+  -  [Use mobile detect](#use-mobile-detect)
+  -  [Use touch screen detect](#use-touch-screen-detect)
+  -  [Use pagination](#use-pagination)
+  -  [Use async pagination](#use-async-pagination)
+  -  [Use deep linking pagination](#use-deep-linking-pagination)
+  -  [Use array](#use-array)
+  -  [Use boolean](#use-boolean)
+  -  [Use copy to clipboard](#use-copy-to-clipboard)
+  -  [Use document title](#use-document-title)
+  -  [Use external script](#use-external-script)
+  -  [Use external style](#use-external-style)
+  -  [Use countdown](#use-countdown)
+  -  [Use interval](#use-interval)
+  -  [Use timer](#usae-timer)
+  -  [Use debounce](#use-debounce)
+  -  [Use fetch](#use-fetch)
+  -  [Use fetch with service](#use-fetch-with-service)
+  -  [Use magnify](#use-magnify)
+  -  [Use tilt](#use-tilt)
+  -  [Use previous value](#use-prvious-value)
+  -  [Use router](#use-router)
 - [Available scripts](#available-scripts)
 
 ## This webpack (V5.75.0) boilerplate supports the following:
@@ -92,113 +112,6 @@
 - Update the **_production_** section of the **_Dockerfile_** to meet your needs
 - Run the following command to build your image => `docker-compose up web-prod`
 
-## Available React configurations:
-
-- React router dom v6
-- 2 environments {production: .env, development: .env.development}
-
-## Available aliases:
-- @/js => for the JS directory
-- @/scss => for the SCSS directory
-- @/public => for the public directory, (don't forget to prepend the **tilde** symbol in scss files):
-  ```
-  background-image: url('~@/public/asstes/images/favicon.png');
-  ```
-  ```
-  @font-face {
-    font-family: 'Roboto';
-    src: url('~@/public/asstes/fonts/Roboto-Regular.ttf');
-  }
-  ```
-
-## Environments:
-
-### Available environments:
-- Development => _.env.development_
-- Production => _.env_
-
-### Override environment files:
-
-#### Development:
-- Create a file with the chosen env extension in **/environments** directory, .e.g `.env.local`
-- Install **env-cmd** package
-- Update your start script `"start": "env-cmd -f environments/.env.local node scripts/start.js",`
-
-#### Production:
-- Create a file with the chosen env extension in **/environments** directory, .e.g `.env.prod`
-- Install **env-cmd** package
-- Update your build script `"build": "env-cmd -f environments/.env.prod webpack --config buildTools/webpack.prod.js --progress --color"`
-
-#### Staging (new production environment):
-- Create a file with the chosen env extension in **/environments** directory, .e.g `.env.staging`
-- Install **env-cmd** package
-- Add a new build script `"build:staging": "env-cmd -f environments/.env.staging webpack --config buildTools/webpack.prod.js --progress --color"`
-
-### Update environment variables:
-
-Please keep in mind that environment variables configured using webpack which means that you need to re-run the corresponding environment script (yarn start, yarn build) if you update the environment file.
-
-## Enable CSS modules:
-### Each component has its own styles "no conflict between different components styles"
-
-- Open **/buildTools/constants.js** and set **isCssModules** to true
-- Then in every component add the required import as follows:
-  ```
-  import classes from './scss/requiredStyles'
-  ```
-
-## Enable HTTPS in development `yarn start`
-
-Add `set HTTPS=true` to `yarn start` script => `"start": "set HTTPS=true && node scripts/start.js"`
-
-## Enable PWA `yarn generate progressiveWebApp`
-
-- Run the given script to add the required files for progressive web app
-- Install the following packages:
-
-  ```
-  yarn add -D workbox-webpack-plugin workbox-cacheable-response workbox-core workbox-expiration workbox-precaching workbox-routing workbox-strategies workbox-window copy-webpack-plugin
-  ```
-- Add **pwa** directory `/public/assets/images/pwa`, then add your PWA images using the following names:
-  - icon-192x192.png
-  - icon-256x256.png
-  - icon-384x384.png
-  - icon-512x512.png
-- Open `/public/manifest.json` and update the following:
-  - start_url (indicates what page should launch when someone opens your progressive web app.)
-  - theme_color (This sometimes affects how the OS displays the site (e.g., on Android's task switcher, the theme color surrounds the site).)
-  - background_color (tells the browser what color to use on the startup splash screen that users will see when they launch your app.)
-  - name
-  - short_name
-  - description
-  - orientation (you can enforce the orientation of your app, it can be ommited.)
-  - categories (This is intended to be used by app stores to categorize your app.)
-- Open `/public/index.html` and update **theme-color** meta tag if you updated **theme_color** in **manifest.json** file
-- Update **cache APIs** section as needed in `/src/serviceWorker/swSource` file
-- You are good to go.
-
-**Notes**:
-
-- If you get the following error in production:
-  ```
-  Uncaught (in promise) bad-precaching-response: 
-  bad-precaching-response :: [{"url":"https:
-  ```
-  - Add the given package or file in exclude array of [InjectManifest](https://developer.chrome.com/docs/workbox/reference/workbox-webpack-plugin/#type-InjectManifest) plugin in `/buildTools/webpack.prod.js` as follows:
-  ```
-  new InjectManifest({
-    //this is the source of your service worker setup
-    swSrc: \`\${PATHS.src}/serviceWorker/swSource\`,
-    dontCacheBustURLsMatching: ${dontCacheBustURLsMatching},         
-    // Bump up the default maximum size (2mb) to (5mb) that's precached,
-    // to make lazy-loading failure scenarios less likely.
-    maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
-    //this is the output name of your service worker file
-    swDest: 'serviceWorker.js',
-    exclude: ['fileName'],
-  }),`,
-  ```
-
 ## Configuring Prettier
 
 This build relies on [Prettier formatter](https://prettier.io/) to enforce code style. And [ESLint](https://eslint.org/) for identifying problematic patterns found in the code.
@@ -225,32 +138,224 @@ This build relies on [Prettier formatter](https://prettier.io/) to enforce code 
 
   3- Please refer to other tutorials if you are using a different IDE.
 
-## Site meta tags:
+## Available hooks
 
-- This app includes search engines, Facebook, Twitter and regular meta tags
+  ### Use event listener:
 
-#### To update them:
+  - This hook allows you to attach the required event to the required target (default is _window_) and remove it on unmount
+  - It takes the following arguments:
+    - **eventName**: required event name to trigger
+    - **handler**: handler to attach to the given event
+    - **element**: target element (default is _window_)
 
-- Open **_/buildTools/constants.js_** file and update metaInfo object
-- Open **_public/assets/images_** and replace (favicon.png, metaImage.jpg) with your images but using the same name
+  ### Use key press:
 
-  **Notes**:
+  - This hook makes it easy to detect when the user is pressing a specific key on their keyboard.
+  - It takes target key as an argument
+  - It returns a boolean which detects if the target key is being pressed or not
 
-  - It's very important to set `PRODUCTION_DOMAIN` in any production environment file, to generate site meta tags correctly
-  - `PRODUCTION_DOMAIN` is the domain of your deployed app
+  ### Use enter esc events:
 
-## Extras:
+  - This hook allows you to fire events on enter or ESC buttons
+  - It takes the following arguments:
+    - **cancelHandler**: a function to trigger on ESC button press
+    - **confirmHandler**: a function to trigger on enter button press
 
-- Private route guard => protect the given route based on a token.
-- Public route guard => used for public routes and authentication routes (ex: login, signup, ...etc) {if authenticated it will redirect the user to the home page}
-- Restricted route guard => protect the given route based on a token, and a list of permissions (can be an array or a string).
-- Restricted section => protect the given section based on a list of permissions (can be an array or a string).
-- Generic error boundary fallback component (you can customize it)
-- Cookies, local storage and sessions storage mangers to store data in the browser. (**Note:** the data is encrypted using crypto-js package before storing it.)
-- Basic mixins `(scss/generic/_mixins.scss)`
-- Normalize styles `(scss/generic/_normalize.scss)`
-- App typography styles `(scss/generic/_typography.scss)`
-- 4 break points `(scss/generic/_variables.scss)`
+  ### Use page bottom:
+
+  - This hook allows you to detect if  you are at the bottom of the page.
+  - Can be used to implement infinite scroll functionality.
+
+  ### Use window size:
+
+  - This hook return the width and the height of the window
+
+  ### Use lock scroll:
+
+  - Sometimes you want to prevent your users from mbeing able to scroll the body of your page while a particular component is absolutely positioned over your page (think of a modal)
+  - It takes the following arguments:
+    - **targetElement**: target element to lock scroll (default => document.body)
+    - **immediate**: a boolean to detect when to lock scroll (default => true)
+
+  ### Use outside click:
+
+  - This hook allows you to trigger an event on the required element if clicked outside
+  - It takes the following arguments:
+    - **ref**: required element ref
+    - **callback**: a function to trigger if clicked outside the required element
+
+  ### Use mobile detect:
+
+  - This hook allows you to detect if your user is using your app from a mobile or not
+
+  ### Use touch screen detect:
+
+  - This hook allows you to detect if your user is using a touch screen device to access your app or not
+
+  ### Use pagination:
+
+  - This hook gives you pagination functionality out of the box, which can be integrated with any pagination component.
+  - It takes the following arguments:
+    - **contentPerPage**: how many elements to display per page?
+    - **count**: total length of elements
+  - It returns the following:
+    - **currentPageNum**: active page number
+    - **totalPages**: total number of pages
+    - **paginationBlocks**: pagination blocks (numbers and right, left "can be used to add icons in the correct place") 
+    - **navigateToNextPage**: function to navigate to the next page
+    - **navigateToPrevPage**: function to navigate to the previous page
+    - **navigateToPage**: function to navigate to the required page
+    - **navigateToFirstPage**: function to navigate to the first page
+    - **navigateToLastPage**: function to navigate to the last page
+    - **navigateToNextPaginationBlock**: function to navigate to the next pagination block
+    - **navigateToPrevPaginationBlock**: function to navigate to the previous pagination block
+    - **firstContentIndex**: first element index of the current page (can be used in slice function to display the content of the current page)
+    - **lastContentIndex**: last element index of the current page (can be used in slice function to display the content of the current page)
+
+  ### Use async pagination:
+
+  - This hook gives you asynchronous pagination functionality (tied with an API call) out of the box, which can be integrated with any pagination component.
+  - It takes the following arguments (same as [Use pagination](#use-pagination) hook), plus the following:
+    - **fetchData**: function to fetch data using an API (it takes the current page as an argument)
+  - It returns the following (same as [Use pagination](#use-pagination) hook), plus the following:
+    - **resetCurrentPageNum**: function to reset current page number (usefull if you want to reset the current page number after making an API call in another part of your app "e.g. search API")
+  - And without the following (because we are getting data from an API):
+    - **firstContentIndex**
+    - **lastContentIndex**
+
+  ### Use deep linking pagination:
+  
+  - This hook gives you pagination functionality with deep linking (current page as search params in the URL) out of the box, which can be integrated with any pagination component.
+  - If you refresh the page you will be landed on the correct page number specified in the URL.
+  - It takes the following arguments (same as [Use pagination](#use-pagination) hook), plus the following:
+    - **deepLinkingData**: it has **pageNumKey** which gives you the ability to set search params key in the URL
+  - It returns the same as props as [Use pagination](#use-pagination) hook.
+
+  ### Use array:
+
+  - This hook makes it easier to manage an array by wrapping some functionalities of it (which can be extended to your needs).
+  - It takes an array as an argument, and it returns the new array and a list of functions to apply on it
+
+  ### Use boolean:
+  
+  - This hook gives you the ability to control boolean state
+  - It takes true or false as an argument
+  - It returns current boolean value and (toggle, on and off) functions
+
+  ### Use copy to clipboard:
+
+  -  This hook allows you to copy text to the clipboard and displays a confirmation toast (using react-toastify) on success.
+  - It returns the following:
+    - Boolean to detect if text is copied or not
+    - Function (takes the required text to copy as an argument) to copy text
+
+  ### Use document title:
+
+  - This hook allows you to change document title
+  - It takes **title** as an argument
+
+  ### Use external script:
+
+  - This hook makes it super easy to dynamically load external script and know when it's loaded. This is useful when you need to interact with a 3rd party library (Moyasar, stripe, etc) and you'd prefer to load the script when needed rather than include it in the document body.
+  - It takes the following arguments:
+    - **src**: 3rd party script URL
+    - **immediate**: a boolean to detect when to inject it in the DOM
+  - It returns a string status (idle, loading, ready, error)
+
+  ### Use external style:
+
+  - Similar to [Use external script](#use-external-script) hook but for external styles
+
+  ### Use countdown:
+
+  - This hook allows you to have a controlled count down.
+  - It takes the following arguments:
+    -  **initialCounter**: required time in seconds
+    - **callback**: a function which gets the current counter value as an argument
+  - It returns the following:
+    - **counter**: current counter value
+    - **resetCounter**: a function to reset the counter
+    - **stopCounter**: a function to stop the counter
+    - **pauseCounter**: a function to pause the counter
+    - **resumeCounter**: a function to resume the counter
+    - **isStopBtnDisabled**: a boolean to detect if the stop counter button is disabled
+    - **isPauseBtnDisabled**: a boolean to detect if the pause counter button is disabled
+    - **isResumeBtnDisabled**: a boolean to detect if the resume counter button is disabled
+
+  ### Use interval:
+  
+  - This hook allows you to have interval functionality
+
+  ### Use timer:
+
+  - This hook gives you timer functionality
+  - It returns the following:
+    - **renderedStreamDuration**: current duration to display
+    - **isStartBtnDisabled**: boolean to detect if the start button is disabled
+    - **isStopBtnDisabled**: boolean to detect if the stop button is disabled
+    - **isPauseBtnDisabled**: boolean to detect if the pause button is disabled
+    - **isResumeBtnDisabled**: boolean to detect if the resume button is disabled
+    - **startHandler**: function to start the timer
+    - **stopHandler**: function to stop the timer
+    - **pauseHandler**: function to pause the timer
+    - **resumeHandler**: function to resume the timer
+
+  ### Use debounce:
+
+  - This hook allows you to have a debounced input. For example if you want to make an API call on key press
+  - It takes the following arguments:
+    - **searchTerm**: target input value
+    - **delay**: required delay in milliseconds
+  - It returns the debounced search term which can be used to make an API
+
+  ### Use fetch:
+
+  - This hook allows you to fetch data easily on demand (using axios).
+  - It takes the following arguments:
+    - **url**: API url
+    - **options**: API options (default => null)
+    - **initialDataType**: expected data type of the response
+    - **immediate**: a boolean to detect when to make an API (default => true) (can be used to make an API on button click)
+  - It returns the following:
+    - **data**: API response on success
+    - **error**: API error on error
+    - **isLoading**: a boolean to detect API progress
+
+  ### Use fetch with service:
+
+  - This hook allows you to fetch data easily using a service (using axios with interceptors).
+  - It takes the following arguments:
+    - **api**: required service API
+    - **initialDataType**: expected data type of the response
+    - **immediate**: a boolean to detect when to make an API (default => true) (can be used to make an API on button click)
+  - It returns the same data as [Use fetch](#use-fetch) hook
+
+  ### Use magnify:
+
+  - This hook allows you to magnify the given image
+  - It takes **magnifyTimes** as an argument (decimal) which specifies how much you want to magnify your image
+  - It returns the modified image ref
+
+  ### Use tilt:
+
+  - This hook allows you to tilt the given HTML element
+  - It returns the modified HTML element ref
+
+  ### Use previous value:
+
+  - This hook returns the previous value of props or state.
+  - It takes required value of props or state as an argument
+
+  ### Use router:
+
+  - This hook wraps all react router v6 hooks and exposes just the data and methods we need
+  - It returns the following:
+    - **navigate**: navigate function from **useNavigate** hook
+    - **location**: location object from **useLocation** hook
+    - **pathname**: current pathname from **useLocation** hook
+    - **params**: an object of current params from **useParams** hook
+    - **searchParams**: an object of all search params from **useSearchParams** hook 
+    - **setSearchParams**: a function to set search params from **useSearchParams** hook
 
 ## Available Scripts
 

@@ -14,8 +14,8 @@ const PageBottomHookPage = () => {
   return (
     <div className="magnify-container">
       <p>
-        This hook allows you to detect if you are at the bottom of the page. Can be used for
-        infinite scroll functionality.
+        This hook allows you to detect if you are at the bottom of the page. Can be used to
+        implement infinite scroll functionality.
       </p>
       <h1 className="text-center">Scroll to the bottom of the page</h1>
       <br />

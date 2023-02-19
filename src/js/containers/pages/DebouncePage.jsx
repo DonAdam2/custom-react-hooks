@@ -41,7 +41,7 @@ const DebouncePage = () => {
     <div className="magnify-container">
       <p>
         This hook allows you to have a debounced input. For example if you want to make an API call
-        on every input change
+        on key press
       </p>
       <input placeholder="Search products" onChange={(e) => setSearchTerm(e.target.value)} />
       {isSearching && <div>Searching ...</div>}
