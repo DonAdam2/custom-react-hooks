@@ -1,5 +1,5 @@
 # Table of Contents:
-- [Overview](#this-webpack-v5750-boilerplate-supports-the-following)
+- [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Installing & getting started](#installing--getting-started)
 - [Configuring prettier](#configuring-prettier)
@@ -34,13 +34,9 @@
   -  [Use router](#use-router)
 - [Available scripts](#available-scripts)
 
-## This webpack (V5.75.0) boilerplate supports the following:
+## Overview:
 
-- **SCSS** preprocessor
-- Autoprefixer for CSS (it supports IE >= 11)
-- Prettier (for code format)
-- Docker setup for development
-- Docker setup for production (basic setup **using nginx**)
+This project groups a very useful list of custom react hooks and shows you how to use them as well.
 
 ## Prerequisites:
 
