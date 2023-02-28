@@ -1,5 +1,16 @@
 import { useCallback, useState } from 'react';
 
+/*type useBooleanOutput = [
+  boolean,
+  {
+    toggle: () => void,
+    on: () => void,
+    off: () => void,
+    setValue: Dispatch<SetStateAction<boolean>>,
+  }
+];*/
+
+// function useBoolean(initialValue: boolean): useBooleanOutput {
 function useBoolean(initialValue) {
   const [value, setValue] = useState(initialValue);
 
@@ -13,6 +24,7 @@ function useBoolean(initialValue) {
     off: useCallback(() => {
       setValue(false);
     }, []),
+    setValue,
   };
 
   return [value, updateValue];
