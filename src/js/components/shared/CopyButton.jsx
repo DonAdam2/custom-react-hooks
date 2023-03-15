@@ -2,7 +2,7 @@
 import useCopyToClipboard from '../../customHooks/UseCopyToClipboard';
 
 const CopyButton = ({ text }) => {
-  const [isCopied, handleCopy] = useCopyToClipboard();
+  const { isCopied, handleCopy } = useCopyToClipboard();
 
   return (
     <button

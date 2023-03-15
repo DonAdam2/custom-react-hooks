@@ -3,30 +3,25 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { toast } from 'react-toastify';
 //copy to clipboard
 import copy from 'copy-to-clipboard';
-//constants
-import { setTimeoutRAF } from '../constants/Helpers';
 
 function useCopyToClipboard() {
-  const [isCopied, setIsCopied] = useState(false),
-    cancelCopyTimer = useRef(() => {}),
-    registerCancelCopyTimer = (fn) => (cancelCopyTimer.current = fn);
+  const timeoutRef = useRef(null),
+    [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
     if (isCopied) {
       toast.success('Copied successfully');
-      setTimeoutRAF(
-        () => {
-          setIsCopied(false);
-        },
-        3000,
-        registerCancelCopyTimer
-      );
+      timeoutRef.current = setTimeout(() => {
+        setIsCopied(false);
+      }, 3000);
     }
-
-    return () => {
-      cancelCopyTimer.current();
-    };
   }, [isCopied]);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const handleCopy = useCallback((text) => {
     if (typeof text === 'string' || typeof text == 'number') {
@@ -38,7 +33,35 @@ function useCopyToClipboard() {
     }
   }, []);
 
-  return [isCopied, handleCopy];
+  return { isCopied, handleCopy };
 }
 
 export default useCopyToClipboard;
+
+//typescript
+/*function useCopyToClipboard() {
+  const timeoutRef = useRef<any>(null),
+    [isCopied, setIsCopied] = useState(false);
+
+  useEffect(() => {
+    if (isCopied) {
+      toast.success('Copied successfully');
+      timeoutRef.current = setTimeout(() => {
+        setIsCopied(false);
+      }, 3000);
+    }
+  }, [isCopied, t]);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  const handleCopy = useCallback((text: number | string) => {
+    copy(text.toString());
+    setIsCopied(true);
+  }, []);
+
+  return { isCopied, handleCopy };
+}*/
