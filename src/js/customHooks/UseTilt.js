@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-function useTilt() {
+function useTilt(animationDuration = '0.2s') {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function useTilt() {
     let el = ref.current;
 
     const handleEnterEvent = () => {
-      el.style.transition = 'transform 0.2s ease-out';
+      el.style.transition = `transform ${animationDuration} ease-out`;
     };
 
     const handleMoveEvent = (e) => {
@@ -45,6 +45,7 @@ function useTilt() {
     const handleEndEvent = () => {
       el.style.setProperty('--px', 0.5);
       el.style.setProperty('--py', 0.5);
+      el.style.transition = `transform ${animationDuration} ease-in`;
     };
 
     el.addEventListener('mouseenter', handleEnterEvent);
@@ -62,7 +63,7 @@ function useTilt() {
       el.removeEventListener('touchmove', handleMoveEvent);
       el.removeEventListener('touchend', handleEndEvent);
     };
-  }, []);
+  }, [animationDuration]);
 
   return ref;
 }
