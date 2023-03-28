@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 
 function useMagnify(magnifyTimes) {
-  const ref = useRef(null);
+  const ref = useRef(null),
+    animationDuration = '0.2s';
 
   useEffect(() => {
     if (!ref.current) {
@@ -23,7 +24,7 @@ function useMagnify(magnifyTimes) {
       backgroundPosition: 'center',
       backgroundSize: '100%',
       backgroundRepeat: 'no-repeat',
-      transition: 'background-size 90ms ease-in',
+      transition: `background-size ${animationDuration} ease-in, background-position ${animationDuration} ease-in`,
     });
 
     const handleMouseLeave = () => {
@@ -45,6 +46,7 @@ function useMagnify(magnifyTimes) {
 
       Object.assign(el.style, {
         backgroundPosition: `${xPercent} ${yPercent}`,
+        transition: `background-size ${animationDuration} ease-out, background-position ${animationDuration} ease-out`,
         backgroundSize: `${state.imgWidth * magnifyTimes}px`,
       });
     };
