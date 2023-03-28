@@ -19,7 +19,11 @@ function useTilt() {
 
     let el = ref.current;
 
-    const handleMouseMove = (e) => {
+    const handleEnterEvent = () => {
+      el.style.transition = 'transform 0.2s ease-out';
+    };
+
+    const handleMoveEvent = (e) => {
       e.preventDefault();
 
       if (!el) {
@@ -34,25 +38,29 @@ function useTilt() {
       const px = (state.mouseX - state.rect.left) / state.rect.width;
       const py = (state.mouseY - state.rect.top) / state.rect.height;
 
-      el.style.setProperty('--px', px);
-      el.style.setProperty('--py', py);
+      el.style.setProperty('--px', px.toFixed(2));
+      el.style.setProperty('--py', py.toFixed(2));
     };
 
-    const handleMouseLeave = () => {
+    const handleEndEvent = () => {
       el.style.setProperty('--px', 0.5);
       el.style.setProperty('--py', 0.5);
     };
 
-    el.addEventListener('mousemove', handleMouseMove);
-    el.addEventListener('mouseleave', handleMouseLeave);
-    el.addEventListener('touchmove', handleMouseMove);
-    el.addEventListener('touchend', handleMouseLeave);
+    el.addEventListener('mouseenter', handleEnterEvent);
+    el.addEventListener('mousemove', handleMoveEvent);
+    el.addEventListener('mouseleave', handleEndEvent);
+    el.addEventListener('touchstart', handleEnterEvent);
+    el.addEventListener('touchmove', handleMoveEvent);
+    el.addEventListener('touchend', handleEndEvent);
 
     return () => {
-      el.removeEventListener('mousemove', handleMouseMove);
-      el.removeEventListener('mouseleave', handleMouseLeave);
-      el.removeEventListener('touchmove', handleMouseMove);
-      el.removeEventListener('touchend', handleMouseLeave);
+      el.removeEventListener('mouseenter', handleEnterEvent);
+      el.removeEventListener('mousemove', handleMoveEvent);
+      el.removeEventListener('mouseleave', handleEndEvent);
+      el.removeEventListener('touchstart', handleEnterEvent);
+      el.removeEventListener('touchmove', handleMoveEvent);
+      el.removeEventListener('touchend', handleEndEvent);
     };
   }, []);
 
