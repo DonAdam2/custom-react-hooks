@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 
-function useTilt(animationDuration = '0.2s') {
+function useTilt(animationDuration = '150ms') {
   const ref = useRef(null);
 
   useEffect(() => {
