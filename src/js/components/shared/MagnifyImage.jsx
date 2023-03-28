@@ -1,7 +1,13 @@
 import useMagnify from '@/js/customHooks/UseMagnify';
 
-const MagnifyImage = ({ imageUrl, imageWrapperWidth, imageWrapperHeight, magnifyTimes = 1.1 }) => {
-  const ref = useMagnify(magnifyTimes);
+const MagnifyImage = ({
+  imageUrl,
+  imageWrapperWidth,
+  imageWrapperHeight,
+  magnifyTimes = 1.1,
+  animationDuration = '0.2s',
+}) => {
+  const ref = useMagnify({ magnifyTimes, animationDuration });
 
   return (
     <div

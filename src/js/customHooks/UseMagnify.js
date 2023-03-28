@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
 
-function useMagnify(magnifyTimes) {
-  const ref = useRef(null),
-    animationDuration = '0.2s';
+function useMagnify({ magnifyTimes = 1.1, animationDuration = '0.2s' }) {
+  const ref = useRef(null);
 
   useEffect(() => {
     if (!ref.current) {
@@ -24,17 +23,17 @@ function useMagnify(magnifyTimes) {
       backgroundPosition: 'center',
       backgroundSize: '100%',
       backgroundRepeat: 'no-repeat',
-      transition: `background-size ${animationDuration} ease-in, background-position ${animationDuration} ease-in`,
     });
 
-    const handleMouseLeave = () => {
+    const handleEndEvent = () => {
       Object.assign(el.style, {
         backgroundPosition: 'center',
         backgroundSize: '100%',
+        transition: `background-size ${animationDuration} ease-out, background-position ${animationDuration} ease-out`,
       });
     };
 
-    const handleMouseMove = (e) => {
+    const handleMoveEvent = (e) => {
       e.preventDefault();
 
       const boxWidth = el.clientWidth,
@@ -46,7 +45,7 @@ function useMagnify(magnifyTimes) {
 
       Object.assign(el.style, {
         backgroundPosition: `${xPercent} ${yPercent}`,
-        transition: `background-size ${animationDuration} ease-out, background-position ${animationDuration} ease-out`,
+        transition: `background-size ${animationDuration} ease-out`,
         backgroundSize: `${state.imgWidth * magnifyTimes}px`,
       });
     };
@@ -68,22 +67,22 @@ function useMagnify(magnifyTimes) {
         state.ratio = imgHeight / imgWidth;
         state.imgWidth = imgWidth;
 
-        el.addEventListener('mousemove', handleMouseMove);
-        el.addEventListener('mouseleave', handleMouseLeave);
-        el.addEventListener('touchmove', handleMouseMove);
-        el.addEventListener('touchend', handleMouseLeave);
+        el.addEventListener('mousemove', handleMoveEvent);
+        el.addEventListener('mouseleave', handleEndEvent);
+        el.addEventListener('touchmove', handleMoveEvent);
+        el.addEventListener('touchend', handleEndEvent);
       };
     };
 
     getImageRatio();
 
     return () => {
-      el.removeEventListener('mousemove', handleMouseMove);
-      el.removeEventListener('mouseleave', handleMouseLeave);
-      el.removeEventListener('touchmove', handleMouseMove);
-      el.removeEventListener('touchend', handleMouseLeave);
+      el.removeEventListener('mousemove', handleMoveEvent);
+      el.removeEventListener('mouseleave', handleEndEvent);
+      el.removeEventListener('touchmove', handleMoveEvent);
+      el.removeEventListener('touchend', handleEndEvent);
     };
-  }, [magnifyTimes]);
+  }, [magnifyTimes, animationDuration]);
 
   return ref;
 }
