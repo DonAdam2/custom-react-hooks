@@ -8,6 +8,9 @@ function useTilt() {
       return;
     }
 
+    // used to unify the touch and click cases
+    const unify = (e) => (e.changedTouches ? e.changedTouches[0] : e);
+
     const state = {
       rect: undefined,
       mouseX: undefined,
@@ -25,13 +28,8 @@ function useTilt() {
       if (!state.rect) {
         state.rect = el.getBoundingClientRect();
       }
-      if (e.touches) {
-        state.mouseX = e.touches[0].clientX;
-        state.mouseY = e.touches[0].clientY;
-      } else {
-        state.mouseX = e.clientX;
-        state.mouseY = e.clientY;
-      }
+      state.mouseX = unify(e).clientX;
+      state.mouseY = unify(e).clientY;
 
       const px = (state.mouseX - state.rect.left) / state.rect.width;
       const py = (state.mouseY - state.rect.top) / state.rect.height;

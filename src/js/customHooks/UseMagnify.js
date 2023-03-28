@@ -8,6 +8,9 @@ function useMagnify(magnifyTimes) {
       return;
     }
 
+    // used to unify the touch and click cases
+    const unify = (e) => (e.changedTouches ? e.changedTouches[0] : e);
+
     const state = {
       src: undefined,
       ratio: undefined,
@@ -33,17 +36,10 @@ function useMagnify(magnifyTimes) {
     const handleMouseMove = (e) => {
       e.preventDefault();
 
-      let boxWidth = el.clientWidth,
-        xPos,
-        yPos;
+      const boxWidth = el.clientWidth,
+        xPos = unify(e).pageX - el.offsetLeft,
+        yPos = unify(e).pageY - el.offsetTop;
 
-      if (e.touches) {
-        xPos = e.touches[0].pageX - el.offsetLeft;
-        yPos = e.touches[0].pageY - el.offsetTop;
-      } else {
-        xPos = e.pageX - el.offsetLeft;
-        yPos = e.pageY - el.offsetTop;
-      }
       const xPercent = `${xPos / (boxWidth / 100)}%`,
         yPercent = `${yPos / ((boxWidth * state.ratio) / 100)}%`;
 
