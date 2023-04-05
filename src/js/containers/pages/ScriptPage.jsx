@@ -8,6 +8,10 @@ import { availableExternalEntityStatuses } from '@/js/constants/AppConstants';
 const ScriptPage = () => {
   const scriptStatus = useExternalScript({
       src: 'https://cdn.moyasar.com/mpf/1.7.3/moyasar.js',
+      attrs: {
+        //you can add as many attributes as you need
+        id: 'moyasar',
+      },
     }),
     styleStatus = useExternalStyle({
       src: 'https://cdn.moyasar.com/mpf/1.7.3/moyasar.css',

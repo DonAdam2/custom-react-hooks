@@ -1,12 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 //constants
 import { availableExternalEntityStatuses } from '@/js/constants/AppConstants';
 
-function useExternalScript({ src, immediate = true }) {
+//typescript
+/*export type status = 'idle' | 'loading' | 'ready' | 'error';
+
+export interface ExternalEntityInterface {
+  src: string;
+  immediate?: boolean;
+  attrs?: AttrsInterface;
+}
+
+export interface AttrsInterface {
+  [key: string]: string;
+}
+
+function setAttributes(script: HTMLScriptElement, attrs: AttrsInterface) {
+*/
+
+function setAttributes(script, attrs) {
+  for (const attr in attrs) {
+    script.setAttribute(attr, attrs[attr]);
+  }
+}
+
+function useExternalScript({ src, immediate = true, attrs }) {
   // Keep track of script status ("idle", "loading", "ready", "error")
   const [status, setStatus] = useState(
-    src ? availableExternalEntityStatuses.loading : availableExternalEntityStatuses.idle
-  );
+      src ? availableExternalEntityStatuses.loading : availableExternalEntityStatuses.idle
+    ),
+    attrsRef = useRef(attrs);
 
   useEffect(
     () => {
@@ -55,6 +78,7 @@ function useExternalScript({ src, immediate = true }) {
       };
       // Add event listeners
       if (script) {
+        attrsRef.current && setAttributes(script, attrsRef.current);
         script.addEventListener('load', setStateFromEvent);
         script.addEventListener('error', setStateFromEvent);
       }
