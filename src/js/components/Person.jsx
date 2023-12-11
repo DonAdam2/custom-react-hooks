@@ -15,8 +15,8 @@ const Person = ({ id, firstName, lastName, jobTitle, status }) => (
           status.toLowerCase() === 'active'
             ? 'success'
             : status.toLowerCase() === 'blocked'
-            ? 'danger'
-            : 'warn'
+              ? 'danger'
+              : 'warn'
         }`}
       >
         {status}
