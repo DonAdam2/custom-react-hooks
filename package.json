@@ -31,13 +31,13 @@
     "browserslist": "^4.22.2",
     "clean-webpack-plugin": "^4.0.0",
     "cli-color": "^2.0.3",
-    "core-js": "^3.33.2",
+    "core-js": "^3.34.0",
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.1",
     "detect-port": "^1.5.1",
     "dotenv-webpack": "^8.0.1",
-    "eslint": "^8.53.0",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint": "^8.55.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-babel": "^5.3.1",
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react": "^7.33.2",
@@ -51,7 +51,7 @@
     "postcss-loader": "^7.3.3",
     "postcss-normalize": "^10.0.1",
     "postcss-preset-env": "^9.3.0",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.1",
     "prompts": "^2.4.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -67,7 +67,7 @@
     "style-loader": "^3.3.3",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.89.0",
-    "webpack-bundle-analyzer": "^4.9.1",
+    "webpack-bundle-analyzer": "^4.10.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1",
     "webpack-merge": "^5.10.0"
@@ -76,7 +76,7 @@
     "axios": "^1.6.2",
     "copy-to-clipboard": "^3.3.3",
     "react-error-boundary": "^4.0.11",
-    "react-router-dom": "^6.18.0",
+    "react-router-dom": "^6.20.1",
     "react-toastify": "^9.1.3"
   }
 }
