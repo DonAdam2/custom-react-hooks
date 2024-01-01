@@ -1,18 +1,6 @@
 import { useEffect, useState } from 'react';
 
-/*const useDebounce = (callback, delay) => {
-
-  //lodash
-  const debouncedFn = useRef(_.debounce(callback, delay));
-
-  useEffect(() => {
-    debouncedFn.current = _.debounce(callback, delay);
-  }, [delay, callback]);
-
-  return debouncedFn.current;
-};*/
-
-function useDebounce(value, delay) {
+function useDebouncedValue(value, delay) {
   // State and setters for debounced value
   const [debouncedValue, setDebouncedValue] = useState(value);
 
@@ -34,4 +22,4 @@ function useDebounce(value, delay) {
   return debouncedValue;
 }
 
-export default useDebounce;
+export default useDebouncedValue;
