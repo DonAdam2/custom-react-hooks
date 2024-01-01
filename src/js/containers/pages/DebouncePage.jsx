@@ -15,7 +15,7 @@ const DebouncePage = () => {
     [isSearching, setIsSearching] = useState(false);
 
   const debouncedFunc = useDebouncedFunc(() => {
-    alert('I was called after a delay of 500 ms');
+    console.log('I was called after a delay of 500 ms');
   }, 500);
 
   const searchCharacters = async (search) => {
@@ -33,7 +33,7 @@ const DebouncePage = () => {
   return (
     <div className="magnify-container">
       <p>
-        <strong>useDebouncedFunc</strong> hook example:
+        <strong>useDebouncedFunc</strong> hook example: <em>check the console</em>
       </p>
       <button onClick={debouncedFunc}>Debounced function</button>
       <hr style={{ width: '100%' }} />
@@ -58,15 +58,16 @@ const DebouncePage = () => {
           await searchCharacters(val);
         }}
       />
-      {isSearching ? (
-        <div>Searching ...</div>
-      ) : (
+      {isSearching && <div>Searching ...</div>}
+      {results.length ? (
         results.map((result) => (
           <div key={result.id}>
             <h4>{result.title}</h4>
             <img src={result.thumbnail} alt={result.title} />
           </div>
         ))
+      ) : (
+        <p>No data to display</p>
       )}
     </div>
   );
