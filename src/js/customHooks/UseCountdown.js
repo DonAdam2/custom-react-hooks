@@ -65,7 +65,7 @@ function useCountdown({ initialCounter, callback }) {
     };
   }, [stopCounter]);
 
-  return [
+  return {
     counter,
     resetCounter,
     stopCounter,
@@ -74,7 +74,7 @@ function useCountdown({ initialCounter, callback }) {
     isStopBtnDisabled,
     isPauseBtnDisabled,
     isResumeBtnDisabled,
-  ];
+  };
 }
 
 export default useCountdown;

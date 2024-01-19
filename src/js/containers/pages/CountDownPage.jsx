@@ -3,8 +3,8 @@ import Button from '@/js/components/shared/Button';
 
 const CountDownPage = () => {
   //you can pass the required time in seconds and a callback function which gets the current counter as an argument
-  // const [counter, resetCounter, stopCounter] = useCountdown({initialCounter: 20, callback: (currentCounter) => console.log('current counter', currentCounter)});
-  const [
+  // const {counter, resetCounter, stopCounter} = useCountdown({initialCounter: 20, callback: (currentCounter) => console.log('current counter', currentCounter)});
+  const {
     counter,
     resetCounter,
     stopCounter,
@@ -13,7 +13,7 @@ const CountDownPage = () => {
     isStopBtnDisabled,
     isPauseBtnDisabled,
     isResumeBtnDisabled,
-  ] = useCountdown({});
+  } = useCountdown({});
 
   const stop = () => {
     stopCounter();
