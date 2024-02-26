@@ -1,6 +1,6 @@
 import { Route, Routes, Navigate } from 'react-router-dom';
 //toast
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 //error boundary
 import { ErrorBoundary } from 'react-error-boundary';
 //error boundary fallback
@@ -32,7 +32,7 @@ const App = () => (
     <ToastContainer
       toastClassName={'custom-react-toastify'}
       icon={true}
-      position={toast.POSITION.BOTTOM_CENTER}
+      position="bottom-center"
       autoClose={2000}
       limit={1}
       pauseOnHover={true}
