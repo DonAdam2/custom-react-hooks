@@ -7,23 +7,24 @@ import Person from '../../components/Person';
 import Pagination from '../../components/shared/Pagination';
 
 const PaginationHookPage = () => {
-  const /*[selectedOption, setSelectedOption] = useState('5'),*/
+  const /*[rowsPerPage, setRowsPerPage] = useState('3'),*/
     //eslint-disable-next-line
     { firstContentIndex, lastContentIndex, updateCurrentRowsPerPage, ...paginationData } =
       usePagination({
-        // contentPerPage: +selectedOption,
+        // contentPerPage: +rowsPerPage,
         contentPerPage: 3,
         count: people.length,
       });
 
   /******* use updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
   /*const handleChange = ({ target: { value } }) => {
-    setSelectedOption(value);
+    setRowsPerPage(value);
     updateCurrentRowsPerPage(+value);
   };
 
   const options = [
     { value: '1', displayValue: '1 Row' },
+    { value: '3', displayValue: '3 Rows' },
     { value: '5', displayValue: '5 Rows' },
     { value: '10', displayValue: '10 Rows' },
     { value: '15', displayValue: '15 Rows' },
@@ -43,6 +44,7 @@ const PaginationHookPage = () => {
           lastName={el.last_name}
           jobTitle={el.employment.title}
           status={el.subscription.status}
+          avatar={el.avatar}
         />
       ))}
 
@@ -52,7 +54,7 @@ const PaginationHookPage = () => {
         // isLoading={true}
         {...paginationData}
       />
-      {/*<select value={selectedOption} onChange={handleChange}>
+      {/*<select value={rowsPerPage} onChange={handleChange}>
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.displayValue}

@@ -1,10 +1,6 @@
-const Person = ({ id, firstName, lastName, jobTitle, status }) => (
+const Person = ({ id, firstName, lastName, avatar, jobTitle, status }) => (
   <div className="person-wrapper">
-    <img
-      src={`https://avatars.dicebear.com/api/big-smile/${firstName}.svg`}
-      alt={`profile-${id}`}
-      className="item__img"
-    />
+    <img src={avatar} alt={`profile-${id}`} className="item__img" />
     <div className="item__info">
       <p className="name">
         {firstName} {lastName}

@@ -160,7 +160,7 @@ function usePagination({ contentPerPage, count }) {
 
     //if active page > newPageCount => set active page to newPageCount
     if (currentPageNum > newPageCount) {
-      updatePaginationBlocks(newPageCount);
+      setCurrentPageNum(newPageCount);
     }
   };
 
