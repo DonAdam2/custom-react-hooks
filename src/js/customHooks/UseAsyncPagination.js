@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { range } from '@/js/constants/Helpers';
+import { getPaginationRange } from '@/js/constants/Helpers';
 
 function useAsyncPagination({ contentPerPage, count, fetchData }) {
   const [currentPageNum, setCurrentPageNum] = useState(1),
@@ -21,7 +21,7 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
           startPage = leftBound > 2 ? leftBound : 2,
           endPage = rightBound < beforeLastPage ? rightBound : beforeLastPage;
 
-        pages = range(startPage, endPage);
+        pages = getPaginationRange(startPage, endPage);
 
         const pagesCount = pages.length,
           singleSpillOffset = totalNumbers - pagesCount - 1,
@@ -29,17 +29,17 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
           rightSpill = endPage < beforeLastPage;
 
         if (leftSpill && !rightSpill) {
-          const extraPages = range(startPage - singleSpillOffset, startPage - 1);
+          const extraPages = getPaginationRange(startPage - singleSpillOffset, startPage - 1);
           pages = ['LEFT', ...extraPages, ...pages];
         } else if (!leftSpill && rightSpill) {
-          const extraPages = range(endPage + 1, endPage + singleSpillOffset);
+          const extraPages = getPaginationRange(endPage + 1, endPage + singleSpillOffset);
           pages = [...pages, ...extraPages, 'RIGHT'];
         } else if (leftSpill && rightSpill) {
           pages = ['LEFT', ...pages, 'RIGHT'];
         }
         setPaginationBlocks([1, ...pages, pageCount]);
       } else {
-        setPaginationBlocks(range(1, pageCount));
+        setPaginationBlocks(getPaginationRange(1, pageCount));
       }
     },
     [pageCount]

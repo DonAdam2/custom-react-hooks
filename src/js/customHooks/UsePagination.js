@@ -1,16 +1,20 @@
 import { useCallback, useEffect, useState } from 'react';
-import { range } from '@/js/constants/Helpers';
+import { getPaginationRange } from '@/js/constants/Helpers';
 
 function usePagination({ contentPerPage, count }) {
   const [currentPageNum, setCurrentPageNum] = useState(1),
     [paginationBlocks, setPaginationBlocks] = useState([]),
-    // number of pages in total (total items / content on each page)
-    pageCount = Math.ceil(count / contentPerPage),
+    [pageCount, setPageCount] = useState(0),
     // index of last item of current page
     lastContentIndex = currentPageNum * contentPerPage,
     // index of first item of current page
     firstContentIndex = lastContentIndex - contentPerPage,
     initialPagesDisplayNum = 5;
+
+  useEffect(() => {
+    // number of pages in total (total items / content on each page)
+    setPageCount(Math.ceil(count / contentPerPage));
+  }, [count, contentPerPage]);
 
   const getPaginationBlocks = useCallback(
     (activePageNum) => {
@@ -26,7 +30,7 @@ function usePagination({ contentPerPage, count }) {
           startPage = leftBound > 2 ? leftBound : 2,
           endPage = rightBound < beforeLastPage ? rightBound : beforeLastPage;
 
-        pages = range(startPage, endPage);
+        pages = getPaginationRange(startPage, endPage);
 
         const pagesCount = pages.length,
           singleSpillOffset = totalNumbers - pagesCount - 1,
@@ -34,17 +38,17 @@ function usePagination({ contentPerPage, count }) {
           rightSpill = endPage < beforeLastPage;
 
         if (leftSpill && !rightSpill) {
-          const extraPages = range(startPage - singleSpillOffset, startPage - 1);
+          const extraPages = getPaginationRange(startPage - singleSpillOffset, startPage - 1);
           pages = ['LEFT', ...extraPages, ...pages];
         } else if (!leftSpill && rightSpill) {
-          const extraPages = range(endPage + 1, endPage + singleSpillOffset);
+          const extraPages = getPaginationRange(endPage + 1, endPage + singleSpillOffset);
           pages = [...pages, ...extraPages, 'RIGHT'];
         } else if (leftSpill && rightSpill) {
           pages = ['LEFT', ...pages, 'RIGHT'];
         }
         setPaginationBlocks([1, ...pages, pageCount]);
       } else {
-        setPaginationBlocks(range(1, pageCount));
+        setPaginationBlocks(getPaginationRange(1, pageCount));
       }
     },
     [pageCount]
@@ -150,6 +154,16 @@ function usePagination({ contentPerPage, count }) {
     }
   };
 
+  const updateCurrentRowsPerPage = (num) => {
+    setPageCount(num);
+    const newPageCount = Math.ceil(count / num);
+
+    //if active page > newPageCount => set active page to newPageCount
+    if (currentPageNum > newPageCount) {
+      updatePaginationBlocks(newPageCount);
+    }
+  };
+
   return {
     currentPageNum,
     totalPages: pageCount,
@@ -159,6 +173,7 @@ function usePagination({ contentPerPage, count }) {
     navigateToPage,
     navigateToFirstPage: () => navigateToFirstOrLastPage(true),
     navigateToLastPage: () => navigateToFirstOrLastPage(false),
+    updateCurrentRowsPerPage,
     navigateToNextPaginationBlock: () => navigateToNextOrPrevPaginationBlock(true),
     navigateToPrevPaginationBlock: () => navigateToNextOrPrevPaginationBlock(false),
     firstContentIndex,

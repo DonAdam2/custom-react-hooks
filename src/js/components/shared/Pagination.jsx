@@ -1,7 +1,13 @@
 import { Fragment } from 'react';
-import PropTypes from 'prop-types';
 //components
 import LoadingIcon from './loadingIcon/LoadingIcon';
+import ToolTip from '@/js/components/shared/TooTip';
+//icons
+import ChevronDoubleLeftIcon from '@/js/components/icons/ChevronDoubleLeftIcon';
+import ChevronLeftIcon from '@/js/components/icons/ChevronLeftIcon';
+import ChevronRightIcon from '@/js/components/icons/ChevronRightIcon';
+import ChevronDoubleRightIcon from '@/js/components/icons/ChevronDoubleRightIcon';
+import DotsHorizontalIcon from '@/js/components/icons/DotsHorizontalIcon';
 
 const Pagination = ({
   currentPageNum,
@@ -15,8 +21,14 @@ const Pagination = ({
   navigateToNextPaginationBlock,
   navigateToPrevPaginationBlock,
   isLoading,
+  isDisplayNavigateToFirstOrLastPageButtons = true,
+  toolTipText,
+  activePageColors,
 }) => {
-  const isPrevButtonDisabled =
+  const { prevThreePages = 'Previous 3 pages', nextThreePages = 'Next 3 pages' } =
+      toolTipText ?? {},
+    { lightColor = '#4776e6', darkColor = '#8e54e9' } = activePageColors ?? {},
+    isPrevButtonDisabled =
       currentPageNum === 1 ||
       totalPages === 0 ||
       !paginationBlocks.includes(currentPageNum) ||
@@ -34,28 +46,33 @@ const Pagination = ({
           <LoadingIcon />
         </div>
       )}
-      <div className="custom-pagination">
-        <i
-          onClick={navigateToFirstPage}
-          className={`far fa-chevron-double-left first-page-nav pagination-nav ${
-            isPrevButtonDisabled ? 'disabled-el' : ''
-          }`}
-        />
-        <i
-          onClick={navigateToPrevPage}
-          className={`far fa-chevron-left pagination-nav ${
-            isPrevButtonDisabled ? 'disabled-el' : ''
-          }`}
-        />
-        <ul>
-          {paginationBlocks.map((el) => (
+      <ul>
+        {isDisplayNavigateToFirstOrLastPageButtons && (
+          <li className="pagination-icon-wrapper">
+            <ChevronDoubleLeftIcon
+              onClick={navigateToFirstPage}
+              className={`first-page-nav pagination-nav ${
+                isPrevButtonDisabled ? 'disabled-el' : ''
+              }`}
+            />
+          </li>
+        )}
+        <li className="pagination-icon-wrapper">
+          <ChevronLeftIcon
+            onClick={navigateToPrevPage}
+            className={`first-page-nav pagination-nav  ${
+              isPrevButtonDisabled ? 'disabled-el' : ''
+            }`}
+          />
+        </li>
+        {paginationBlocks.length > 0 ? (
+          paginationBlocks.map((el) => (
             <Fragment key={el}>
               {el === 'LEFT' && (
-                <li
-                  onClick={navigateToPrevPaginationBlock}
-                  className={currentPageNum === el ? 'active' : ''}
-                >
-                  <i className="far fa-arrow-left pagination-nav inner-pagination-nav" />
+                <li onClick={navigateToPrevPaginationBlock} className="pagination-icon-wrapper">
+                  <ToolTip className="is-inline-flex" tooltipContent={prevThreePages}>
+                    <DotsHorizontalIcon className="pagination-nav inner-pagination-nav" />
+                  </ToolTip>
                 </li>
               )}
               {el !== 'LEFT' && el !== 'RIGHT' && (
@@ -63,49 +80,50 @@ const Pagination = ({
                   onClick={() => navigateToPage(el)}
                   className={currentPageNum === el ? 'active' : ''}
                 >
-                  <span className="pagination-link">{el}</span>
+                  <span
+                    className="pagination-link-number"
+                    style={{
+                      '--light-color': lightColor,
+                      '--dark-color': darkColor,
+                    }}
+                  >
+                    {el}
+                  </span>
                 </li>
               )}
               {el === 'RIGHT' && (
-                <li
-                  onClick={navigateToNextPaginationBlock}
-                  className={currentPageNum === el ? 'active' : ''}
-                >
-                  <i className="far fa-arrow-right pagination-nav inner-pagination-nav" />
+                <li onClick={navigateToNextPaginationBlock} className="pagination-icon-wrapper">
+                  <ToolTip className="is-inline-flex" tooltipContent={nextThreePages}>
+                    <DotsHorizontalIcon className="pagination-nav inner-pagination-nav" />
+                  </ToolTip>
                 </li>
               )}
             </Fragment>
-          ))}
-        </ul>
-        <i
-          onClick={navigateToNextPage}
-          className={`far fa-chevron-right pagination-nav ${
-            isNextButtonDisabled ? 'disabled-el' : ''
-          }`}
-        />
-        <i
-          onClick={navigateToLastPage}
-          className={`far fa-chevron-double-right last-page-nav pagination-nav ${
-            isNextButtonDisabled ? 'disabled-el' : ''
-          }`}
-        />
-      </div>
+          ))
+        ) : (
+          <li className="active">
+            <span className="pagination-link-number">1</span>
+          </li>
+        )}
+        <li className="pagination-icon-wrapper">
+          <ChevronRightIcon
+            onClick={navigateToNextPage}
+            className={`pagination-nav ${isNextButtonDisabled ? 'disabled-el' : ''}`}
+          />
+        </li>
+        {isDisplayNavigateToFirstOrLastPageButtons && (
+          <li className="pagination-icon-wrapper">
+            <ChevronDoubleRightIcon
+              onClick={navigateToLastPage}
+              className={`last-page-nav pagination-nav ${
+                isNextButtonDisabled ? 'disabled-el' : ''
+              }`}
+            />
+          </li>
+        )}
+      </ul>
     </div>
   );
-};
-
-Pagination.propTypes = {
-  currentPageNum: PropTypes.number.isRequired,
-  totalPages: PropTypes.number.isRequired,
-  paginationBlocks: PropTypes.array.isRequired,
-  navigateToPage: PropTypes.func.isRequired,
-  navigateToNextPage: PropTypes.func.isRequired,
-  navigateToPrevPage: PropTypes.func.isRequired,
-  navigateToFirstPage: PropTypes.func.isRequired,
-  navigateToLastPage: PropTypes.func.isRequired,
-  navigateToNextPaginationBlock: PropTypes.func.isRequired,
-  navigateToPrevPaginationBlock: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };
 
 export default Pagination;
