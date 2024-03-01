@@ -70,21 +70,21 @@ function usePagination({ contentPerPage, count }) {
       }
     }
 
-    setCurrentPageNum((state) => {
+    setCurrentPageNum((prev) => {
       // move forward
       if (isNextPage) {
         // if page is the last page, do nothing
-        if (state === pageCount) {
-          return state;
+        if (prev === pageCount) {
+          return prev;
         }
-        return state + 1;
+        return prev + 1;
         // go back
       } else {
         // if page is the first page, do nothing
-        if (state === 1) {
-          return state;
+        if (prev === 1) {
+          return prev;
         }
-        return state - 1;
+        return prev - 1;
       }
     });
   };
@@ -165,6 +165,8 @@ function usePagination({ contentPerPage, count }) {
   };
 
   return {
+    firstContentIndex,
+    lastContentIndex,
     currentPageNum,
     totalPages: pageCount,
     paginationBlocks,
@@ -176,8 +178,6 @@ function usePagination({ contentPerPage, count }) {
     updateCurrentRowsPerPage,
     navigateToNextPaginationBlock: () => navigateToNextOrPrevPaginationBlock(true),
     navigateToPrevPaginationBlock: () => navigateToNextOrPrevPaginationBlock(false),
-    firstContentIndex,
-    lastContentIndex,
   };
 }
 

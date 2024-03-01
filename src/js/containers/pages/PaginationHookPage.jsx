@@ -8,16 +8,18 @@ import Pagination from '../../components/shared/Pagination';
 
 const PaginationHookPage = () => {
   const /*[selectedOption, setSelectedOption] = useState('5'),*/
-    { firstContentIndex, lastContentIndex, ...paginationData } = usePagination({
-      // contentPerPage: +selectedOption,
-      contentPerPage: 3,
-      count: people.length,
-    });
+    //eslint-disable-next-line
+    { firstContentIndex, lastContentIndex, updateCurrentRowsPerPage, ...paginationData } =
+      usePagination({
+        // contentPerPage: +selectedOption,
+        contentPerPage: 3,
+        count: people.length,
+      });
 
-  /******* use paginationData.updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
+  /******* use updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
   /*const handleChange = ({ target: { value } }) => {
     setSelectedOption(value);
-    paginationData.updateCurrentRowsPerPage(+value);
+    updateCurrentRowsPerPage(+value);
   };
 
   const options = [

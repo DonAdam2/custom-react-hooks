@@ -8,13 +8,17 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
   const { setSearchParams, searchParams, location } = useRouter(),
     [currentPageNum, setCurrentPageNum] = useState(1),
     [paginationBlocks, setPaginationBlocks] = useState([]),
-    // number of pages in total (total items / content on each page)
-    pageCount = Math.ceil(count / contentPerPage),
+    [pageCount, setPageCount] = useState(0),
     // index of last item of current page
     lastContentIndex = currentPageNum * contentPerPage,
     // index of first item of current page
     firstContentIndex = lastContentIndex - contentPerPage,
     initialPagesDisplayNum = 5;
+
+  useEffect(() => {
+    // number of pages in total (total items / content on each page)
+    setPageCount(Math.ceil(count / contentPerPage));
+  }, [count, contentPerPage]);
 
   const getPaginationBlocks = useCallback(
     (activePageNum) => {
@@ -176,6 +180,16 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
     }
   };
 
+  const updateCurrentRowsPerPage = (num) => {
+    setPageCount(num);
+    const newPageCount = Math.ceil(count / num);
+
+    //if active page > newPageCount => set active page to newPageCount
+    if (currentPageNum > newPageCount) {
+      updatePaginationBlocks(newPageCount);
+    }
+  };
+
   return {
     firstContentIndex,
     lastContentIndex,
@@ -187,6 +201,7 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
     navigateToPage,
     navigateToFirstPage: () => navigateToFirstOrLastPage(true),
     navigateToLastPage: () => navigateToFirstOrLastPage(false),
+    updateCurrentRowsPerPage,
     navigateToNextPaginationBlock: () => navigateToNextOrPrevPaginationBlock(true),
     navigateToPrevPaginationBlock: () => navigateToNextOrPrevPaginationBlock(false),
   };

@@ -102,7 +102,15 @@ const Pagination = ({
           ))
         ) : (
           <li className="active">
-            <span className="pagination-link-number">1</span>
+            <span
+              className="pagination-link-number"
+              style={{
+                '--light-color': lightColor,
+                '--dark-color': darkColor,
+              }}
+            >
+              1
+            </span>
           </li>
         )}
         <li className="pagination-icon-wrapper">
