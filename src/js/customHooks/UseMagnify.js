@@ -69,7 +69,7 @@ function useMagnify({ magnifyTimes = 1.1, animationDuration = '0.2s' }) {
 
         el.addEventListener('mousemove', handleMoveEvent);
         el.addEventListener('mouseleave', handleEndEvent);
-        el.addEventListener('touchmove', handleMoveEvent, { passive: true });
+        el.addEventListener('touchmove', handleMoveEvent);
         el.addEventListener('touchend', handleEndEvent);
       };
     };
@@ -79,7 +79,7 @@ function useMagnify({ magnifyTimes = 1.1, animationDuration = '0.2s' }) {
     return () => {
       el.removeEventListener('mousemove', handleMoveEvent);
       el.removeEventListener('mouseleave', handleEndEvent);
-      el.removeEventListener('touchmove', handleMoveEvent, { passive: true });
+      el.removeEventListener('touchmove', handleMoveEvent);
       el.removeEventListener('touchend', handleEndEvent);
     };
   }, [magnifyTimes, animationDuration]);
