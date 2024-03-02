@@ -6,11 +6,11 @@ import useRouter from '@/js/customHooks/useRouter';
 
 function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pageNumKey } }) {
   const { setSearchParams, searchParams, location } = useRouter(),
-    [currentPageNum, setCurrentPageNum] = useState(1),
+    [activePage, setActivePage] = useState(1),
     [paginationBlocks, setPaginationBlocks] = useState([]),
     [pageCount, setPageCount] = useState(0),
     // index of last item of current page
-    lastContentIndex = currentPageNum * contentPerPage,
+    lastContentIndex = activePage * contentPerPage,
     // index of first item of current page
     firstContentIndex = lastContentIndex - contentPerPage,
     initialPagesDisplayNum = 5;
@@ -70,7 +70,7 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
   const updatePaginationBlocks = useCallback(
     (activePageNum) => {
       updatePageNum(activePageNum);
-      setCurrentPageNum(activePageNum);
+      setActivePage(activePageNum);
     },
     [updatePageNum]
   );
@@ -79,16 +79,16 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
     if (location.search) {
       if (searchParams[pageNumKey]) {
         getPaginationBlocks(+searchParams[pageNumKey]);
-        setCurrentPageNum(+searchParams[pageNumKey]);
+        setActivePage(+searchParams[pageNumKey]);
       } else {
-        updatePaginationBlocks(currentPageNum);
+        updatePaginationBlocks(activePage);
       }
     } else {
-      setSearchParams({ ...searchParams, [pageNumKey]: currentPageNum });
-      getPaginationBlocks(currentPageNum);
+      setSearchParams({ ...searchParams, [pageNumKey]: activePage });
+      getPaginationBlocks(activePage);
     }
   }, [
-    currentPageNum,
+    activePage,
     getPaginationBlocks,
     updatePaginationBlocks,
     location.search,
@@ -100,16 +100,16 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
   // change page based on direction either front or back
   const changePage = (isNextPage) => {
     if (isNextPage) {
-      if (currentPageNum !== pageCount && count > 0) {
-        updatePageNum(currentPageNum + 1);
+      if (activePage !== pageCount && count > 0) {
+        updatePageNum(activePage + 1);
       }
     } else {
-      if (currentPageNum !== 1 && count > 0) {
-        updatePageNum(currentPageNum - 1);
+      if (activePage !== 1 && count > 0) {
+        updatePageNum(activePage - 1);
       }
     }
 
-    setCurrentPageNum((prev) => {
+    setActivePage((prev) => {
       // move forward
       if (isNextPage) {
         // if page is the last page, do nothing
@@ -135,18 +135,18 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
       // if number is less than 1, set page to first page
     } else if (num < 1) {
       updatePaginationBlocks(1);
-    } else if (num !== currentPageNum) {
+    } else if (num !== activePage) {
       updatePaginationBlocks(num);
     }
   };
 
   const navigateToFirstOrLastPage = (isFirstPage) => {
     if (isFirstPage) {
-      if (currentPageNum !== 1 && count > 0) {
+      if (activePage !== 1 && count > 0) {
         updatePaginationBlocks(1);
       }
     } else {
-      if (currentPageNum !== pageCount && count > 0) {
+      if (activePage !== pageCount && count > 0) {
         updatePaginationBlocks(pageCount);
       }
     }
@@ -154,7 +154,7 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
 
   const navigateToNextOrPrevPaginationBlock = (isNextBlock) => {
     if (isNextBlock) {
-      const activePageNum = currentPageNum + 3;
+      const activePageNum = activePage + 3;
       if (activePageNum >= pageCount) {
         updatePaginationBlocks(pageCount);
       } else if (!paginationBlocks.includes('LEFT')) {
@@ -168,7 +168,7 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
         updatePaginationBlocks(activePageNum);
       }
     } else {
-      const activePageNum = currentPageNum - 3;
+      const activePageNum = activePage - 3;
       if (activePageNum <= 1) {
         updatePaginationBlocks(1);
       } else if (!paginationBlocks.includes('RIGHT')) {
@@ -181,11 +181,10 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
   };
 
   const updateCurrentRowsPerPage = (num) => {
-    setPageCount(num);
     const newPageCount = Math.ceil(count / num);
 
     //if active page > newPageCount => set active page to newPageCount
-    if (currentPageNum > newPageCount) {
+    if (activePage > newPageCount) {
       updatePaginationBlocks(newPageCount);
     }
   };
@@ -193,7 +192,7 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
   return {
     firstContentIndex,
     lastContentIndex,
-    currentPageNum,
+    activePage,
     totalPages: pageCount,
     paginationBlocks,
     navigateToNextPage: () => changePage(true),

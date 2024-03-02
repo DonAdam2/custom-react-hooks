@@ -10,7 +10,7 @@ import ChevronDoubleRightIcon from '@/js/components/icons/ChevronDoubleRightIcon
 import DotsHorizontalIcon from '@/js/components/icons/DotsHorizontalIcon';
 
 const Pagination = ({
-  currentPageNum,
+  activePage,
   totalPages,
   paginationBlocks,
   navigateToPage,
@@ -29,14 +29,14 @@ const Pagination = ({
       toolTipText ?? {},
     { lightColor = '#4776e6', darkColor = '#8e54e9' } = activePageColors ?? {},
     isPrevButtonDisabled =
-      currentPageNum === 1 ||
+      activePage === 1 ||
       totalPages === 0 ||
-      !paginationBlocks.includes(currentPageNum) ||
+      !paginationBlocks.includes(activePage) ||
       isNaN(totalPages),
     isNextButtonDisabled =
-      currentPageNum === totalPages ||
+      activePage === totalPages ||
       totalPages === 0 ||
-      !paginationBlocks.includes(currentPageNum) ||
+      !paginationBlocks.includes(activePage) ||
       isNaN(totalPages);
 
   return (
@@ -78,7 +78,7 @@ const Pagination = ({
               {el !== 'LEFT' && el !== 'RIGHT' && (
                 <li
                   onClick={() => navigateToPage(el)}
-                  className={currentPageNum === el ? 'active' : ''}
+                  className={activePage === el ? 'active' : ''}
                 >
                   <span
                     className="pagination-link-number"

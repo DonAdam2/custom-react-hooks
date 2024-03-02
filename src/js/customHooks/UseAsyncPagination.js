@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { getPaginationRange } from '@/js/constants/Helpers';
 
 function useAsyncPagination({ contentPerPage, count, fetchData }) {
-  const [currentPageNum, setCurrentPageNum] = useState(1),
+  const [activePage, setActivePage] = useState(1),
     [paginationBlocks, setPaginationBlocks] = useState([]),
     [pageCount, setPageCount] = useState(0),
     initialPagesDisplayNum = 5;
@@ -51,24 +51,24 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
   );
 
   useEffect(() => {
-    getPaginationBlocks(1);
+    getPaginationBlocks(activePage);
   }, [getPaginationBlocks]);
 
   const changePage = async (isNextPage) => {
     try {
       if (isNextPage) {
-        if (currentPageNum !== pageCount && count > 0) {
-          await fetchData(currentPageNum + 1, contentPerPage);
-          getPaginationBlocks(currentPageNum + 1);
+        if (activePage !== pageCount && count > 0) {
+          await fetchData(activePage + 1, contentPerPage);
+          getPaginationBlocks(activePage + 1);
         }
       } else {
-        if (currentPageNum !== 1 && count > 0) {
-          await fetchData(currentPageNum - 1, contentPerPage);
-          getPaginationBlocks(currentPageNum - 1);
+        if (activePage !== 1 && count > 0) {
+          await fetchData(activePage - 1, contentPerPage);
+          getPaginationBlocks(activePage - 1);
         }
       }
 
-      setCurrentPageNum((prev) => {
+      setActivePage((prev) => {
         if (isNextPage) {
           if (prev === pageCount) {
             return prev;
@@ -89,12 +89,12 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
   const navigateToPage = async (num, newContentPerPage) => {
     try {
       if (num > pageCount) {
-        setCurrentPageNum(pageCount);
+        setActivePage(pageCount);
         getPaginationBlocks(pageCount);
       } else if (num < 1) {
-        setCurrentPageNum(1);
+        setActivePage(1);
         getPaginationBlocks(1);
-      } else if (num !== currentPageNum) {
+      } else if (num !== activePage) {
         await updatePaginationBlocks(num, newContentPerPage);
       }
     } catch (err) {
@@ -104,18 +104,18 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
   const navigateToFirstOrLastPage = async (isFirstPage) => {
     try {
       if (isFirstPage) {
-        if (currentPageNum !== 1 && count > 0) {
+        if (activePage !== 1 && count > 0) {
           await fetchData(1, contentPerPage);
           getPaginationBlocks(1);
         }
       } else {
-        if (currentPageNum !== pageCount && count > 0) {
+        if (activePage !== pageCount && count > 0) {
           await fetchData(pageCount, contentPerPage);
           getPaginationBlocks(pageCount);
         }
       }
 
-      setCurrentPageNum(() => {
+      setActivePage(() => {
         if (isFirstPage) {
           return 1;
         } else {
@@ -129,14 +129,14 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
 
   const updatePaginationBlocks = async (activePageNum, newContentPerPage) => {
     await fetchData(activePageNum, newContentPerPage ?? contentPerPage);
-    setCurrentPageNum(activePageNum);
+    setActivePage(activePageNum);
     getPaginationBlocks(activePageNum);
   };
 
   const navigateToNextOrPrevPaginationBlock = async (isNextBlock) => {
     try {
       if (isNextBlock) {
-        const activePageNum = currentPageNum + 3;
+        const activePageNum = activePage + 3;
         if (activePageNum >= pageCount) {
           await updatePaginationBlocks(pageCount);
         } else if (!paginationBlocks.includes('LEFT')) {
@@ -150,7 +150,7 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
           await updatePaginationBlocks(activePageNum);
         }
       } else {
-        const activePageNum = currentPageNum - 3;
+        const activePageNum = activePage - 3;
         if (activePageNum <= 1) {
           await updatePaginationBlocks(1);
         } else if (!paginationBlocks.includes('RIGHT')) {
@@ -169,16 +169,16 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
     const newPageCount = Math.ceil(count / num);
 
     //if active page > newPageCount => set active page to newPageCount
-    if (currentPageNum > newPageCount) {
+    if (activePage > newPageCount) {
       await fetchData(newPageCount, num);
-      setCurrentPageNum(newPageCount);
+      setActivePage(newPageCount);
     } else {
-      await fetchData(currentPageNum, num);
+      await fetchData(activePage, num);
     }
   };
 
   return {
-    currentPageNum,
+    activePage,
     totalPages: pageCount,
     paginationBlocks,
     navigateToNextPage: () => changePage(true),

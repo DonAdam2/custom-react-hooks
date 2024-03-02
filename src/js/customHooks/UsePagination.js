@@ -2,11 +2,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { getPaginationRange } from '@/js/constants/Helpers';
 
 function usePagination({ contentPerPage, count }) {
-  const [currentPageNum, setCurrentPageNum] = useState(1),
+  const [activePage, setActivePage] = useState(1),
     [paginationBlocks, setPaginationBlocks] = useState([]),
     [pageCount, setPageCount] = useState(0),
     // index of last item of current page
-    lastContentIndex = currentPageNum * contentPerPage,
+    lastContentIndex = activePage * contentPerPage,
     // index of first item of current page
     firstContentIndex = lastContentIndex - contentPerPage,
     initialPagesDisplayNum = 5;
@@ -55,22 +55,22 @@ function usePagination({ contentPerPage, count }) {
   );
 
   useEffect(() => {
-    getPaginationBlocks(1);
+    getPaginationBlocks(activePage);
   }, [getPaginationBlocks]);
 
   // change page based on direction either front or back
   const changePage = (isNextPage) => {
     if (isNextPage) {
-      if (currentPageNum !== pageCount && count > 0) {
-        getPaginationBlocks(currentPageNum + 1);
+      if (activePage !== pageCount && count > 0) {
+        getPaginationBlocks(activePage + 1);
       }
     } else {
-      if (currentPageNum !== 1 && count > 0) {
-        getPaginationBlocks(currentPageNum - 1);
+      if (activePage !== 1 && count > 0) {
+        getPaginationBlocks(activePage - 1);
       }
     }
 
-    setCurrentPageNum((prev) => {
+    setActivePage((prev) => {
       // move forward
       if (isNextPage) {
         // if page is the last page, do nothing
@@ -90,7 +90,7 @@ function usePagination({ contentPerPage, count }) {
   };
 
   const updatePaginationBlocks = (activePageNum) => {
-    setCurrentPageNum(activePageNum);
+    setActivePage(activePageNum);
     getPaginationBlocks(activePageNum);
   };
 
@@ -101,23 +101,23 @@ function usePagination({ contentPerPage, count }) {
       // if number is less than 1, set page to first page
     } else if (num < 1) {
       updatePaginationBlocks(1);
-    } else if (num !== currentPageNum) {
+    } else if (num !== activePage) {
       updatePaginationBlocks(num);
     }
   };
 
   const navigateToFirstOrLastPage = (isFirstPage) => {
     if (isFirstPage) {
-      if (currentPageNum !== 1 && count > 0) {
+      if (activePage !== 1 && count > 0) {
         getPaginationBlocks(1);
       }
     } else {
-      if (currentPageNum !== pageCount && count > 0) {
+      if (activePage !== pageCount && count > 0) {
         getPaginationBlocks(pageCount);
       }
     }
 
-    setCurrentPageNum(() => {
+    setActivePage(() => {
       if (isFirstPage) {
         return 1;
       } else {
@@ -128,7 +128,7 @@ function usePagination({ contentPerPage, count }) {
 
   const navigateToNextOrPrevPaginationBlock = (isNextBlock) => {
     if (isNextBlock) {
-      const activePageNum = currentPageNum + 3;
+      const activePageNum = activePage + 3;
       if (activePageNum >= pageCount) {
         updatePaginationBlocks(pageCount);
       } else if (!paginationBlocks.includes('LEFT')) {
@@ -142,7 +142,7 @@ function usePagination({ contentPerPage, count }) {
         updatePaginationBlocks(activePageNum);
       }
     } else {
-      const activePageNum = currentPageNum - 3;
+      const activePageNum = activePage - 3;
       if (activePageNum <= 1) {
         updatePaginationBlocks(1);
       } else if (!paginationBlocks.includes('RIGHT')) {
@@ -154,20 +154,19 @@ function usePagination({ contentPerPage, count }) {
     }
   };
 
-  const updateCurrentRowsPerPage = (num) => {
-    setPageCount(num);
-    const newPageCount = Math.ceil(count / num);
+  const updateCurrentRowsPerPage = (newContentPerPage) => {
+    const newPageCount = Math.ceil(count / newContentPerPage);
 
     //if active page > newPageCount => set active page to newPageCount
-    if (currentPageNum > newPageCount) {
-      setCurrentPageNum(newPageCount);
+    if (activePage > newPageCount) {
+      setActivePage(newPageCount);
     }
   };
 
   return {
     firstContentIndex,
     lastContentIndex,
-    currentPageNum,
+    activePage,
     totalPages: pageCount,
     paginationBlocks,
     navigateToNextPage: () => changePage(true),
