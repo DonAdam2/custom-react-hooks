@@ -56,6 +56,7 @@ function usePagination({ contentPerPage, count }) {
 
   useEffect(() => {
     getPaginationBlocks(activePage);
+    // eslint-disable-next-line
   }, [getPaginationBlocks]);
 
   // change page based on direction either front or back

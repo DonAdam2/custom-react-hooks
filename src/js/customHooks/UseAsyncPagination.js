@@ -52,6 +52,7 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
 
   useEffect(() => {
     getPaginationBlocks(activePage);
+    // eslint-disable-next-line
   }, [getPaginationBlocks]);
 
   const changePage = async (isNextPage) => {
