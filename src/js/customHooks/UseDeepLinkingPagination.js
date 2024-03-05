@@ -185,7 +185,7 @@ function useDeepLinkingPagination({ contentPerPage, count, deepLinkingData: { pa
 
     //if active page > newPageCount => set active page to newPageCount
     if (activePage > newPageCount) {
-      updatePaginationBlocks(newPageCount);
+      updatePaginationBlocks(newPageCount === 0 ? 1 : newPageCount);
     }
   };
 

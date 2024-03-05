@@ -171,8 +171,9 @@ function useAsyncPagination({ contentPerPage, count, fetchData }) {
 
     //if active page > newPageCount => set active page to newPageCount
     if (activePage > newPageCount) {
-      await fetchData(newPageCount, num);
-      setActivePage(newPageCount);
+      const newActivePage = newPageCount === 0 ? 1 : newPageCount;
+      await fetchData(newActivePage, num);
+      setActivePage(newActivePage);
     } else {
       await fetchData(activePage, num);
     }
