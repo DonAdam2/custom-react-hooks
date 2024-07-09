@@ -32,8 +32,8 @@
     "clean-webpack-plugin": "4.0.0",
     "cli-color": "2.0.4",
     "core-js": "3.37.1",
-    "css-loader": "6.10.0",
-    "css-minimizer-webpack-plugin": "6.0.0",
+    "css-loader": "7.1.2",
+    "css-minimizer-webpack-plugin": "7.0.0",
     "detect-port": "1.6.1",
     "dotenv-webpack": "8.1.0",
     "eslint": "8.57.0",
@@ -64,13 +64,13 @@
     "sass-loader": "14.2.1",
     "serve": "14.2.3",
     "source-map-loader": "5.0.0",
-    "style-loader": "3.3.4",
+    "style-loader": "4.0.0",
     "terser-webpack-plugin": "5.3.10",
     "webpack": "5.92.1",
     "webpack-bundle-analyzer": "4.10.2",
     "webpack-cli": "5.1.4",
     "webpack-dev-server": "5.0.4",
-    "webpack-merge": "5.10.0"
+    "webpack-merge": "6.0.1"
   },
   "dependencies": {
     "axios": "1.7.2",
