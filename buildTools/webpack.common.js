@@ -107,7 +107,8 @@ module.exports = (env, options) => {
                         localIdentName: isDevelopment ? '[name]_[local]' : '[contenthash:base64]',
                         localIdentContext: srcPath,
                         localIdentHashSalt: 'react-boilerplate',
-                        exportLocalsConvention: 'camelCaseOnly',
+                        exportLocalsConvention: 'camel-case-only',
+                        namedExport: false,
                       },
                     }
                   : {}),
