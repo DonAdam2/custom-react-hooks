@@ -1,0 +1,66 @@
+.script-page-wrapper {
+  .title {
+    margin: 0;
+  }
+
+  .features-list {
+    padding-inline-start: 3rem;
+    margin-top: 4px;
+  }
+
+  .load-assets-button {
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+  }
+
+  .error-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+
+    .error-icon-wrapper {
+      margin-bottom: 1rem;
+      color: #dc2626;
+    }
+
+    .error-title {
+      font-weight: 500;
+      color: #dc2626;
+    }
+
+    .error-message {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+  }
+
+  .loading-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+
+    .separator {
+      height: 2rem;
+      width: 2rem;
+      border-radius: 50%;
+      border-bottom: 2px solid #2563eb;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
