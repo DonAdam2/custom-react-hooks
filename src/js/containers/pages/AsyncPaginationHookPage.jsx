@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 //axios
 import axios from 'axios';
 //custom hooks
-import useAsyncPagination from '../../customHooks/UseAsyncPagination';
+import usePagination from '../../customHooks/UsePagination';
 //components
 import Person from '../../components/Person';
 import Pagination from '../../components/shared/Pagination';
@@ -38,7 +38,7 @@ const AsyncPaginationHookPage = () => {
   }, []);
 
   //eslint-disable-next-line
-  const { updateCurrentRowsPerPage, ...paginationData } = useAsyncPagination({
+  const { updateCurrentRowsPerPage, ...paginationData } = usePagination({
     contentPerPage: perPage,
     // contentPerPage: +rowsPerPage,
     count: totalCount,

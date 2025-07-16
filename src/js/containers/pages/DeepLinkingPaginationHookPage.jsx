@@ -1,5 +1,5 @@
 //custom hooks
-import useDeepLinkingPagination from '../../customHooks/UseDeepLinkingPagination';
+import usePagination from '../../customHooks/UsePagination';
 //constants
 import { people } from '@/js/constants/Constants';
 //components
@@ -10,11 +10,11 @@ const DeepLinkingPaginationHookPage = () => {
   const /*[rowsPerPage, setRowsPerPage] = useState('3'),*/
     //eslint-disable-next-line
     { firstContentIndex, lastContentIndex, updateCurrentRowsPerPage, ...paginationData } =
-      useDeepLinkingPagination({
+      usePagination({
         // contentPerPage: +rowsPerPage,
         contentPerPage: 3,
         count: people.length,
-        deepLinkingData: {
+        deepLinking: {
           pageNumKey: 'page',
         },
       });
