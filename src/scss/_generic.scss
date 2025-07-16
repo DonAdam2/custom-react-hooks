@@ -1,4 +1,4 @@
-@import 'generic/mixins';
-@import 'generic/normalize';
-@import 'generic/variables';
-@import 'generic/typography';
+@forward 'generic/variables';
+@forward 'generic/mixins';
+@use 'generic/normalize';
+@use 'generic/typography';

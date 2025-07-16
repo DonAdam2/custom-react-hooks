@@ -1,3 +1,5 @@
+@use '../../generic' as *;
+
 .gradient-text-color {
   display: block;
   background: $bluish-primary;

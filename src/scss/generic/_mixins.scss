@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 @mixin disable-background($color: $black, $background: $black) {
   box-shadow: none;
   color: rgba($color, 0.26);
