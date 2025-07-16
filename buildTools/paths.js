@@ -12,5 +12,6 @@ module.exports = {
   srcPath: path.join(projectPath, rootDirectory),
   publicDirPath: path.join(projectPath, publicDirectory),
   outputSrcPath: path.resolve(projectPath, outputDirectory),
-  environmentsPath: path.resolve(projectPath, environmentsDirectory),
+  envDevelopmentPath: path.resolve(projectPath, `${environmentsDirectory}/.env.development`),
+  envProductionPath: path.resolve(projectPath, `${environmentsDirectory}/.env`),
 };

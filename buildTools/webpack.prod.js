@@ -11,7 +11,7 @@ const { merge } = require('webpack-merge'),
   Dotenv = require('dotenv-webpack'),
   //constants
   { cssSubDirectory } = require('./constants'),
-  { environmentsPath } = require('./paths');
+  { envProductionPath } = require('./paths');
 
 module.exports = (env, options) => {
   return merge(common(env, options), {
@@ -71,7 +71,7 @@ module.exports = (env, options) => {
         chunkFilename: cssSubDirectory + '[id].[contenthash:8].css',
       }),
       new Dotenv({
-        path: `${environmentsPath}/.env`,
+        path: envProductionPath,
         systemvars: true, //Set to true if you would rather load all system variables as well (useful for CI purposes)
       }),
     ],
