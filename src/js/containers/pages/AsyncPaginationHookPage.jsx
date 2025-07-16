@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, useRef } from 'react';
 //axios
 import axios from 'axios';
 //custom hooks
@@ -16,6 +16,9 @@ const AsyncPaginationHookPage = () => {
     [error, setError] = useState(false),
     // perPage = +rowsPerPage;
     perPage = 3;
+
+  // Add ref to prevent double fetch in React StrictMode (optional)
+  const hasInitialFetch = useRef(false);
 
   const fetchData = useCallback(async (pageNum, currentRowsPerPage) => {
     setIsLoading(true);
@@ -46,6 +49,14 @@ const AsyncPaginationHookPage = () => {
   });
 
   useEffect(() => {
+    // Prevent double fetch in React StrictMode (optional)
+    if (hasInitialFetch.current) {
+      console.log('AsyncPagination: Skipping duplicate fetch due to React StrictMode');
+      return;
+    }
+    hasInitialFetch.current = true;
+
+    console.log('AsyncPagination: Initial fetch triggered');
     (async () => {
       // await fetchData(1, +rowsPerPage);
       await fetchData(1, perPage);
