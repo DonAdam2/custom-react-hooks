@@ -1,5 +1,6 @@
 //custom hooks
 import usePagination from '../../customHooks/UsePagination';
+import { useState, useEffect } from 'react';
 //constants
 import { people } from '@/js/constants/Constants';
 //components
@@ -7,20 +8,29 @@ import Person from '../../components/Person';
 import Pagination from '../../components/shared/Pagination';
 
 const DeepLinkingPaginationHookPage = () => {
-  const /*[rowsPerPage, setRowsPerPage] = useState('3'),*/
-    //eslint-disable-next-line
-    { firstContentIndex, lastContentIndex, updateCurrentRowsPerPage, ...paginationData } =
-      usePagination({
-        // contentPerPage: +rowsPerPage,
-        contentPerPage: 3,
-        count: people.length,
-        deepLinking: {
-          pageNumKey: 'page',
-        },
-      });
+  const [rowsPerPage, setRowsPerPage] = useState('3');
+  const {
+    firstContentIndex,
+    lastContentIndex,
+    updateCurrentRowsPerPage,
+    contentPerPage,
+    ...paginationData
+  } = usePagination({
+    contentPerPage: +rowsPerPage,
+    count: people.length,
+    deepLinking: {
+      pageNumKey: 'page',
+      pageSizeKey: 'pageSize',
+    },
+  });
+
+  // Sync rowsPerPage state with contentPerPage from URL
+  useEffect(() => {
+    setRowsPerPage(String(contentPerPage));
+  }, [contentPerPage]);
 
   /******* use updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
-  /*const handleChange = ({ target: { value } }) => {
+  const handleChange = ({ target: { value } }) => {
     setRowsPerPage(value);
     updateCurrentRowsPerPage(+value);
   };
@@ -31,13 +41,16 @@ const DeepLinkingPaginationHookPage = () => {
     { value: '5', displayValue: '5 Rows' },
     { value: '10', displayValue: '10 Rows' },
     { value: '15', displayValue: '15 Rows' },
-  ];*/
+  ];
 
   return (
     <div className="magnify-container">
       <p>
         This hook allows you to have deep linking pagination functionality. In other words current
-        pagination page is tied with the URL.
+        pagination page and page size are both tied with the URL (e.g., ?page=2&pageSize=5).
+      </p>
+      <p>
+        <strong>Current page size:</strong> {contentPerPage} rows per page
       </p>
       {people.slice(firstContentIndex, lastContentIndex).map((el, i) => (
         <Person
@@ -56,13 +69,13 @@ const DeepLinkingPaginationHookPage = () => {
         // isLoading={true}
         {...paginationData}
       />
-      {/*<select value={rowsPerPage} onChange={handleChange}>
+      <select value={rowsPerPage} onChange={handleChange}>
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.displayValue}
           </option>
         ))}
-      </select>*/}
+      </select>
     </div>
   );
 };
