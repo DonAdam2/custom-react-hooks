@@ -7,19 +7,20 @@ import Person from '../../components/Person';
 import Pagination from '../../components/shared/Pagination';
 
 const PaginationHookPage = () => {
-  const /*[rowsPerPage, setRowsPerPage] = useState('3'),*/
-    //eslint-disable-next-line
-    { firstContentIndex, lastContentIndex, updateCurrentRowsPerPage, ...paginationData } =
-      usePagination({
-        // contentPerPage: +rowsPerPage,
-        contentPerPage: 3,
-        count: people.length,
-      });
+  const {
+    firstContentIndex,
+    lastContentIndex,
+    contentPerPage,
+    updateCurrentRowsPerPage,
+    ...paginationData
+  } = usePagination({
+    contentPerPage: 3,
+    count: people.length,
+  });
 
   /******* use updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
-  /*const handleChange = ({ target: { value } }) => {
-    setRowsPerPage(value);
-    updateCurrentRowsPerPage(+value);
+  const handleChange = async ({ target: { value } }) => {
+    await updateCurrentRowsPerPage(+value);
   };
 
   const options = [
@@ -28,7 +29,7 @@ const PaginationHookPage = () => {
     { value: '5', displayValue: '5 Rows' },
     { value: '10', displayValue: '10 Rows' },
     { value: '15', displayValue: '15 Rows' },
-  ];*/
+  ];
 
   return (
     <div className="magnify-container">
@@ -54,13 +55,13 @@ const PaginationHookPage = () => {
         // isLoading={true}
         {...paginationData}
       />
-      {/*<select value={rowsPerPage} onChange={handleChange}>
+      <select value={String(contentPerPage)} onChange={handleChange}>
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.displayValue}
           </option>
         ))}
-      </select>*/}
+      </select>
     </div>
   );
 };

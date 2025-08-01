@@ -1,17 +1,30 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
 import { getPaginationRange } from '@/js/constants/Helpers';
-import useRouter from '@/js/customHooks/useRouter';
 
 function usePagination({ contentPerPage: initialContentPerPage, count, fetchData, deepLinking }) {
-  // Always call useRouter hook to comply with Rules of Hooks
-  const routerData = useRouter();
-  // Only destructure and use when deepLinking is provided
-  const { setSearchParams, location } = deepLinking ? routerData : {};
+  // Helper function to update URL search parameters using window
+  const updateSearchParams = useCallback((updates) => {
+    if (typeof window === 'undefined') return; // SSR safety check
+
+    const url = new URL(window.location);
+    Object.entries(updates).forEach(([key, value]) => {
+      url.searchParams.set(key, value);
+    });
+
+    // Update URL without page reload
+    window.history.pushState({}, '', url.toString());
+  }, []);
+
+  // Helper function to get current search parameters
+  const getCurrentSearch = useCallback(() => {
+    if (typeof window === 'undefined') return ''; // SSR safety check
+    return window.location.search;
+  }, []);
 
   // Initialize state with URL parameters if deep linking is enabled
   const getInitialState = () => {
-    if (deepLinking && location?.search) {
-      const currentSearchParams = new URLSearchParams(location.search);
+    if (deepLinking && getCurrentSearch()) {
+      const currentSearchParams = new URLSearchParams(getCurrentSearch());
       const pageFromUrl = currentSearchParams.get(deepLinking.pageNumKey);
       const pageSizeFromUrl = deepLinking.pageSizeKey
         ? currentSearchParams.get(deepLinking.pageSizeKey)
@@ -80,20 +93,18 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
       const validPage = pageCount;
       setActivePage(validPage);
 
-      // Update URL with valid page if we have setSearchParams
-      if (setSearchParams) {
-        const updates = { [deepLinking.pageNumKey]: validPage.toString() };
-        if (deepLinking.pageSizeKey) {
-          updates[deepLinking.pageSizeKey] = contentPerPage.toString();
-        }
-        isUpdatingUrl.current = true;
-        setSearchParams(updates);
-        setTimeout(() => {
-          isUpdatingUrl.current = false;
-        }, 10);
+      // Update URL with valid page
+      const updates = { [deepLinking.pageNumKey]: validPage.toString() };
+      if (deepLinking.pageSizeKey) {
+        updates[deepLinking.pageSizeKey] = contentPerPage.toString();
       }
+      isUpdatingUrl.current = true;
+      updateSearchParams(updates);
+      setTimeout(() => {
+        isUpdatingUrl.current = false;
+      }, 10);
     }
-  }, [pageCount, activePage, deepLinking, setSearchParams, contentPerPage]);
+  }, [pageCount, activePage, deepLinking, updateSearchParams, contentPerPage]);
 
   const getPaginationBlocks = useCallback(
     (activePageNum) => {
@@ -142,10 +153,10 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
 
   // Deep linking: One-time initialization only
   useEffect(() => {
-    if (deepLinking && pageCount > 0 && setSearchParams && !hasInitializedUrl.current) {
+    if (deepLinking && pageCount > 0 && !hasInitializedUrl.current) {
       hasInitializedUrl.current = true;
 
-      const currentSearchParams = new URLSearchParams(location?.search || '');
+      const currentSearchParams = new URLSearchParams(getCurrentSearch());
       const pageFromUrl = currentSearchParams.get(deepLinking.pageNumKey);
       const pageSizeFromUrl = deepLinking.pageSizeKey
         ? currentSearchParams.get(deepLinking.pageSizeKey)
@@ -225,7 +236,7 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
       // Update URL if needed
       if (Object.keys(updates).length > 0) {
         isUpdatingUrl.current = true;
-        setSearchParams(updates);
+        updateSearchParams(updates);
         // Reset the flag after a short delay to allow URL change to propagate
         setTimeout(() => {
           isUpdatingUrl.current = false;
@@ -241,12 +252,12 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
       }
     }
     //eslint-disable-next-line
-  }, [deepLinking, pageCount, setSearchParams, location?.search]);
+  }, [deepLinking, pageCount, updateSearchParams, getCurrentSearch]);
 
   // Deep linking: Listen for external URL changes (browser navigation)
   useEffect(() => {
     if (deepLinking && pageCount > 0 && hasInitializedUrl.current && !isUpdatingUrl.current) {
-      const currentSearchParams = new URLSearchParams(location?.search || '');
+      const currentSearchParams = new URLSearchParams(getCurrentSearch());
       const pageFromUrl = currentSearchParams.get(deepLinking.pageNumKey);
       const pageSizeFromUrl = deepLinking.pageSizeKey
         ? currentSearchParams.get(deepLinking.pageSizeKey)
@@ -279,56 +290,62 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
         fetchData(finalPage, finalPageSize);
       }
     }
-  }, [location?.search, deepLinking, pageCount, activePage, contentPerPage, fetchData]);
+  }, [getCurrentSearch, deepLinking, pageCount, activePage, contentPerPage, fetchData]);
 
   // Deep linking specific functions
   const updatePageNum = useCallback(
     (num) => {
-      if (deepLinking && setSearchParams) {
+      if (deepLinking) {
         const updates = { [deepLinking.pageNumKey]: num.toString() };
         // Preserve current page size in URL
         if (deepLinking.pageSizeKey) {
           updates[deepLinking.pageSizeKey] = contentPerPage.toString();
         }
         isUpdatingUrl.current = true;
-        setSearchParams(updates);
+        updateSearchParams(updates);
         setTimeout(() => {
           isUpdatingUrl.current = false;
         }, 10);
       }
     },
-    [deepLinking, setSearchParams, contentPerPage]
+    [deepLinking, updateSearchParams, contentPerPage]
   );
 
   const updatePageSize = useCallback(
     (size) => {
-      if (deepLinking && deepLinking.pageSizeKey && setSearchParams) {
+      if (deepLinking && deepLinking.pageSizeKey) {
         const updates = { [deepLinking.pageSizeKey]: size.toString() };
         // Preserve current page in URL
         updates[deepLinking.pageNumKey] = activePage.toString();
         isUpdatingUrl.current = true;
-        setSearchParams(updates);
+        updateSearchParams(updates);
         setTimeout(() => {
           isUpdatingUrl.current = false;
         }, 10);
       }
     },
-    [deepLinking, setSearchParams, activePage]
+    [deepLinking, updateSearchParams, activePage]
   );
 
   const updatePaginationBlocks = useCallback(
     async (activePageNum, newContentPerPage) => {
       try {
-        // Handle deep linking - only update URL, let URL effect handle state and fetchData
+        // Always update state immediately
+        setActivePage(activePageNum);
+        if (newContentPerPage !== undefined) {
+          setContentPerPage(newContentPerPage);
+        }
+
+        // Handle deep linking - update URL
         if (deepLinking) {
-          if (newContentPerPage !== undefined && deepLinking.pageSizeKey && setSearchParams) {
+          if (newContentPerPage !== undefined && deepLinking.pageSizeKey) {
             // Update both page and page size in URL
             const updates = {
               [deepLinking.pageNumKey]: activePageNum.toString(),
               [deepLinking.pageSizeKey]: newContentPerPage.toString(),
             };
             isUpdatingUrl.current = true;
-            setSearchParams(updates);
+            updateSearchParams(updates);
             setTimeout(() => {
               isUpdatingUrl.current = false;
             }, 10);
@@ -336,21 +353,15 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
             // Only update page number
             updatePageNum(activePageNum);
           }
-        } else {
-          // Non-deep linking mode - handle async pagination and state directly
-          if (fetchData) {
-            await fetchData(activePageNum, newContentPerPage ?? contentPerPage);
-          }
-          setActivePage(activePageNum);
-          if (newContentPerPage !== undefined) {
-            setContentPerPage(newContentPerPage);
-          }
+        }
+        if (fetchData) {
+          await fetchData(activePageNum, newContentPerPage ?? contentPerPage);
         }
       } catch (err) {
         console.log(err);
       }
     },
-    [fetchData, contentPerPage, deepLinking, updatePageNum, setSearchParams]
+    [fetchData, contentPerPage, deepLinking, updatePageNum, updateSearchParams]
   );
 
   // Change page based on direction either front or back
@@ -360,28 +371,30 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
 
       if (isNextPage) {
         if (activePage !== pageCount && count > 0) {
-          // Handle deep linking - only update URL, let URL effect handle state and fetchData
+          setActivePage(newPage);
+
+          // Handle deep linking - update URL
           if (deepLinking) {
             updatePageNum(newPage);
-          } else {
-            // Non-deep linking mode - handle async pagination and state directly
-            if (fetchData) {
-              await fetchData(newPage, contentPerPage);
-            }
-            setActivePage(newPage);
+          }
+
+          // Handle data fetching
+          if (fetchData) {
+            await fetchData(newPage, contentPerPage);
           }
         }
       } else {
         if (activePage !== 1 && count > 0) {
-          // Handle deep linking - only update URL, let URL effect handle state and fetchData
+          setActivePage(newPage);
+
+          // Handle deep linking - update URL
           if (deepLinking) {
             updatePageNum(newPage);
-          } else {
-            // Non-deep linking mode - handle async pagination and state directly
-            if (fetchData) {
-              await fetchData(newPage, contentPerPage);
-            }
-            setActivePage(newPage);
+          }
+
+          // Handle data fetching
+          if (fetchData) {
+            await fetchData(newPage, contentPerPage);
           }
         }
       }
@@ -410,28 +423,28 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
 
       if (isFirstPage) {
         if (activePage !== 1 && count > 0) {
-          // Handle deep linking - only update URL, let URL effect handle state and fetchData
+          setActivePage(targetPage);
+          // Handle deep linking - update URL
           if (deepLinking) {
             updatePageNum(targetPage);
-          } else {
-            // Non-deep linking mode - handle async pagination and state directly
-            if (fetchData) {
-              await fetchData(targetPage, contentPerPage);
-            }
-            setActivePage(targetPage);
+          }
+
+          // Handle data fetching
+          if (fetchData) {
+            await fetchData(targetPage, contentPerPage);
           }
         }
       } else {
         if (activePage !== pageCount && count > 0) {
-          // Handle deep linking - only update URL, let URL effect handle state and fetchData
+          setActivePage(targetPage);
+          // Handle deep linking - update URL
           if (deepLinking) {
             updatePageNum(targetPage);
-          } else {
-            // Non-deep linking mode - handle async pagination and state directly
-            if (fetchData) {
-              await fetchData(targetPage, contentPerPage);
-            }
-            setActivePage(targetPage);
+          }
+
+          // Handle data fetching
+          if (fetchData) {
+            await fetchData(targetPage, contentPerPage);
           }
         }
       }
@@ -480,7 +493,10 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
       if (activePage > newPageCount) {
         const newActivePage = newPageCount === 0 ? 1 : newPageCount;
 
-        // Handle deep linking - only update URL, let URL effect handle state and fetchData
+        setActivePage(newActivePage);
+        setContentPerPage(newContentPerPage);
+
+        // Handle deep linking - update URL
         if (deepLinking) {
           const updates = {
             [deepLinking.pageNumKey]: newActivePage.toString(),
@@ -488,31 +504,27 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
           if (deepLinking.pageSizeKey) {
             updates[deepLinking.pageSizeKey] = newContentPerPage.toString();
           }
-          if (setSearchParams) {
-            isUpdatingUrl.current = true;
-            setSearchParams(updates);
-            setTimeout(() => {
-              isUpdatingUrl.current = false;
-            }, 10);
-          }
-        } else {
-          // Non-deep linking mode - handle async pagination and state directly
-          if (fetchData) {
-            await fetchData(newActivePage, newContentPerPage);
-          }
-          setActivePage(newActivePage);
-          setContentPerPage(newContentPerPage);
+          isUpdatingUrl.current = true;
+          updateSearchParams(updates);
+          setTimeout(() => {
+            isUpdatingUrl.current = false;
+          }, 10);
+        }
+
+        // Handle data fetching
+        if (fetchData) {
+          await fetchData(newActivePage, newContentPerPage);
         }
       } else {
-        // Handle deep linking - only update URL, let URL effect handle state and fetchData
+        setContentPerPage(newContentPerPage);
+        // Handle deep linking - update URL
         if (deepLinking && deepLinking.pageSizeKey) {
           updatePageSize(newContentPerPage);
-        } else {
-          // Non-deep linking mode - handle async pagination and state directly
-          if (fetchData) {
-            await fetchData(activePage, newContentPerPage);
-          }
-          setContentPerPage(newContentPerPage);
+        }
+
+        // Handle data fetching
+        if (fetchData) {
+          await fetchData(activePage, newContentPerPage);
         }
       }
     } catch (err) {
