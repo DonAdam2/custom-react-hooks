@@ -1,7 +1,5 @@
 //custom hooks
 import usePagination from '../../customHooks/UsePagination';
-import useRouter from '../../customHooks/useRouter';
-import { useState, useEffect } from 'react';
 //constants
 import { people } from '@/js/constants/Constants';
 //components
@@ -9,16 +7,6 @@ import Person from '../../components/Person';
 import Pagination from '../../components/shared/Pagination';
 
 const DeepLinkingPaginationHookPage = () => {
-  const { location } = useRouter();
-
-  // Initialize rowsPerPage from URL if available
-  const getInitialRowsPerPage = () => {
-    const urlParams = new URLSearchParams(location?.search || '');
-    const pageSizeFromUrl = urlParams.get('pageSize');
-    return pageSizeFromUrl && +pageSizeFromUrl > 0 ? pageSizeFromUrl : '3';
-  };
-
-  const [rowsPerPage, setRowsPerPage] = useState(getInitialRowsPerPage);
   const {
     firstContentIndex,
     lastContentIndex,
@@ -26,7 +14,7 @@ const DeepLinkingPaginationHookPage = () => {
     contentPerPage,
     ...paginationData
   } = usePagination({
-    contentPerPage: +rowsPerPage,
+    contentPerPage: 3,
     count: people.length,
     deepLinking: {
       pageNumKey: 'page',
@@ -34,15 +22,9 @@ const DeepLinkingPaginationHookPage = () => {
     },
   });
 
-  // Sync rowsPerPage state with contentPerPage from URL
-  useEffect(() => {
-    setRowsPerPage(String(contentPerPage));
-  }, [contentPerPage]);
-
   /******* use updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
-  const handleChange = ({ target: { value } }) => {
-    setRowsPerPage(value);
-    updateCurrentRowsPerPage(+value);
+  const handleChange = async ({ target: { value } }) => {
+    await updateCurrentRowsPerPage(+value);
   };
 
   const options = [
@@ -79,7 +61,7 @@ const DeepLinkingPaginationHookPage = () => {
         // isLoading={true}
         {...paginationData}
       />
-      <select value={rowsPerPage} onChange={handleChange}>
+      <select value={String(contentPerPage)} onChange={handleChange}>
         {options.map((option, index) => (
           <option key={index} value={option.value}>
             {option.displayValue}

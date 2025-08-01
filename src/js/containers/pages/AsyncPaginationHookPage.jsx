@@ -3,26 +3,13 @@ import { useCallback, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 //custom hooks
 import usePagination from '../../customHooks/UsePagination';
-// import useRouter from '../../customHooks/useRouter';
 //components
 import Person from '../../components/Person';
 import Pagination from '../../components/shared/Pagination';
 import LoadingIcon from '../../components/shared/loadingIcon/LoadingIcon';
 
 const AsyncPaginationHookPage = () => {
-  // uncomment the following if you want to have deep linking and async pagination
-  /* const { location } = useRouter();
-
-  // Initialize rowsPerPage from URL if available
-  const getInitialRowsPerPage = () => {
-    const urlParams = new URLSearchParams(location?.search || '');
-    const pageSizeFromUrl = urlParams.get('pageSize');
-    return pageSizeFromUrl && +pageSizeFromUrl > 0 ? pageSizeFromUrl : '3';
-  };
-
-  const [rowsPerPage, setRowsPerPage] = useState(getInitialRowsPerPage),*/
-  const [rowsPerPage, setRowsPerPage] = useState('3'),
-    [totalCount, setTotalCount] = useState(0),
+  const [totalCount, setTotalCount] = useState(0),
     [people, setPeople] = useState([]),
     [isLoading, setIsLoading] = useState(false),
     [error, setError] = useState(false);
@@ -53,7 +40,7 @@ const AsyncPaginationHookPage = () => {
   // uncomment the following if you want to have deep linking and async pagination
   const { updateCurrentRowsPerPage, /*skipInitialFetch,*/ contentPerPage, ...paginationData } =
     usePagination({
-      contentPerPage: +rowsPerPage,
+      contentPerPage: 3,
       count: totalCount,
       fetchData: (num, currentRowsPerPage) => fetchData(num, currentRowsPerPage),
       /*deepLinking: {
@@ -61,11 +48,6 @@ const AsyncPaginationHookPage = () => {
         pageSizeKey: 'pageSize',
       },*/
     });
-
-  // Sync rowsPerPage state with contentPerPage from the hook
-  useEffect(() => {
-    setRowsPerPage(String(contentPerPage));
-  }, [contentPerPage]);
 
   useEffect(() => {
     // Skip initial fetch if the usePagination hook will handle it (deep linking case)
@@ -84,15 +66,12 @@ const AsyncPaginationHookPage = () => {
 
     console.log('AsyncPagination: Initial fetch triggered');
     (async () => {
-      await fetchData(1, +rowsPerPage);
-      // await fetchData(1, perPage);
+      await fetchData(1, contentPerPage);
     })();
-    //eslint-disable-next-line
-  }, [fetchData /*, skipInitialFetch*/]);
+  }, [fetchData, contentPerPage /*, skipInitialFetch*/]);
 
   /******* use updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
   const handleChange = async ({ target: { value } }) => {
-    setRowsPerPage(value);
     await updateCurrentRowsPerPage(+value);
   };
 
@@ -139,7 +118,7 @@ const AsyncPaginationHookPage = () => {
             {...paginationData}
             isLoading={isLoading}
           />
-          <select value={rowsPerPage} onChange={handleChange}>
+          <select value={String(contentPerPage)} onChange={handleChange}>
             {options.map((option, index) => (
               <option key={index} value={option.value}>
                 {option.displayValue}
