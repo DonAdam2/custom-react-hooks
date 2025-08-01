@@ -3,19 +3,29 @@ import { useCallback, useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 //custom hooks
 import usePagination from '../../customHooks/UsePagination';
+// import useRouter from '../../customHooks/useRouter';
 //components
 import Person from '../../components/Person';
 import Pagination from '../../components/shared/Pagination';
 import LoadingIcon from '../../components/shared/loadingIcon/LoadingIcon';
 
 const AsyncPaginationHookPage = () => {
-  const /*[rowsPerPage, setRowsPerPage] = useState('3'),*/
+  /* uncomment the following if you want to have deep linking and async pagination
+  const { location } = useRouter();
+
+  // Initialize rowsPerPage from URL if available
+  const getInitialRowsPerPage = () => {
+    const urlParams = new URLSearchParams(location?.search || '');
+    const pageSizeFromUrl = urlParams.get('pageSize');
+    return pageSizeFromUrl && +pageSizeFromUrl > 0 ? pageSizeFromUrl : '3';
+  };
+
+  const [rowsPerPage, setRowsPerPage] = useState(getInitialRowsPerPage),*/
+  const [rowsPerPage, setRowsPerPage] = useState('3'),
     [totalCount, setTotalCount] = useState(0),
     [people, setPeople] = useState([]),
     [isLoading, setIsLoading] = useState(false),
-    [error, setError] = useState(false),
-    // perPage = +rowsPerPage;
-    perPage = 3;
+    [error, setError] = useState(false);
 
   // Add ref to prevent double fetch in React StrictMode (optional)
   const hasInitialFetch = useRef(false);
@@ -40,15 +50,31 @@ const AsyncPaginationHookPage = () => {
     }
   }, []);
 
-  //eslint-disable-next-line
-  const { updateCurrentRowsPerPage, ...paginationData } = usePagination({
-    contentPerPage: perPage,
-    // contentPerPage: +rowsPerPage,
-    count: totalCount,
-    fetchData: (num, currentRowsPerPage) => fetchData(num, currentRowsPerPage),
-  });
+  // uncomment the following if you want to have deep linking and async pagination
+  const { updateCurrentRowsPerPage, /*skipInitialFetch,*/ contentPerPage, ...paginationData } =
+    usePagination({
+      contentPerPage: +rowsPerPage,
+      count: totalCount,
+      fetchData: (num, currentRowsPerPage) => fetchData(num, currentRowsPerPage),
+      /*deepLinking: {
+        pageNumKey: 'page',
+        pageSizeKey: 'pageSize',
+      },*/
+    });
+
+  // Sync rowsPerPage state with contentPerPage from the hook
+  useEffect(() => {
+    setRowsPerPage(String(contentPerPage));
+  }, [contentPerPage]);
 
   useEffect(() => {
+    // Skip initial fetch if the usePagination hook will handle it (deep linking case)
+    // uncomment the following if you want to have deep linking and async pagination
+    /*if (skipInitialFetch) {
+      console.log('AsyncPagination: Skipping initial fetch - usePagination hook will handle it');
+      return;
+    }*/
+
     // Prevent double fetch in React StrictMode (optional)
     if (hasInitialFetch.current) {
       console.log('AsyncPagination: Skipping duplicate fetch due to React StrictMode');
@@ -58,13 +84,14 @@ const AsyncPaginationHookPage = () => {
 
     console.log('AsyncPagination: Initial fetch triggered');
     (async () => {
-      // await fetchData(1, +rowsPerPage);
-      await fetchData(1, perPage);
+      await fetchData(1, +rowsPerPage);
+      // await fetchData(1, perPage);
     })();
-  }, [fetchData]);
+    //eslint-disable-next-line
+  }, [fetchData /*, skipInitialFetch*/]);
 
   /******* use updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
-  /*const handleChange = async ({ target: { value } }) => {
+  const handleChange = async ({ target: { value } }) => {
     setRowsPerPage(value);
     await updateCurrentRowsPerPage(+value);
   };
@@ -75,7 +102,7 @@ const AsyncPaginationHookPage = () => {
     { value: '5', displayValue: '5 Rows' },
     { value: '10', displayValue: '10 Rows' },
     { value: '15', displayValue: '15 Rows' },
-  ];*/
+  ];
 
   return (
     <div className="magnify-container">
@@ -112,13 +139,13 @@ const AsyncPaginationHookPage = () => {
             {...paginationData}
             isLoading={isLoading}
           />
-          {/*<select value={rowsPerPage} onChange={handleChange}>
+          <select value={rowsPerPage} onChange={handleChange}>
             {options.map((option, index) => (
               <option key={index} value={option.value}>
                 {option.displayValue}
               </option>
             ))}
-          </select>*/}
+          </select>
         </>
       )}
     </div>

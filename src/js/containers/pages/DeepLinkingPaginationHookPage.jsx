@@ -1,5 +1,6 @@
 //custom hooks
 import usePagination from '../../customHooks/UsePagination';
+import useRouter from '../../customHooks/useRouter';
 import { useState, useEffect } from 'react';
 //constants
 import { people } from '@/js/constants/Constants';
@@ -8,7 +9,16 @@ import Person from '../../components/Person';
 import Pagination from '../../components/shared/Pagination';
 
 const DeepLinkingPaginationHookPage = () => {
-  const [rowsPerPage, setRowsPerPage] = useState('3');
+  const { location } = useRouter();
+
+  // Initialize rowsPerPage from URL if available
+  const getInitialRowsPerPage = () => {
+    const urlParams = new URLSearchParams(location?.search || '');
+    const pageSizeFromUrl = urlParams.get('pageSize');
+    return pageSizeFromUrl && +pageSizeFromUrl > 0 ? pageSizeFromUrl : '3';
+  };
+
+  const [rowsPerPage, setRowsPerPage] = useState(getInitialRowsPerPage);
   const {
     firstContentIndex,
     lastContentIndex,
