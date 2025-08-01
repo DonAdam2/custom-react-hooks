@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useRef, useState } from 'react';
 //custom hooks
 import usePagination from '../../customHooks/UsePagination';
+import useRouter from '../../customHooks/useRouter';
 import LoadingIcon from '@/js/components/shared/loadingIcon/LoadingIcon';
 import Person from '@/js/components/Person';
 import Pagination from '@/js/components/shared/Pagination';
@@ -10,10 +11,10 @@ const AsyncDeepLinkingPaginationHookPage = () => {
   const [totalCount, setTotalCount] = useState(0),
     [people, setPeople] = useState([]),
     [isLoading, setIsLoading] = useState(false),
-    [error, setError] = useState(false);
-
-  // Add ref to prevent double fetch in React StrictMode (optional)
-  const hasInitialFetch = useRef(false);
+    [error, setError] = useState(false),
+    { location } = useRouter(),
+    // Add ref to prevent double fetch in React StrictMode (optional)
+    hasInitialFetch = useRef(false);
 
   const fetchData = useCallback(async (pageNum, currentRowsPerPage) => {
     setIsLoading(true);
@@ -35,24 +36,17 @@ const AsyncDeepLinkingPaginationHookPage = () => {
     }
   }, []);
 
-  const { updateCurrentRowsPerPage, skipInitialFetch, contentPerPage, ...paginationData } =
-    usePagination({
-      contentPerPage: 3,
-      count: totalCount,
-      fetchData: (num, currentRowsPerPage) => fetchData(num, currentRowsPerPage),
-      deepLinking: {
-        pageNumKey: 'page',
-        pageSizeKey: 'pageSize',
-      },
-    });
+  const { updateCurrentRowsPerPage, contentPerPage, ...paginationData } = usePagination({
+    contentPerPage: 3,
+    count: totalCount,
+    fetchData: (num, currentRowsPerPage) => fetchData(num, currentRowsPerPage),
+    deepLinking: {
+      pageNumKey: 'page',
+      pageSizeKey: 'pageSize',
+    },
+  });
 
   useEffect(() => {
-    // Skip initial fetch if the usePagination hook will handle it
-    if (skipInitialFetch) {
-      console.log('AsyncPagination: Skipping initial fetch - usePagination hook will handle it');
-      return;
-    }
-
     // Prevent double fetch in React StrictMode (optional)
     if (hasInitialFetch.current) {
       console.log('AsyncPagination: Skipping duplicate fetch due to React StrictMode');
@@ -60,11 +54,18 @@ const AsyncDeepLinkingPaginationHookPage = () => {
     }
     hasInitialFetch.current = true;
 
-    console.log('AsyncPagination: Initial fetch triggered');
+    // Check URL parameters for deep linking
+    const urlParams = new URLSearchParams(location?.search || '');
+    const pageFromUrl = urlParams.get('page');
+    const pageSizeFromUrl = urlParams.get('pageSize');
+
+    const initialPage = pageFromUrl ? +pageFromUrl : 1;
+    const initialPageSize = pageSizeFromUrl ? +pageSizeFromUrl : contentPerPage;
+
     (async () => {
-      await fetchData(1, contentPerPage);
+      await fetchData(initialPage, initialPageSize);
     })();
-  }, [fetchData, contentPerPage, skipInitialFetch]);
+  }, [fetchData, contentPerPage, location?.search]);
 
   /******* use updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
   const handleChange = async ({ target: { value } }) => {
