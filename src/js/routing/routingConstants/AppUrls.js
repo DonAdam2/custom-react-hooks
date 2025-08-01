@@ -33,5 +33,6 @@ export const getBooleanPageUrl = () => '/use-boolean';
 export const getPaginationHookPageUrl = () => '/use-pagination';
 export const getAsyncPaginationHookPageUrl = () => '/use-async-pagination';
 export const getDeepLinkingPaginationHookPageUrl = () => '/use-deep-linking-pagination';
+export const getAsyncDeepLinkingPaginationHookPageUrl = () => '/use-async-deep-linking-pagination';
 export const getOutsideClickHookPageUrl = () => '/use-outside-click';
 export const getTouchScreenDetectHookPageUrl = () => '/use-touch-screen-detect';

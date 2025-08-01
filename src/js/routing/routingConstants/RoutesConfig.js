@@ -1,6 +1,7 @@
 //URLs
 import {
   getArrayPageUrl,
+  getAsyncDeepLinkingPaginationHookPageUrl,
   getAsyncPaginationHookPageUrl,
   getBooleanPageUrl,
   getCopyToClipboardPageUrl,
@@ -56,6 +57,7 @@ import ScriptPage from '@/js/containers/pages/ScriptPage';
 import LockScrollPage from '@/js/containers/pages/LockScrollPage';
 import KeyPressPage from '@/js/containers/pages/KeyPressPage';
 import PreviousValuePage from '@/js/containers/pages/PreviousValuePage';
+import AsyncDeepLinkingPaginationHookPage from '@/js/containers/pages/AsyncDeepLinkingPaginationHookPage';
 
 export const routes = [
   {
@@ -109,14 +111,19 @@ export const routes = [
     label: 'Pagination',
   },
   {
+    path: getDeepLinkingPaginationHookPageUrl(),
+    element: <DeepLinkingPaginationHookPage />,
+    label: 'Deep linking pagination',
+  },
+  {
     path: getAsyncPaginationHookPageUrl(),
     element: <AsyncPaginationHookPage />,
     label: 'Async pagination',
   },
   {
-    path: getDeepLinkingPaginationHookPageUrl(),
-    element: <DeepLinkingPaginationHookPage />,
-    label: 'Deep linking pagination',
+    path: getAsyncDeepLinkingPaginationHookPageUrl(),
+    element: <AsyncDeepLinkingPaginationHookPage />,
+    label: 'Async deep linking pagination',
   },
   {
     path: getArrayPageUrl(),

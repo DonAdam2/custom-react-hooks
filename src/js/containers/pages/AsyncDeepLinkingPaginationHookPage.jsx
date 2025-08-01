@@ -1,14 +1,12 @@
-import { useCallback, useEffect, useState, useRef } from 'react';
-//axios
 import axios from 'axios';
+import { useCallback, useEffect, useRef, useState } from 'react';
 //custom hooks
 import usePagination from '../../customHooks/UsePagination';
-//components
-import Person from '../../components/Person';
-import Pagination from '../../components/shared/Pagination';
-import LoadingIcon from '../../components/shared/loadingIcon/LoadingIcon';
+import LoadingIcon from '@/js/components/shared/loadingIcon/LoadingIcon';
+import Person from '@/js/components/Person';
+import Pagination from '@/js/components/shared/Pagination';
 
-const AsyncPaginationHookPage = () => {
+const AsyncDeepLinkingPaginationHookPage = () => {
   const [totalCount, setTotalCount] = useState(0),
     [people, setPeople] = useState([]),
     [isLoading, setIsLoading] = useState(false),
@@ -37,13 +35,24 @@ const AsyncPaginationHookPage = () => {
     }
   }, []);
 
-  const { updateCurrentRowsPerPage, contentPerPage, ...paginationData } = usePagination({
-    contentPerPage: 3,
-    count: totalCount,
-    fetchData: (num, currentRowsPerPage) => fetchData(num, currentRowsPerPage),
-  });
+  const { updateCurrentRowsPerPage, skipInitialFetch, contentPerPage, ...paginationData } =
+    usePagination({
+      contentPerPage: 3,
+      count: totalCount,
+      fetchData: (num, currentRowsPerPage) => fetchData(num, currentRowsPerPage),
+      deepLinking: {
+        pageNumKey: 'page',
+        pageSizeKey: 'pageSize',
+      },
+    });
 
   useEffect(() => {
+    // Skip initial fetch if the usePagination hook will handle it
+    if (skipInitialFetch) {
+      console.log('AsyncPagination: Skipping initial fetch - usePagination hook will handle it');
+      return;
+    }
+
     // Prevent double fetch in React StrictMode (optional)
     if (hasInitialFetch.current) {
       console.log('AsyncPagination: Skipping duplicate fetch due to React StrictMode');
@@ -55,7 +64,7 @@ const AsyncPaginationHookPage = () => {
     (async () => {
       await fetchData(1, contentPerPage);
     })();
-  }, [fetchData, contentPerPage]);
+  }, [fetchData, contentPerPage, skipInitialFetch]);
 
   /******* use updateCurrentRowsPerPage if you have dynamic rowsPerPage *******/
   const handleChange = async ({ target: { value } }) => {
@@ -118,4 +127,4 @@ const AsyncPaginationHookPage = () => {
   );
 };
 
-export default AsyncPaginationHookPage;
+export default AsyncDeepLinkingPaginationHookPage;
