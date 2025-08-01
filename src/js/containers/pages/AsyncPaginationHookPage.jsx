@@ -10,8 +10,8 @@ import Pagination from '../../components/shared/Pagination';
 import LoadingIcon from '../../components/shared/loadingIcon/LoadingIcon';
 
 const AsyncPaginationHookPage = () => {
-  /* uncomment the following if you want to have deep linking and async pagination
-  const { location } = useRouter();
+  // uncomment the following if you want to have deep linking and async pagination
+  /* const { location } = useRouter();
 
   // Initialize rowsPerPage from URL if available
   const getInitialRowsPerPage = () => {
