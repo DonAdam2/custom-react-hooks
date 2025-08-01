@@ -136,18 +136,32 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
         } else if (leftSpill && rightSpill) {
           pages = ['LEFT', ...pages, 'RIGHT'];
         }
-        setPaginationBlocks([1, ...pages, pageCount]);
+        return [1, ...pages, pageCount];
       } else {
-        setPaginationBlocks(getPaginationRange(1, pageCount));
+        return getPaginationRange(1, pageCount);
       }
     },
     [pageCount]
   );
 
-  // Update pagination blocks when activePage or pageCount changes
+  // Helper function to update both activePage and paginationBlocks synchronously
+  const updatePageAndBlocks = useCallback(
+    (newActivePage) => {
+      if (pageCount > 0) {
+        const newBlocks = getPaginationBlocks(newActivePage);
+        // Update both states in batch to prevent intermediate renders
+        setActivePage(newActivePage);
+        setPaginationBlocks(newBlocks);
+      }
+    },
+    [pageCount, getPaginationBlocks]
+  );
+
+  // Update pagination blocks when pageCount changes
   useEffect(() => {
     if (pageCount > 0) {
-      getPaginationBlocks(activePage);
+      const newBlocks = getPaginationBlocks(activePage);
+      setPaginationBlocks(newBlocks);
     }
   }, [pageCount, activePage, getPaginationBlocks]);
 
@@ -330,8 +344,8 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
   const updatePaginationBlocks = useCallback(
     async (activePageNum, newContentPerPage) => {
       try {
-        // Always update state immediately
-        setActivePage(activePageNum);
+        // Update both activePage and paginationBlocks synchronously
+        updatePageAndBlocks(activePageNum);
         if (newContentPerPage !== undefined) {
           setContentPerPage(newContentPerPage);
         }
@@ -361,7 +375,7 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
         console.log(err);
       }
     },
-    [fetchData, contentPerPage, deepLinking, updatePageNum, updateSearchParams]
+    [fetchData, contentPerPage, deepLinking, updatePageNum, updateSearchParams, updatePageAndBlocks]
   );
 
   // Change page based on direction either front or back
@@ -371,7 +385,8 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
 
       if (isNextPage) {
         if (activePage !== pageCount && count > 0) {
-          setActivePage(newPage);
+          // Update both activePage and paginationBlocks synchronously
+          updatePageAndBlocks(newPage);
 
           // Handle deep linking - update URL
           if (deepLinking) {
@@ -385,7 +400,8 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
         }
       } else {
         if (activePage !== 1 && count > 0) {
-          setActivePage(newPage);
+          // Update both activePage and paginationBlocks synchronously
+          updatePageAndBlocks(newPage);
 
           // Handle deep linking - update URL
           if (deepLinking) {
@@ -423,7 +439,8 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
 
       if (isFirstPage) {
         if (activePage !== 1 && count > 0) {
-          setActivePage(targetPage);
+          // Update both activePage and paginationBlocks synchronously
+          updatePageAndBlocks(targetPage);
           // Handle deep linking - update URL
           if (deepLinking) {
             updatePageNum(targetPage);
@@ -436,7 +453,8 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
         }
       } else {
         if (activePage !== pageCount && count > 0) {
-          setActivePage(targetPage);
+          // Update both activePage and paginationBlocks synchronously
+          updatePageAndBlocks(targetPage);
           // Handle deep linking - update URL
           if (deepLinking) {
             updatePageNum(targetPage);
@@ -493,7 +511,8 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
       if (activePage > newPageCount) {
         const newActivePage = newPageCount === 0 ? 1 : newPageCount;
 
-        setActivePage(newActivePage);
+        // Update both activePage and paginationBlocks synchronously
+        updatePageAndBlocks(newActivePage);
         setContentPerPage(newContentPerPage);
 
         // Handle deep linking - update URL
