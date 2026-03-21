@@ -27,7 +27,6 @@ module.exports = (api) => {
       ['@babel/preset-react', { runtime: hasJsxRuntime ? 'automatic' : 'classic' }],
     ],
     plugins: [
-      '@babel/plugin-syntax-dynamic-import',
       // Applies the react-refresh Babel plugin on non-production modes only
       ...(api.env() === 'development' ? ['react-refresh/babel'] : []),
     ],
