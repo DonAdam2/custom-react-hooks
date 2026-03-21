@@ -10,22 +10,23 @@
   -  [Use page bottom](#use-page-bottom)
   -  [Use window size](#use-window-size)
   -  [Use lock scroll](#use-lock-scroll)
-  -  [Use outside click](#use-outside-click)
+  -  [Use click away](#use-click-away)
   -  [Use mobile detect](#use-mobile-detect)
   -  [Use touch screen detect](#use-touch-screen-detect)
   -  [Use pagination](#use-pagination)
   -  [Use async pagination](#use-async-pagination)
   -  [Use deep linking pagination](#use-deep-linking-pagination)
+  -  [Use async deep linking pagination](#use-async-deep-linking-pagination)
   -  [Use array](#use-array)
   -  [Use boolean](#use-boolean)
   -  [Use copy to clipboard](#use-copy-to-clipboard)
   -  [Use document title](#use-document-title)
-  -  [Use external script](#use-external-script)
-  -  [Use external style](#use-external-style)
+  -  [Use dynamic assets](#use-dynamic-assets)
   -  [Use countdown](#use-countdown)
   -  [Use interval](#use-interval)
   -  [Use timer](#use-timer)
-  -  [Use debounce](#use-debounce)
+  -  [Use debounced value](#use-debounced-value)
+  -  [Use debounced func](#use-debounced-func)
   -  [Use fetch](#use-fetch)
   -  [Use fetch with service](#use-fetch-with-service)
   -  [Use magnify](#use-magnify)
@@ -173,12 +174,12 @@ This build relies on [Prettier formatter](https://prettier.io/) to enforce code 
     - **targetElement**: target element to lock scroll (default => document.body)
     - **immediate**: a boolean to detect when to lock scroll (default => true)
 
-  ### Use outside click:
+  ### Use click away:
 
   - This hook allows you to trigger an event on the required element if clicked outside
   - It takes the following arguments:
     - **ref**: required element ref
-    - **callback**: a function to trigger if clicked outside the required element
+    - **onOutsideClickCallback**: a function to trigger if clicked outside the required element
 
   ### Use mobile detect:
 
@@ -227,6 +228,13 @@ This build relies on [Prettier formatter](https://prettier.io/) to enforce code 
     - **deepLinkingData**: it has **pageNumKey** which gives you the ability to set search params key in the URL
   - It returns the same as props as [Use pagination](#use-pagination) hook.
 
+  ### Use async deep linking pagination:
+
+  - This hook combines asynchronous pagination (tied with an API call) with deep linking (current page and page size as search params in the URL) out of the box, which can be integrated with any pagination component.
+  - If you refresh the page you will be landed on the correct page number and page size specified in the URL.
+  - It takes the following arguments (same as [Use async pagination](#use-async-pagination) hook), plus the following:
+    - **deepLinking**: it has **pageNumKey** and **pageSizeKey** which give you the ability to set search params keys in the URL
+
   ### Use array:
 
   - This hook makes it easier to manage an array by wrapping some functionalities of it (which can be extended to your needs).
@@ -250,17 +258,19 @@ This build relies on [Prettier formatter](https://prettier.io/) to enforce code 
   - This hook allows you to change document title
   - It takes **title** as an argument
 
-  ### Use external script:
+  ### Use dynamic assets:
 
-  - This hook makes it super easy to dynamically load external script and know when it's loaded. This is useful when you need to interact with a 3rd party library (Moyasar, stripe, etc) and you'd prefer to load the script when needed rather than include it in the document body.
-  - It takes the following arguments:
-    - **src**: 3rd party script URL
-    - **immediate**: a boolean to detect when to inject it in the DOM
-  - It returns a string status (idle, loading, ready, error)
-
-  ### Use external style:
-
-  - Similar to [Use external script](#use-external-script) hook but for external styles
+  - This hook makes it super easy to dynamically load external CSS and JavaScript assets and know when they are loaded. This is useful when you need to interact with a 3rd party library (Moyasar, Stripe, Google Analytics, etc) and you'd prefer to load the assets when needed rather than include them in the document body.
+  - It takes an options object with the following properties:
+    - **condition**: when to load assets. If undefined, loads automatically. If defined, loads based on its boolean value
+    - **cssUrl**: URL/path to CSS file
+    - **jsUrl**: URL/path to JS file
+    - **id**: unique identifier for the assets
+    - **globalVariableName**: global variable name to check if JS is loaded
+  - It returns the following:
+    - **isLoading**: a boolean to detect if assets are currently loading
+    - **isLoaded**: a boolean to detect if assets have been loaded successfully
+    - **error**: any error that occurred during loading (or null)
 
   ### Use countdown:
 
@@ -296,13 +306,21 @@ This build relies on [Prettier formatter](https://prettier.io/) to enforce code 
     - **pauseHandler**: function to pause the timer
     - **resumeHandler**: function to resume the timer
 
-  ### Use debounce:
+  ### Use debounced value:
 
-  - This hook allows you to have a debounced input. For example if you want to make an API call on key press
+  - This hook allows you to debounce a value. For example if you want to make an API call on key press, the value will only update after the user stops typing for the specified delay
   - It takes the following arguments:
-    - **searchTerm**: target input value
+    - **value**: target value to debounce
     - **delay**: required delay in milliseconds
-  - It returns the debounced search term which can be used to make an API
+  - It returns the debounced value which can be used to trigger an API call
+
+  ### Use debounced func:
+
+  - This hook allows you to debounce a function call using lodash debounce. Useful when you want to delay the execution of a function until after a specified delay
+  - It takes the following arguments:
+    - **callback**: the function to debounce
+    - **delay**: required delay in milliseconds
+  - It returns the debounced function
 
   ### Use fetch:
 
