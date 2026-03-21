@@ -12,7 +12,7 @@ const KeyPressPage = () => {
         This hook makes it easy to detect when the user is pressing a specific key on their
         keyboard.
       </p>
-      <p>Press any of the following on your keyboard => h, s, r, f</p>
+      <p>Press any of the following on your keyboard: h, s, r, f</p>
       <div>
         {happyPress && '😊'}
         {sadPress && '😢'}

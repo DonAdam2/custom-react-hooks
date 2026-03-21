@@ -5,9 +5,7 @@ function useMobileDetect() {
 
   useEffect(() => {
     const userAgent = typeof window.navigator === 'undefined' ? '' : navigator.userAgent,
-      mobile = Boolean(
-        userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini/i)
-      );
+      mobile = Boolean(userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini/i));
     setMobile(mobile);
   }, []);
 

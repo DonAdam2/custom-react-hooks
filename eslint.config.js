@@ -50,8 +50,9 @@ module.exports = [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
 
-      // React Hooks recommended
-      ...reactHooks.configs.recommended.rules,
+      // React Hooks rules (only classic hooks rules, not React Compiler rules)
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
 
       // Custom overrides
       'prettier/prettier': 'error',
@@ -59,10 +60,6 @@ module.exports = [
       'no-empty': 'warn',
       'react/prop-types': 'off',
       'react/no-unescaped-entities': 'off',
-
-      // Ensure React hooks rules are active
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
     },
     settings: {
       'import/resolver': 'webpack',
