@@ -50,6 +50,8 @@ function useMagnify({ magnifyTimes = 1.1, animationDuration = '0.2s' }) {
       });
     };
 
+    let cancelled = false;
+
     const getImageRatio = () => {
       if (!el) {
         return;
@@ -62,6 +64,8 @@ function useMagnify({ magnifyTimes = 1.1, animationDuration = '0.2s' }) {
       img.src = state.src;
 
       img.onload = () => {
+        if (cancelled) return;
+
         const imgWidth = img.naturalWidth,
           imgHeight = img.naturalHeight;
         state.ratio = imgHeight / imgWidth;
@@ -77,6 +81,7 @@ function useMagnify({ magnifyTimes = 1.1, animationDuration = '0.2s' }) {
     getImageRatio();
 
     return () => {
+      cancelled = true;
       el.removeEventListener('mousemove', handleMoveEvent);
       el.removeEventListener('mouseleave', handleEndEvent);
       el.removeEventListener('touchmove', handleMoveEvent);

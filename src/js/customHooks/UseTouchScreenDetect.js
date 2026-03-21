@@ -12,7 +12,7 @@ function useTouchScreenDetect() {
           navigator.msMaxTouchPoints > 0
       );
     }
-  }, [isTouchScreen, isSSR]);
+  }, [isSSR]);
 
   return isTouchScreen;
 }

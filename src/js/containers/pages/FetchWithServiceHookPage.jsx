@@ -2,13 +2,13 @@ import { useCallback } from 'react';
 //custom hooks
 import useFetchWithService from '../../customHooks/UseFetchWithService';
 //services
-import MoviesService from '../../services/MoviesService';
+import RecipesService from '../../services/RecipesService';
 //components
 import LoadingIcon from '../../components/shared/loadingIcon/LoadingIcon';
 
 const FetchWithServiceHookPage = () => {
   // const [fetchData, setFetchData] = useState(false);
-  const api = useCallback(() => MoviesService.fetchMovies(), []),
+  const api = useCallback(() => RecipesService.fetchRecipes(), []),
     { data, isLoading, error } = useFetchWithService({
       api,
       initialDataType: {},
@@ -31,11 +31,11 @@ const FetchWithServiceHookPage = () => {
         to fetch data using a flag called <strong>immediate</strong>
       </p>
       {/*<button onClick={() => setFetchData(true)}>fetch data</button>*/}
-      {data?.movies?.map((el, i) => (
+      {data?.recipes?.map((el, i) => (
         <div className="movie" key={i}>
           <img src={el.image} alt={el.name} />
           <p>
-            <strong>Movie Name:</strong> {el.name}.<strong>director:</strong> {el.director}.
+            <strong>Recipe:</strong> {el.name}. <strong>Cuisine:</strong> {el.cuisine}.
           </p>
         </div>
       ))}

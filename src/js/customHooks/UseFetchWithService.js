@@ -37,7 +37,7 @@ function useFetchWithService({ api, initialDataType, immediate = true }) {
     } catch (err) {
       console.log(err);
       //TODO: change it as needed
-      dispatch({ type: 'rejected', error: err.response });
+      dispatch({ type: 'rejected', error: err.response || err });
     }
   }, [api]);
 

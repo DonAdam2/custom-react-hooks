@@ -100,9 +100,9 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
       }
       isUpdatingUrl.current = true;
       updateSearchParams(updates);
-      setTimeout(() => {
+      queueMicrotask(() => {
         isUpdatingUrl.current = false;
-      }, 10);
+      });
     }
   }, [pageCount, activePage, deepLinking, updateSearchParams, contentPerPage]);
 
@@ -251,10 +251,9 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
       if (Object.keys(updates).length > 0) {
         isUpdatingUrl.current = true;
         updateSearchParams(updates);
-        // Reset the flag after a short delay to allow URL change to propagate
-        setTimeout(() => {
+        queueMicrotask(() => {
           isUpdatingUrl.current = false;
-        }, 10);
+        });
       }
 
       // Trigger data fetch only if state was updated
@@ -317,9 +316,9 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
         }
         isUpdatingUrl.current = true;
         updateSearchParams(updates);
-        setTimeout(() => {
+        queueMicrotask(() => {
           isUpdatingUrl.current = false;
-        }, 10);
+        });
       }
     },
     [deepLinking, updateSearchParams, contentPerPage]
@@ -333,9 +332,9 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
         updates[deepLinking.pageNumKey] = activePage.toString();
         isUpdatingUrl.current = true;
         updateSearchParams(updates);
-        setTimeout(() => {
+        queueMicrotask(() => {
           isUpdatingUrl.current = false;
-        }, 10);
+        });
       }
     },
     [deepLinking, updateSearchParams, activePage]
@@ -360,9 +359,9 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
             };
             isUpdatingUrl.current = true;
             updateSearchParams(updates);
-            setTimeout(() => {
+            queueMicrotask(() => {
               isUpdatingUrl.current = false;
-            }, 10);
+            });
           } else {
             // Only update page number
             updatePageNum(activePageNum);
@@ -525,9 +524,9 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
           }
           isUpdatingUrl.current = true;
           updateSearchParams(updates);
-          setTimeout(() => {
+          queueMicrotask(() => {
             isUpdatingUrl.current = false;
-          }, 10);
+          });
         }
 
         // Handle data fetching

@@ -1,11 +1,11 @@
 import { useRef } from 'react';
 //custom hooks
-import useOutsideClick from '../../customHooks/UseOutsideClick';
+import useClickAway from '../../customHooks/useClickAway';
 
 const OutsideClickHookPage = () => {
   const ref = useRef();
 
-  useOutsideClick(ref, () => {
+  useClickAway(ref, () => {
     alert('You clicked outside');
   });
 

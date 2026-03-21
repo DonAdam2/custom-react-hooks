@@ -6,7 +6,7 @@ import LoadingIcon from '../../components/shared/loadingIcon/LoadingIcon';
 const FetchHookPage = () => {
   // const [fetchData, setFetchData] = useState(false);
   const { data, error, isLoading } = useFetch({
-    url: 'https://www.mocky.io/v2/5ccfe7d13200006f0000f8c7',
+    url: 'https://dummyjson.com/recipes?limit=6&select=name,image,cuisine',
     initialDataType: [],
     // immediate: fetchData,
   });
@@ -27,11 +27,11 @@ const FetchHookPage = () => {
         using a flag called <strong>immediate</strong>
       </p>
       {/*<button onClick={() => setFetchData(true)}>fetch data</button>*/}
-      {data?.movies?.map((el, i) => (
+      {data?.recipes?.map((el, i) => (
         <div className="movie" key={i}>
           <img src={el.image} alt={el.name} />
           <p>
-            <strong>Movie Name:</strong> {el.name}.<strong>director:</strong> {el.director}.
+            <strong>Recipe:</strong> {el.name}. <strong>Cuisine:</strong> {el.cuisine}.
           </p>
         </div>
       ))}

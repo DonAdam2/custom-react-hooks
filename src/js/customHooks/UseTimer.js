@@ -43,6 +43,10 @@ function useTimer() {
       cancelAnimationFrame(requestAnimationFrameId.current);
       setRenderedStreamDuration('00:00:00');
     }
+
+    return () => {
+      cancelAnimationFrame(requestAnimationFrameId.current);
+    };
   }, [isStartTimer, isStopTimer, startTimer]);
 
   const startHandler = () => {
