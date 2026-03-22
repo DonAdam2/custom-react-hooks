@@ -1,9 +1,11 @@
 const protocol = process.env.HTTPS?.trim() === 'true' ? 'https' : 'http';
+const host = process.env.HOST?.trim() || 'localhost';
 
 module.exports = {
   port: 3000,
   protocol,
-  devServer: `${protocol}://localhost`,
+  host,
+  devServer: `${protocol}://${host}`,
   rootDirectory: 'src',
   buildToolsDirectory: 'buildTools',
   publicDirectory: 'public',

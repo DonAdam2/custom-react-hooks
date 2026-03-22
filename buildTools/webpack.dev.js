@@ -8,7 +8,7 @@ const { merge } = require('webpack-merge'),
   //enables fast refresh (this is the new feature which overrides hot reloading)
   ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'),
   //constants
-  { protocol } = require('./constants'),
+  { protocol, host } = require('./constants'),
   { envDevelopmentPath } = require('./paths');
 
 module.exports = (env, options) => {
@@ -20,12 +20,14 @@ module.exports = (env, options) => {
     devServer: {
       //enable HTTPS
       server: protocol,
+      //the host to bind to (use HOST=0.0.0.0 for Docker)
+      host,
       //enable hot reloading
       hot: true,
       // Enable gzip compression of generated files.
       compress: true,
-      // open development server
-      open: true,
+      // open development server (disabled in Docker via NO_OPEN_BROWSER=true)
+      open: process.env.NO_OPEN_BROWSER !== 'true',
       //coming from scripts/start.js file
       port: options.port,
       // important for navigating to the app using browser (if you use any route other than /)

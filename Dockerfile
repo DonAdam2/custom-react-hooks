@@ -14,6 +14,11 @@ FROM application_base as development
 
 # We are not copying anything because we are using bind mount in docker-compose file
 
+# Bind to 0.0.0.0 so the dev server is accessible outside the container
+ENV HOST=0.0.0.0
+# Don't attempt to open a browser inside the container
+ENV NO_OPEN_BROWSER=true
+
 CMD ["yarn", "start"]
 
 #################################
