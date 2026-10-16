@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 
 const Logo = ({ url, logoType, logoLabel, logoUrl, logoSvg }) => {
-  let typeOfLogo = '';
+  let typeOfLogo;
   switch (logoType) {
     case 'text':
       typeOfLogo = logoLabel;

@@ -112,15 +112,13 @@ function usePagination({ contentPerPage: initialContentPerPage, count, fetchData
       const totalBlocks = totalNumbers + 2;
 
       if (pageCount > totalBlocks) {
-        let pages = [];
-
         const leftBound = activePageNum - 1;
         const rightBound = activePageNum + 1;
         const beforeLastPage = pageCount - 1;
         const startPage = leftBound > 2 ? leftBound : 2;
         const endPage = rightBound < beforeLastPage ? rightBound : beforeLastPage;
 
-        pages = getPaginationRange(startPage, endPage);
+        let pages = getPaginationRange(startPage, endPage);
 
         const pagesCount = pages.length;
         const singleSpillOffset = totalNumbers - pagesCount - 1;

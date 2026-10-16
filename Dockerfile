@@ -1,4 +1,4 @@
-FROM node:20 as application_base
+FROM node:24 as application_base
 
 WORKDIR /usr/app
 
